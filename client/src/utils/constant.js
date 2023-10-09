@@ -1,0 +1,31 @@
+export const path = {
+    //Client
+    HOME: '/*',
+    HOME__PAGE: ':page',
+    HOMESERVER: 'webserver/*',
+    LOGIN: 'login',
+    CART: 'cart',
+    PAYMENT: 'payment',
+    PERSONALINFOR: 'personal-information',
+    IPHONE: 'iphone',
+    IPAD: 'ipad',
+    MACBOOK: 'macbook',
+    AIRPODS: 'airpods',
+    WATCH: 'watch',
+    DETAIL: ':nameCategory/detail/:title/:productId',
+    SEARCH: 'search',
+    SYSTEM: '/system/*',
+
+    //Server
+    DASHBOARD: 'webserver/*',
+    ACCOUNT: 'account',
+    ADMIT: 'admit',
+    CATEGORY: 'category',
+    INVOICE: 'invoice',
+    ROLE: 'role',
+    PRODUCT: 'product',
+    CREATEPRODUCT: 'product/create-product',
+    EDITPRODUCT: 'product/edit-product/:productId',
+    SAMPLE: 'sample',
+    PROVIDER: 'provider',
+}
