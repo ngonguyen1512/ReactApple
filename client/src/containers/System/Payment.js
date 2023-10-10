@@ -1,23 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart';
-import { InputForm } from '../../components';
-import { useSelector } from 'react-redux';
+import { InputForm, Button } from '../../components';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import * as actions from '../../store/actions'
 
 const Payment = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { currentData } = useSelector(state => state.user)
     const idcurrent = parseInt(currentData.id)
     const { msg, update } = useSelector(state => state.account)
     const [invalidFields, setInvalidFields] = useState([])
 
     const [payload, setPayload] = useState({
-        id: idcurrent,
-        name: '',
-        phone: '',
+        idAccount: '' || idcurrent,
+        phone: '' || currentData.phone,
         address: '',
+        // total: '',
+        // state: 0,
+        // idProduct: '',
+        // name: '',
+        // quantity: '',
+        // price: '',
+
     });
+    // console.log(payload)
+
+    // const handleSubmit = async () => {
+    //     dispatch(actions.createInvoices(payload))
+        // navigate(path.PERSONALINFOR)
+    // }
 
     useEffect(() => {
         msg && Swal.fire('Oops !', msg, 'error');
@@ -56,6 +71,7 @@ const Payment = () => {
                                     </table>
                                 </div>
                             )
+
                         }}
                     </CartContext.Consumer>
                 </div>
@@ -65,10 +81,10 @@ const Payment = () => {
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
                         label={'NAME'}
-                        value={payload.name}
-                        setValue={setPayload}
+                        value={currentData.name}
                         keyPayload={'name'}
                         type='text'
+                        disabled={true}
                     />
                     <InputForm
                         setInvalidFields={setInvalidFields}
@@ -78,6 +94,7 @@ const Payment = () => {
                         setValue={setPayload}
                         keyPayload={'phone'}
                         type='tel'
+                        disabled={true}
                     />
                     <InputForm
                         setInvalidFields={setInvalidFields}
@@ -92,7 +109,14 @@ const Payment = () => {
             </div>
             <div className='w-full flex mt-5 justify-center items-center gap-2'>
                 <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>Back</Link>
-                <Link to={'/'} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Thanh toán</Link>
+                {/* <Link to={'/'} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Thanh toán</Link> */}
+                <Button
+
+                    text={'Thanh toán'}
+                    bgColor='bg-secondary2'
+                    textColor='text-white'
+                    // onClick={handleSubmit}
+                />
             </div>
         </div>
     )

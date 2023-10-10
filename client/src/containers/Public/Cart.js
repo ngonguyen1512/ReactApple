@@ -69,7 +69,6 @@ const Cart = () => {
           <Button text={'Đăng nhập'} bgColor='bg-secondary2' textColor='text-white' onClick={() => goLogin(false)} />
         </div>
       }
-
       {isLoggedIn &&
         <div className='w-full flex mt-5 justify-center items-center gap-2'>
           <Link to={path.HOME} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>Tiếp tục mua hàng</Link>

@@ -12,6 +12,12 @@ module.exports = {
       idAccount: {
         type: Sequelize.INTEGER
       },
+      phone: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
       total: {
         type: Sequelize.INTEGER
       },

@@ -1,8 +1,8 @@
 import actionTypes from "../actions/actionTypes";
 const initState = {
     msg: '',
+    invoices: [],
     countci: 0,
-    countinvoices: [],
 }
 
 const invoiceReducer = (state = initState, action) => {
@@ -11,7 +11,20 @@ const invoiceReducer = (state = initState, action) => {
             return {
                 ...state,
                 msg: action.msg || '',
+                invoices: action.invoices,
                 countci: action.countci || 0
+            }
+        case actionTypes.CREATE_INVOICE_SUCCESS:
+            return {
+                ...state,
+                invoices: action.data,
+                msg: action.msg || '',
+            }
+
+        case actionTypes.CREATE_INVOICE_FAIL:
+            return {
+                ...state,
+                msg: action.msg || '',
             }
         default:
             return state;

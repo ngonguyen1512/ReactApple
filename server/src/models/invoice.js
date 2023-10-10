@@ -11,10 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Invoice.hasOne(models.InvoiceDetail, {foreignKey: 'idInvoice', as: 'invoice_detail'})
+      Invoice.belongsTo(models.Account, {foreignKey: 'idAccount', targetKey: 'id', as: 'account_invoice'});
     }
   }
   Invoice.init({
     idAccount: DataTypes.INTEGER,
+    phone: DataTypes.STRING,
+    address: DataTypes.STRING,
     total: DataTypes.INTEGER,
     idAccept: DataTypes.INTEGER,
     state: DataTypes.INTEGER,

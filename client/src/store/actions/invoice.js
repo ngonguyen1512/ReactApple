@@ -7,7 +7,7 @@ export const getCountInvoices = () => async (dispatch) => {
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_COUNT_INVOICE,
-                countinvoices: response.data.response?.rows,
+                invoices: response.data.response?.rows,
                 countci: response.data.response?.count
             })
         } else {
@@ -23,3 +23,25 @@ export const getCountInvoices = () => async (dispatch) => {
         })
     }
 }
+
+export const createInvoices = (payload) => async (dispatch) => {
+    try {
+        const response = await apis.apiCreateInvoices(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.CREATE_INVOICE_SUCCESS,
+                data: response.data.response,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.CREATE_INVOICE_FAIL,
+                msg: response.data.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.CREATE_INVOICE_FAIL,
+            msg: 'Failed to create invoice.',
+        });
+    }
+};
