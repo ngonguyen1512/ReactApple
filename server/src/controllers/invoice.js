@@ -17,10 +17,10 @@ export const getCountInvoices = async(req, res) => {
 export const createInvoices = async (req, res) => {
     const { idAccount, phone, address, total, state, idProduct, name, quantity, price } = req.body;
     try {
-        if ( !idAccount || !phone || !address || !total || !state || !idProduct || !name || !quantity || !price) return res.status(400).json({
-            err: 1,
-            msg: 'Vui lòng điền vào tất cả các trường!'
-        })
+        // if ( !idAccount || !phone || !address || !total || !state || !idProduct || !name || !quantity || !price) return res.status(400).json({
+        //     err: 1,
+        //     msg: 'Vui lòng điền vào tất cả các trường!'
+        // })
         const response = await services.createInvoices(req.body);
         return res.status(200).json(response);
     } catch (error) {

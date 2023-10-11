@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { path } from '../../utils/constant'
-import { CartContext } from '../../contexts/Cart';
+import { CartContext, } from '../../contexts/Cart';
 import { InputForm, Button } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -19,20 +19,45 @@ const Payment = () => {
         idAccount: '' || idcurrent,
         phone: '' || currentData.phone,
         address: '',
-        // total: '',
-        // state: 0,
-        // idProduct: '',
-        // name: '',
-        // quantity: '',
-        // price: '',
-
+        total: '',
+        state: 0,
+        invoiceDetails: [],
     });
-    // console.log(payload)
 
-    // const handleSubmit = async () => {
-    //     dispatch(actions.createInvoices(payload))
-        // navigate(path.PERSONALINFOR)
-    // }
+    const calculateTotal = (cartItems) => {
+        let total = 0;
+        for (const product of cartItems) {
+            total += product.price * product.quantity;
+        }
+        return total;
+    };
+
+    const handleCreateInvoices = async (cartItems) => {
+        const total = calculateTotal(cartItems);
+        const invoiceDetails = cartItems.map((product) => ({
+            idProduct: product.id,
+            name: product.name,
+            quantity: product.quantity,
+            price: product.price
+        }));
+
+        const payload = {
+            idAccount: idcurrent,
+            phone: currentData.phone,
+            address: '',
+            total: total,
+            state: 0,
+            invoiceDetails: invoiceDetails
+        };
+
+        try {
+            await dispatch(actions.createInvoices(payload));
+            navigate('/'); 
+        } catch (error) {
+            Swal.fire('Oops!', 'Some error occurred while creating invoice', 'error');
+        }
+    };
+
 
     useEffect(() => {
         msg && Swal.fire('Oops !', msg, 'error');
@@ -56,7 +81,7 @@ const Payment = () => {
                                             <th>Số lượng</th>
                                             <th className='w-[25%]'>Thành tiền</th>
                                         </tr>
-                                        {cartItems.map((product, index) => (
+                                        {cartItems.map((product) => (
                                             <tr className='border-b border-dashed' >
                                                 <td className='text-center'>{product.id}</td>
                                                 <td className='pl-4'>{product.name}</td>
@@ -110,13 +135,17 @@ const Payment = () => {
             <div className='w-full flex mt-5 justify-center items-center gap-2'>
                 <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>Back</Link>
                 {/* <Link to={'/'} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Thanh toán</Link> */}
-                <Button
+                <CartContext.Consumer>
+                    {({ cartItems }) => (
+                        <Button
 
-                    text={'Thanh toán'}
-                    bgColor='bg-secondary2'
-                    textColor='text-white'
-                    // onClick={handleSubmit}
-                />
+                            text={'Thanh toán'}
+                            bgColor='bg-secondary2'
+                            textColor='text-white'
+                            onClick={() => handleCreateInvoices(cartItems)}
+                        />
+                    )}
+                </CartContext.Consumer>
             </div>
         </div>
     )
