@@ -26,6 +26,12 @@ const invoiceReducer = (state = initState, action) => {
                 ...state,
                 msg: action.msg || '',
             }
+        case actionTypes.GET_INVOICE_BY_ID:
+            return {
+                ...state,
+                msg: action.msg || '',
+                invoices: action.data,
+            }
         default:
             return state;
     }

@@ -24,3 +24,16 @@ export const apiCreateInvoices = (payload) => new Promise(async (resolve, reject
         reject(error);
     }
 });
+
+export const apiGetInvoicesByIdAccount = (payloadid) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `api/v1/invoice/invoicebyid`,
+            data: payloadid,
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+});

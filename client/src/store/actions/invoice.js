@@ -45,3 +45,25 @@ export const createInvoices = (payload) => async (dispatch) => {
         });
     }
 };
+
+export const getInvoicesByIdAccount = (payloadid) => async (dispatch) => {
+    try {
+        const response = await apis.apiGetInvoicesByIdAccount(payloadid);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_INVOICE_BY_ID,
+                data: response.data.response,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.GET_INVOICE_BY_ID,
+                msg: response.data.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_INVOICE_BY_ID,
+            msg: 'Failed to get invoice.',
+        });
+    }
+};
