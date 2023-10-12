@@ -25,6 +25,7 @@ export const path = {
     ROLE: 'role',
     PRODUCT: 'product',
     CREATEPRODUCT: 'product/create-product',
+    CREATEADMIT: 'admit/create-admit',
     EDITPRODUCT: 'product/edit-product/:productId',
     SAMPLE: 'sample',
     PROVIDER: 'provider',

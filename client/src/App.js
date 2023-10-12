@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, Cart, HomePage, Retal, Detail } from './containers/Public'
 import {HomeServer, Account, Admit, Category, Product, Dashboard, Invoice, Role, Sample, Provider,
-  PersonalInfor, PageProduct, Payment} from './containers/System'
+  PersonalInfor, PageProduct, Payment, PageAdmit} from './containers/System'
 import { path } from './utils/constant'
 import { CartProvider } from './contexts/Cart';
 
@@ -30,6 +30,7 @@ function App() {
             <Route path={path.CATEGORY} element={<Category />} />
             <Route path={path.PRODUCT} element={<Product />} />
             <Route path={path.CREATEPRODUCT} element={<PageProduct />} />
+            <Route path={path.CREATEADMIT} element={<PageAdmit />} />
             <Route path={path.EDITPRODUCT} element={<PageProduct />} />
             <Route path={path.INVOICE} element={<Invoice />} />
             <Route path={path.ROLE} element={<Role />} />

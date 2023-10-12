@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { path } from '../../utils/constant';
 
-
 const PersonalInfor = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
