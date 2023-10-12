@@ -11,9 +11,6 @@ export const getAllSamplesService = () => new Promise(async(resolve, reject) => 
             include: [
                 {model: db.Category, as: 'categoriesmodel', attributes: ['name']},
             ],
-            // include: [
-            //     {model: db.Category, as: 'categoriesmodel', attributes: ['name'], where: whereClause,},
-            // ],
         });
         resolve({
             err: response? 0 : 1,

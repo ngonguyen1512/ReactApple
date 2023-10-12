@@ -36,7 +36,7 @@ export const getAllAccountsService = (page, permis) => new Promise(async (resolv
                 where: { idPermission: [2, 3] },
                 offset: offset * +process.env.LIMIT_ACCOUNT,
                 limit: +process.env.LIMIT_ACCOUNT,
-                order: [['createdAt', 'DESC']],
+                order: [['updatedAt', 'DESC']],
                 raw: true,
                 nest: true,
             });
@@ -47,7 +47,7 @@ export const getAllAccountsService = (page, permis) => new Promise(async (resolv
                 ],
                 offset: offset * +process.env.LIMIT_ACCOUNT,
                 limit: +process.env.LIMIT_ACCOUNT,
-                order: [['createdAt', 'DESC']],
+                order: [['updatedAt', 'DESC']],
                 raw: true,
                 nest: true,
             });

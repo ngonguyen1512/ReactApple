@@ -22,6 +22,7 @@ export const getLimitCategoriesService = (page) => new Promise(async(resolve, re
         const response = await db.Category.findAndCountAll({
             offset: offset * +process.env.LIMIT_CATEGORY,
             limit: +process.env.LIMIT_CATEGORY,
+            order: [['updatedAt', 'DESC']],
             raw: true,
             nest: true,
         });

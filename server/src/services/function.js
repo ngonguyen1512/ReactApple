@@ -38,6 +38,7 @@ export const getAllsFunctionsService = () => new Promise(async (resolve, reject)
             include: [
                 { model: db.Permission, as: 'functionPermission', attributes: ['id', 'name'] },
             ],
+            order: [['updatedAt', 'DESC']],
             raw: true
         });
         resolve({

@@ -25,15 +25,27 @@ export const apiCreateInvoices = (payload) => new Promise(async (resolve, reject
     }
 });
 
-export const apiGetInvoicesByIdAccount = (payloadid) => new Promise(async (resolve, reject) => {
+export const apiGetInvoices = () => new Promise(async (resolve, reject) => {
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `api/v1/invoice/invoicebyid`,
-            data: payloadid,
+            url: `api/v1/invoice/all`,
         })
         resolve(response);
     } catch (error) {
         reject(error);
     }
 });
+
+export const apiUpdateInvoices = (payload) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'put',
+            url: 'api/v1/invoice/update',
+            data: payload
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})

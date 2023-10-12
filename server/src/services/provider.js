@@ -7,7 +7,7 @@ export const getAllProvidersService = (page) => new Promise(async(resolve, rejec
         const response = await db.Provider.findAndCountAll({
             offset: offset * +process.env.LIMIT_PROVIDER,
             limit: +process.env.LIMIT_PROVIDER,
-            order: [['createdAt', 'DESC']],
+            order: [['updatedAt', 'DESC']],
             raw: true,
             nest: true,
         });

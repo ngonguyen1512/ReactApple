@@ -6,6 +6,7 @@ export const getCountAdmitService = () => new Promise(async (resolve, reject) =>
             // attributes: ['id', 'name','image'], 
             raw: true,
             nest: true,
+            order: [['updatedAt', 'DESC']],
         });
         resolve({
             err: response? 0 : 1,

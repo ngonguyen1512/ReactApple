@@ -11,7 +11,8 @@ export const getAllPermissionService = () => new Promise(async(resolve, reject) 
                 id: {
                   [Op.not]: 4
                 }
-              },
+            },
+            order: [['updatedAt', 'DESC']],
             raw: true
         });
         resolve({

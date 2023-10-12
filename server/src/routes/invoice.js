@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/count', controllers.getCountInvoices);
 router.post('/create', controllers.createInvoices);
-router.get('/invoicebyid', controllers.getInvoicesByIdAccount);
+router.get('/all', controllers.getInvoices);
+router.put('/update', controllers.updateInvoices);
 
 export default router;

@@ -5,6 +5,7 @@ export const getCountInvoiceService = () => new Promise(async (resolve, reject) 
         const response = await db.Invoice.findAndCountAll({
             raw: true,
             nest: true,
+            order: [['updatedAt', 'DESC']],
         });
         resolve({
             err: response ? 0 : 1,
@@ -67,32 +68,52 @@ export const createInvoices = ({ idAccount, phone, address, total, state, invoic
     }
 });
 
-export const getInvoiceByIdAccountService = ({ idcurrent }) => new Promise(async (resolve, reject) => {
+export const getInvoiceService = () => new Promise(async (resolve, reject) => {
     try {
-        const whereClause = { };
-        whereClause.idAccount = idcurrent;
-        const invoices = await db.Invoice.findAll({where: whereClause,});
+        const invoices = await db.Invoice.findAll({
+            order: [['updatedAt', 'DESC']],       
+        });
 
         if (invoices.length > 0) {
             const invoiceIds = invoices.map(invoice => invoice.id);
-            const invoiceDetails = await db.InvoiceDetail.findAll({
+            const response = await db.InvoiceDetail.findAll({
                 where: { idInvoice: invoiceIds },
-                include: [{ model: db.Invoice, as: 'invoice_detail' }]
+                include: [{ model: db.Invoice, as: 'invoice_detail' }],
             });
             resolve({
                 err: 0,
                 msg: 'OK.',
-                invoiceDetails
+                invoices,
+                response
             });
         } else {
             resolve({
                 err: 2,
                 msg: 'Không có hoá đơn nào!',
                 invoices: null,
-                invoiceDetails: null
+                response: null
             });
         }
     } catch (error) {
         reject(error);
     }
 });
+
+export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(async (resolve, reject) => {
+    try {
+        const invoice = await db.Invoice.findByPk(id);
+
+        const response = await invoice.update({
+            idAccept,
+            state,
+        });
+
+        resolve({
+            err: response ? 0 : 2,
+            msg: response ? 'Cập nhật invoice thành công.' : 'Cập nhật invoice không thành công',
+            response: response || null
+        });
+    } catch (error) {
+        reject(error);
+    }
+})

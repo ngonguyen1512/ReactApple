@@ -2,6 +2,7 @@ import actionTypes from "../actions/actionTypes";
 const initState = {
     msg: '',
     invoices: [],
+    invoicesall:[],
     countci: 0,
 }
 
@@ -26,11 +27,17 @@ const invoiceReducer = (state = initState, action) => {
                 ...state,
                 msg: action.msg || '',
             }
-        case actionTypes.GET_INVOICE_BY_ID:
+        case actionTypes.GET_INVOICE:
             return {
                 ...state,
                 msg: action.msg || '',
-                invoices: action.data,
+                invoicesall: action.invoicesall,
+            }
+        case actionTypes.UPDATE_INVOICE:
+            return {
+                ...state,
+                invoicesall: action.data,
+                msg: action.msg || '',
             }
         default:
             return state;
