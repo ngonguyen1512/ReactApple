@@ -18,6 +18,9 @@ module.exports = {
       total: {
         type: Sequelize.INTEGER
       },
+      idAccept: {
+        type: Sequelize.INTEGER
+      },
       state: {
         type: Sequelize.INTEGER
       },

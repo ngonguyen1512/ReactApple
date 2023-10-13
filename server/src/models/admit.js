@@ -11,12 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Admit.hasOne(models.AdmitDetail, {foreignKey: 'idAdmit', as: 'admit_detail'})
+      Admit.belongsTo(models.Account, {foreignKey: 'idAccount', targetKey: 'id', as: 'account_admit'});
     }
   }
   Admit.init({
     idProvider: DataTypes.INTEGER,
     idAccount: DataTypes.INTEGER,
     total: DataTypes.INTEGER,
+    idAccept: DataTypes.INTEGER,
     state: DataTypes.INTEGER
   }, {
     sequelize,
