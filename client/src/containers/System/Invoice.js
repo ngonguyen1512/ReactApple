@@ -100,8 +100,8 @@ const Invoice = () => {
                     <td className='text-center'>{item.idProduct}</td>
                     <td className='pl-1'>{item.name}</td>
                     <td className='text-center'>{item.quantity}</td>
-                    <td className='text-center'>{item.price}</td>
-                    <td className='text-center text-red-500'>{item.quantity * item.price}</td>
+                    <td className='text-center'>{(item.price).toLocaleString()}</td>
+                    <td className='text-center text-red-500'>{(item.quantity * item.price).toLocaleString()}</td>
                   </tr>
                 )
               }
@@ -140,7 +140,7 @@ const Invoice = () => {
                     <td className='text-center'>{item?.invoice_detail.id}</td>
                     <td className='text-center'>{createdAtDate}</td>
                     <td>{item?.invoice_detail.idAccount}</td>
-                    <td className='text-center'>{item?.invoice_detail.total}</td>
+                    <td className='text-center'>{(item?.invoice_detail.total).toLocaleString()}</td>
                     <td className='text-center'>{item?.invoice_detail.idAccept}</td>
                     <td className={`text-center ${stateColor}`}>{stateString}</td>
                   </tr>

@@ -23,3 +23,25 @@ export const getCountAdmits = () => async (dispatch) => {
         })
     }
 }
+
+export const createAdmits = (payload) => async (dispatch) => {
+    try {
+        const response = await apis.apiCreateAdmits(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.CREATE_ADMIT_SUCCESS,
+                data: response.data.response,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.CREATE_ADMIT_FAIL,
+                msg: response.data.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.CREATE_ADMIT_FAIL,
+            msg: 'Failed to create admit.',
+        });
+    }
+};
