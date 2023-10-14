@@ -11,5 +11,4 @@ export * from './account';
 export * from './function';
 export * from './permission'
 export * from './provider'
-export * from './admit'
 export * from './invoice'

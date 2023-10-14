@@ -11,7 +11,6 @@ import accountRouter from './account';
 import functionRouter from './function';
 import permissionRouter from './permission'
 import providerRouter from './provider'
-import admitRouter from './admit'
 import invoiceRouter from './invoice'
 
 const initRoutes = (app) => {
@@ -28,7 +27,6 @@ const initRoutes = (app) => {
     app.use('/api/v1/function', functionRouter)
     app.use('/api/v1/permission', permissionRouter)
     app.use('/api/v1/provider', providerRouter)
-    app.use('/api/v1/admit', admitRouter)
     app.use('/api/v1/invoice', invoiceRouter)
 
     return app.use('/', (req, res) => {

@@ -46,9 +46,9 @@ const Navigation = () => {
           <CartContext.Consumer>
             {({ cartItems }) => (
               <NavLink to={path.CART} className={notActive}>
-                <BsCart4 /> 
+                <BsCart4 />
                 <span className='text-red-500'>({cartItems.length})</span>
-                </NavLink>
+              </NavLink>
             )}
           </CartContext.Consumer>
         </div>

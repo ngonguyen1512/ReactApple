@@ -7,7 +7,6 @@ import accountReducer from "./accountReducer";
 import functionReducer from "./functionReducer";
 import permissionReducer from "./permissionReducer";
 import providerReducer from "./providerReducer"
-import admitReducer from "./admitReducer";
 import invoiceReducer from "./invoiceReducer";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
@@ -37,7 +36,6 @@ const rootReducer = combineReducers({
     function: functionReducer,
     permission: permissionReducer,
     provider: providerReducer,
-    admit: admitReducer,
     invoice: invoiceReducer,
 })
 

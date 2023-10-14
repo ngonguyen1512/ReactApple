@@ -10,12 +10,10 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { countp } = useSelector(state => state.product)
   const { countca } = useSelector(state => state.account)
-  const { countcad } = useSelector(state => state.admit)
   const { countci } = useSelector(state => state.invoice)
   useEffect(() => {
     dispatch(actions.getProductsLimit())
     dispatch(actions.getCountAccounts())
-    dispatch(actions.getCountAdmits())
     dispatch(actions.getCountInvoices())
   })
 
@@ -42,7 +40,7 @@ const Dashboard = () => {
           <span className='w-[30%] bg-green-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><TbPackageImport /></span>
           <div className='w-[70%] p-3'>
             <p className='text-xl font-semibold tracking-wider text-green-600'>Nhập Hàng</p>
-            <p className='text-right'>{countcad}</p>
+            {/* <p className='text-right'>{countcad}</p> */}
           </div>
         </div>
         <div className='w-full m-2 flex rounded-xl shadow-md border'>

@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Prices, {foreignKey: 'code', targetKey: 'id', as: 'prices'});
       Product.belongsTo(models.Sample, {foreignKey: 'idSample', targetKey: 'id', as: 'samples'});
       Product.hasOne(models.InvoiceDetail, {foreignKey: 'idProduct', as: 'product_invoicedetail'})
-      Product.hasOne(models.AdmitDetail, {foreignKey: 'idProduct', as: 'product_admitdetail'})
     }
   }
   Product.init({
