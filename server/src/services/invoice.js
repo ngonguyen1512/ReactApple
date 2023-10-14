@@ -5,9 +5,10 @@ export const getCountInvoiceService = () => new Promise(async (resolve, reject) 
         const response = await db.Invoice.findAndCountAll({
             raw: true,
             nest: true,
+            include: [{ model: db.Account, as: 'account_invoice' }],
             order: [['updatedAt', 'DESC']],
         });
-        
+
         resolve({
             err: response ? 0 : 1,
             msg: response ? 'OK' : 'Failed to get Invoice',

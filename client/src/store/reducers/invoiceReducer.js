@@ -2,8 +2,9 @@ import actionTypes from "../actions/actionTypes";
 const initState = {
     msg: '',
     invoices: [],
-    invoicesall:[],
+    invoicesall: [],
     topselling: [],
+    invoiceaccount: [],
     countci: 0,
 }
 

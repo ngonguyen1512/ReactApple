@@ -80,13 +80,6 @@ const Dashboard = () => {
                   </tr>
                 )
               })}
-
-              {/* <tr>
-                <td className='text-center'>1</td>
-                <td className='text-center'>afd</td>
-                <td>iPhone 13</td>
-                <td className='text-center'>23,990,000</td>
-              </tr> */}
             </table>
           </div>
         </div>
@@ -103,24 +96,22 @@ const Dashboard = () => {
           <div className='w-full mt-3 border rounded-md shadow-sm'>
             <table className='w-full'>
               <tr>
-                <th>ID</th>
+                <th>ID BILL</th>
                 <th>ID & Name</th>
                 <th>Total</th>
               </tr>
-              <tr>
-                <td className='text-center'>1</td>
-                <td>5 - Nguyen Van A</td>
-                <td className='text-center'>23,990,000</td>
-              </tr>
-              <tr>
-                <td className='text-center'>2</td>
-                <td>7 - Le Thi Rieng</td>
-                <td className='text-center'>17,990,000</td>
-              </tr>
-              <tr>
-                <th colSpan={2}>Totality</th>
-                <th className='text-secondary'>41,980,000</th>
-              </tr>
+              {invoices?.length > 0 && invoices.map(item => {
+                if (item.state === 1) {
+                  return (
+                    <tr>
+                      <td className='text-center'>{item.id}</td>
+                      <td>{item?.account_invoice.id} - {item?.account_invoice.name}</td>
+                      <td className='text-center'>{item.total}</td>
+                    </tr>
+                  )
+                }
+                return null
+              })}
             </table>
           </div>
         </div>
