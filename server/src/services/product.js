@@ -13,7 +13,6 @@ export const getAllProductsService = () => new Promise(async (resolve, reject) =
                 'id', 'idCategory', 'image', 'name', 'address', 'price', 'discount',
                 'code', 'promotion', 'information', 'idProvider'
             ],
-            where: { state: '1' },
             raw: true,
             mest: true
         });

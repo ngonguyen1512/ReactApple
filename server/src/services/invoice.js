@@ -40,13 +40,8 @@ export const createInvoices = ({ idAccount, phone, address, total, state, invoic
                         { model: db.Product, as: 'product_invoicedetail' },
                     ],
                 });
-                // Trừ số lượng quantity khỏi Product
-                await db.Product.decrement('quantity', {
-                    by: quantity,
-                    where: { id: idProduct },
-                });
-                
-                invoiceDetailPromises.push(invoiceDetail);                
+
+                invoiceDetailPromises.push(invoiceDetail);
             }
             const createdInvoiceDetails = await Promise.all(invoiceDetailPromises);
             resolve({
@@ -71,7 +66,7 @@ export const createInvoices = ({ idAccount, phone, address, total, state, invoic
 export const getInvoiceService = () => new Promise(async (resolve, reject) => {
     try {
         const invoices = await db.Invoice.findAll({
-            order: [['updatedAt', 'DESC']],       
+            order: [['updatedAt', 'DESC']],
         });
 
         if (invoices.length > 0) {
@@ -108,6 +103,19 @@ export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(as
             state,
         });
 
+        if (state === 1) {
+            const invoiceDetails = await db.InvoiceDetail.findAll({ where: { idInvoice: id } });
+            for (const invoiceDetail of invoiceDetails) {
+                const product = await db.Product.findByPk(invoiceDetail.idProduct);
+                if (product) {
+                    const updatedQuantity = product.quantity - invoiceDetail.quantity;
+                    await product.update({
+                        quantity: updatedQuantity >= 0 ? updatedQuantity : 0,
+                    });
+                }
+            }
+        }
+
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Cập nhật invoice thành công.' : 'Cập nhật invoice không thành công',
@@ -116,4 +124,4 @@ export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(as
     } catch (error) {
         reject(error);
     }
-})
+});

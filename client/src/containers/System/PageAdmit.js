@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import * as actions from '../../store/actions'
 import { InputForm, Button } from '../../components/index'
 import icons from '../../utils/icons'
+import { AdmitContext } from '../../contexts/index'
+import Swal from 'sweetalert2'
 
 const { TiDelete } = icons
 
@@ -13,10 +15,7 @@ const PageAdmit = () => {
     const { currentData } = useSelector(state => state.user)
     const idcurrent = parseInt(currentData.id)
     const { products } = useSelector(state => state.product)
-    const { providers } = useSelector(state => state.provider)
     const [invalidFields, setInvalidFields] = useState([])
-    const [tableData, setTableData] = useState([]);
-
 
     const [payload, setPayload] = useState({
         idAccout: '' || idcurrent,
@@ -33,31 +32,6 @@ const PageAdmit = () => {
         quantity: '',
         idProvider: '',
     });
-    // Hàm xử lý tính toán total
-    const calculateTotalRow = (row) => {
-        return row.price * row.quantity;
-    };
-
-    const handleAdd = () => {
-        const newRow = {
-            id: payloadf.idProduct,
-            name: payloadf.name,
-            quantity: payloadf.quantity,
-            price: payloadf.price,
-            total: 0,
-            idProvider: payloadf.idProvider
-        };
-        const updatedRow = {
-            ...newRow,
-            total: calculateTotalRow(newRow)
-        };
-        setTableData([...tableData, updatedRow]);
-    };
-
-    console.log(payloadf)
-    // useEffect(() => {
-    //     msg && Swal.fire('Oops !', msg, 'error');
-    //   }, [msg, update]);
 
     useEffect(() => {
         dispatch(actions.getProviders())
@@ -73,6 +47,7 @@ const PageAdmit = () => {
                         <tr>
                             <th>ID</th>
                             <th>NAME</th>
+                            <th>QUANTITY</th>
                             <th>PRICE</th>
                         </tr>
                         {products?.length > 0 && products.map(item => {
@@ -85,6 +60,7 @@ const PageAdmit = () => {
                                 <tr className='cursor-pointer hover:bg-gray-400' onClick={handleClickRow}>
                                     <td className='text-center'>{item.id}</td>
                                     <td className='pl-4'>{item.name}</td>
+                                    <td className='text-center'>{item.quantity}</td>
                                     <td className='text-center'>{(item.price).toLocaleString()}</td>
                                 </tr>
                             )
@@ -131,17 +107,23 @@ const PageAdmit = () => {
                         type='number'
                     />
                     <div className='col-span-2'>
-                        <Button
-                            text='ADD'
-                            bgColor='bg-secondary2'
-                            textColor='text-white'
-                            fullWidth
-                            onClick={handleAdd}
-                        />
+                        <AdmitContext.Consumer>
+                            {({ addToAdmit }) =>
+                                <>
+                                    <Button
+                                        text='ADD'
+                                        bgColor='bg-secondary2'
+                                        textColor='text-white'
+                                        fullWidth
+                                        onClick={() => addToAdmit(payloadf)}
+                                    />
+                                </>
+                            }
+                        </AdmitContext.Consumer>
                     </div>
                 </div>
             </div>
-            <div className='w-full h-96 border rounded-md overflow-auto'>
+            <div className='w-full h-96 mt-5 border rounded-md overflow-auto'>
                 <table className='w-full h-full'>
                     <tr>
                         <th>ID</th>
@@ -152,32 +134,45 @@ const PageAdmit = () => {
                         <th>ID PROVIDER</th>
                         <th></th>
                     </tr>
-                    {tableData.map((row, index) => (
-                        <tr key={index}>
-                            <th>{row.id}</th>
-                            <td className='pl-4'>{row.name}</td>
-                            <td className='text-center'>{row.quantity}</td>
-                            <td className='text-center'>{(row.price).toLocaleString()}</td>
-                            <td className='text-center'>{(row.total).toLocaleString()}</td>
-                            <td className='text-center'>{row.idProvider}</td>
-                            <td className='text-red-500 text-xl text-center'>
-                                {/* <button onClick={() => handleDelete(index)}> */}
-                                <TiDelete />
-                                {/* </button> */}
-                            </td>
-                        </tr>
-                    ))}
+                    <AdmitContext.Consumer>
+                        {({ admitItems, removeFromAdmit }) => {
+                            const total = admitItems.reduce((accumulator, payloadf) =>
+                                accumulator + (payloadf.price * payloadf.quantity), 0);
+                            return (
+                                <>
+                                    {admitItems.map(item => (
+                                        <tr>
+                                            <th>{item.idProduct}</th>
+                                            <td className='pl-4'>{item.name}</td>
+                                            <td className='text-center'>{item.quantity}</td>
+                                            <td className='text-center'>{(item.price).toLocaleString()}</td>
+                                            <td className='text-center'>{total.toLocaleString()}</td>
+                                            <td className='text-center'>{item.idProvider}</td>
+                                            <td className='text-red-500 text-xl text-center'>
+                                                <button onClick={() => removeFromAdmit(item.idProduct)}><TiDelete /></button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </>
+                            )
+
+                        }}
+                    </AdmitContext.Consumer>
                 </table>
 
             </div>
             <div></div>
             <div className=' mt-8'>
-                <Button
-                    text={'SAVE'}
-                    bgColor='bg-secondary2'
-                    textColor='text-white'
-                // onClick={() => goLogin(false)} 
-                />
+                <AdmitContext.Consumer>
+                    {({ admitItems }) => (
+                        <Button
+                            text={'SAVE'}
+                            bgColor='bg-secondary2'
+                            textColor='text-white'
+                            // onClick={() => handleCreateAdmit(admitItems)}
+                        />
+                    )}
+                </AdmitContext.Consumer>
             </div>
         </div>
     )
