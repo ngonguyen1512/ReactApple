@@ -10,25 +10,28 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { countp } = useSelector(state => state.product)
   const { countca } = useSelector(state => state.account)
-  const { countci } = useSelector(state => state.invoice)
+  const { invoicesall, invoices, countci } = useSelector(state => state.invoice)
+
   useEffect(() => {
     dispatch(actions.getProductsLimit())
     dispatch(actions.getCountAccounts())
     dispatch(actions.getCountInvoices())
+
   })
 
   return (
     <div className='w-full p-2 my-10'>
       <span className='text-4xl font-bold tracking-widest justify-center items-center'>DASHBOARD</span>
       <div className='mt-5 grid grid-cols-4 gap-2 items-center justify-between'>
-        <div className='w-full m-2 flex col-span-2 rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-green-800 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '4rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
-          <div className='w-[70%] px-5 py-3'>
-            <p className='text-3xl font-semibold tracking-wider text-green-800'>Tổng Doanh Thu</p>
-            <p className='text-right text-2xl font-semibold text-red-500 mt-4'>41,980,000</p>
+        <div className='w-full m-2 flex rounded-xl shadow-md border'>
+          <span className='w-[30%] bg-green-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><TbPackageImport /></span>
+          <div className='w-[70%] p-3'>
+            <p className='text-xl font-semibold tracking-wider text-green-800'>Tổng Doanh Thu</p>
+            {invoices?.length > 0 && (
+              <p className='text-right'>{(invoices.reduce((total, item) => total + item.total, 0)).toLocaleString()} đ</p>
+            )}
           </div>
         </div>
-        <div className='w-full col-span-2'></div>
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
           <span className='w-[30%] bg-blue-500 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><BsCartCheck /></span>
           <div className='w-[70%] p-3'>
@@ -36,13 +39,7 @@ const Dashboard = () => {
             <p className='text-right'>{countci}</p>
           </div>
         </div>
-        <div className='w-full m-2 flex rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-green-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><TbPackageImport /></span>
-          <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-green-600'>Nhập Hàng</p>
-            {/* <p className='text-right'>{countcad}</p> */}
-          </div>
-        </div>
+
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
           <span className='w-[30%] bg-gray-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
           <div className='w-[70%] p-3'>
@@ -69,6 +66,20 @@ const Dashboard = () => {
                 <th>Name</th>
                 <th>Price</th>
               </tr>
+
+              {/* {invoicesall?.length > 0 && invoicesall.map(item => {
+                return (
+                  <tr>
+                    <td className='text-center'>{item.idProduct}</td>
+                    <td className='text-center'>
+                      <img src={item?.product_invoicedetail.image} alt={item?.product_invoicedetail.name} className='w-[100%] object-cover' />
+                    </td>
+                    <td>{item?.product_invoicedetail.name}</td>
+                    <td className='text-center'>{item?.product_invoicedetail.price}</td>
+                  </tr>
+                )
+              })} */}
+
               <tr>
                 <td className='text-center'>1</td>
                 <td className='text-center'>afd</td>
@@ -85,7 +96,7 @@ const Dashboard = () => {
               text='Search'
               bgColor='bg-secondary2'
               textColor='text-white'
-              // onClick={() => setIsShowCreate(prev => !prev)}
+            // onClick={() => setIsShowCreate(prev => !prev)}
             />
           </div>
           <div className='w-full mt-3 border rounded-md shadow-sm'>

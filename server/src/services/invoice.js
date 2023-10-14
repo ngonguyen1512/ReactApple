@@ -7,6 +7,7 @@ export const getCountInvoiceService = () => new Promise(async (resolve, reject) 
             nest: true,
             order: [['updatedAt', 'DESC']],
         });
+        
         resolve({
             err: response ? 0 : 1,
             msg: response ? 'OK' : 'Failed to get Invoice',
@@ -73,12 +74,14 @@ export const getInvoiceService = () => new Promise(async (resolve, reject) => {
             const invoiceIds = invoices.map(invoice => invoice.id);
             const response = await db.InvoiceDetail.findAll({
                 where: { idInvoice: invoiceIds },
-                include: [{ model: db.Invoice, as: 'invoice_detail' }],
+                include: [
+                    { model: db.Invoice, as: 'invoice_detail' },
+                    { model: db.Product, as: 'product_invoicedetail' },
+                ],
             });
             resolve({
                 err: 0,
                 msg: 'OK.',
-                invoices,
                 response
             });
         } else {
