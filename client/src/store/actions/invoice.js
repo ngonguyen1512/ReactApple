@@ -89,3 +89,25 @@ export const updateInvoices = (payload) => async (dispatch) => {
         })
     }
 }
+
+export const getTopSelling = () => async (dispatch) => {
+    try {
+        const response = await apis.apiGetTopSelling();
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_TOPSELLING,
+                topselling: response.data.response,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.GET_TOPSELLING,
+                msg: response.data.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_TOPSELLING,
+            msg: 'Failed to get top selling.',
+        });
+    }
+};

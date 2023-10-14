@@ -49,3 +49,16 @@ export const updateInvoices = async (req, res) => {
         })
     }
 }
+
+export const getTopSellingProducts = async(req, res) => {
+    try {
+        const response = await services.getTopSellingProducts();
+        return res.status(200).json(response);
+        
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            message: 'Failed at Invoice controller' + error,
+        })
+    }
+}

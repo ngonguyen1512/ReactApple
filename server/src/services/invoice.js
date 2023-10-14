@@ -128,3 +128,31 @@ export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(as
         reject(error);
     }
 });
+
+export const getTopSellingProducts = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.InvoiceDetail.findAll({
+            attributes: ['idProduct', [db.sequelize.fn('SUM', db.sequelize.col('InvoiceDetail.quantity')), 'totalSold']],
+            include: [{ model: db.Product, as: 'product_invoicedetail' },],
+            group: ['idProduct'],
+            order: [[db.sequelize.literal('totalSold'), 'DESC']],
+            limit: 4,
+        });
+
+        if (response.length > 0) {
+            resolve({
+                err: 0,
+                msg: 'OK.',
+                response
+            });
+        } else {
+            resolve({
+                err: 2,
+                msg: 'Không có sản phẩm nào có số lượng bán cao!',
+                response: null
+            });
+        }
+    } catch (error) {
+        reject(error);
+    }
+});

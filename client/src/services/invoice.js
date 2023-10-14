@@ -37,7 +37,7 @@ export const apiGetInvoices = () => new Promise(async (resolve, reject) => {
     }
 });
 
-export const apiUpdateInvoices = (payload) => new Promise(async(resolve, reject) => {
+export const apiUpdateInvoices = (payload) => new Promise(async (resolve, reject) => {
     try {
         const response = await axiosConfig({
             method: 'put',
@@ -49,3 +49,15 @@ export const apiUpdateInvoices = (payload) => new Promise(async(resolve, reject)
         reject(error)
     }
 })
+
+export const apiGetTopSelling = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `api/v1/invoice/topselling`,
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+});

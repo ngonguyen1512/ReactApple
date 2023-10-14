@@ -10,13 +10,13 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { countp } = useSelector(state => state.product)
   const { countca } = useSelector(state => state.account)
-  const { invoicesall, invoices, countci } = useSelector(state => state.invoice)
+  const { topselling, invoices, countci } = useSelector(state => state.invoice)
 
   useEffect(() => {
     dispatch(actions.getProductsLimit())
     dispatch(actions.getCountAccounts())
     dispatch(actions.getCountInvoices())
-
+    dispatch(actions.getTopSelling())
   })
 
   return (
@@ -39,7 +39,6 @@ const Dashboard = () => {
             <p className='text-right'>{countci}</p>
           </div>
         </div>
-
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
           <span className='w-[30%] bg-gray-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
           <div className='w-[70%] p-3'>
@@ -62,30 +61,32 @@ const Dashboard = () => {
             <table className='w-full '>
               <tr>
                 <th>ID</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
+                <th>IMAGE</th>
+                <th>NAME</th>
+                <th>TOTALSOLD</th>
+                <th>PRICE</th>
               </tr>
 
-              {/* {invoicesall?.length > 0 && invoicesall.map(item => {
+              {topselling?.length > 0 && topselling.map(item => {
                 return (
                   <tr>
-                    <td className='text-center'>{item.idProduct}</td>
-                    <td className='text-center'>
+                    <td className='text-center'>{item?.product_invoicedetail.id}</td>
+                    <td className='text-center w-[12%]'>
                       <img src={item?.product_invoicedetail.image} alt={item?.product_invoicedetail.name} className='w-[100%] object-cover' />
                     </td>
                     <td>{item?.product_invoicedetail.name}</td>
+                    <td>{item.totalSold}</td>
                     <td className='text-center'>{item?.product_invoicedetail.price}</td>
                   </tr>
                 )
-              })} */}
+              })}
 
-              <tr>
+              {/* <tr>
                 <td className='text-center'>1</td>
                 <td className='text-center'>afd</td>
                 <td>iPhone 13</td>
                 <td className='text-center'>23,990,000</td>
-              </tr>
+              </tr> */}
             </table>
           </div>
         </div>

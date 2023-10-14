@@ -7,5 +7,6 @@ router.get('/count', controllers.getCountInvoices);
 router.post('/create', controllers.createInvoices);
 router.get('/all', controllers.getInvoices);
 router.put('/update', controllers.updateInvoices);
+router.get('/topselling', controllers.getTopSellingProducts);
 
 export default router;
