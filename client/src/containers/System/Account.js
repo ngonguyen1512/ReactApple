@@ -18,12 +18,26 @@ const Account = () => {
   const permis = currentData.idPermission
   const [invalidFields, setInvalidFields] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+  const [shouldReload, setShouldReload] = useState(false);
 
   useEffect(() => {
     let page = searchParmas.get('page');
     page && +page !== currentPage && setCurrentPage(+page);
     !page && setCurrentPage(1);
   }, [searchParmas, accounts, currentPage]);
+
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value);
+    setShouldReload(event.target.value !== "");
+  };
+
+  let filteredAccounts = [];
+  if (accounts && Array.isArray(accounts)) {
+    filteredAccounts = accounts.filter((item) =>
+      item.name.includes(searchValue)
+    );
+  }
 
   const [payload, setPayload] = useState({
     id: '' || null,
@@ -49,7 +63,7 @@ const Account = () => {
     state: ''
   })
   const handleSubmitUpdate = async () => {
-    dispatch(actions.updateStateAccount(payloadu))  
+    dispatch(actions.updateStateAccount(payloadu))
     window.location.reload();
   }
 
@@ -138,7 +152,16 @@ const Account = () => {
 
   return (
     <div className='w-full p-2 my-10'>
-      <span className='text-4xl font-bold tracking-widest justify-center items-center'>ACCOUNT</span>
+      <div className='grid grid-cols-4'>
+        <span className='text-4xl font-bold tracking-widest justify-center items-center col-span-3'>ACCOUNT</span>
+        <input
+          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          type="text"
+          placeholder='Search by name'
+          value={searchValue}
+          onChange={handleSearch}
+        />
+      </div>
       <div className='mt-5'>
         {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
           <div className='w-full grid grid-cols-4 gap-2'>
@@ -245,7 +268,27 @@ const Account = () => {
             <th className='text-lg'>PERMISSION</th>
             <th className='text-lg'>STATE</th>
           </tr>
-          {accounts?.length > 0 && accounts.map(item => {
+          {shouldReload && filteredAccounts.length > 0 && filteredAccounts.map((item) => {
+            const handleClickRow = () => {
+              setPayload({ ...payload, id: item.id })
+              setPayloadu({
+                ...payloadu, id: item.id, name: item.name, state: item.state,
+              });
+            };
+            return (
+              <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                <td className={styletd}>{item.id}</td>
+                <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
+                <td className='px-4 py-2'>{item.name}</td>
+                <td className='px-4 py-2'>{item.email}</td>
+                <td className={styletd}>{item.phone}</td>
+                <td className={styletd}>{item.idPermission}</td>
+                <td className={styletd}>{item.state}</td>
+              </tr>
+            )
+          })}
+
+          {!shouldReload && accounts && Array.isArray(accounts) && accounts?.length > 0 && accounts.map(item => {
             const handleClickRow = () => {
               setPayload({ ...payload, id: item.id })
               setPayloadu({

@@ -10,13 +10,26 @@ const styletd = 'text-center text-base px-4 py-2 text-base'
 const Provider = () => {
   const dispatch = useDispatch()
   const [searchParmas] = useSearchParams()
-
   const { count, providers } = useSelector(state => state.provider)
   const { functions } = useSelector(state => state.function)
   const { currentData } = useSelector(state => state.user)
   const permis = currentData.idPermission
   const [currentPage, setCurrentPage] = useState(1);
   const [invalidFields, setInvalidFields] = useState([])
+  const [searchValue, setSearchValue] = useState("");
+  const [shouldReload, setShouldReload] = useState(false);
+
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value);
+    setShouldReload(event.target.value !== "");
+  };
+
+  let filteredProviders = [];
+  if (providers && Array.isArray(providers)) {
+    filteredProviders = providers.filter((item) =>
+      item.name.includes(searchValue)
+    );
+  }
 
   const [payload, setPayload] = useState({
     id: '' || null,
@@ -111,7 +124,16 @@ const Provider = () => {
 
   return (
     <div className='w-full p-2 my-10'>
-      <span className='text-4xl font-bold tracking-widest justify-center items-center'>PROVIDER</span>
+      <div className='grid grid-cols-4'>
+        <span className='text-4xl font-bold col-span-3 tracking-widest justify-center items-center'>PROVIDER</span>
+        <input
+          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          type="text"
+          placeholder='Search by name'
+          value={searchValue}
+          onChange={handleSearch}
+        />
+      </div>
       <div className='mt-5'>
         {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
           <div className='w-full grid grid-cols-4 gap-2'>
@@ -225,7 +247,25 @@ const Provider = () => {
             <th className='text-lg'>ADDRESS</th>
             <th className='text-lg'>STATE</th>
           </tr>
-          {providers?.length > 0 && providers.map(item => {
+          {shouldReload && filteredProviders.length > 0 && filteredProviders.map((item) => {
+            const handleClickRow = () => {
+              setPayload({ ...payload, id: item.id })
+              setPayloadu({
+                ...payloadu, id: item.id, name: item.name, state: item.state,
+              });
+            };
+            return (
+              <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                <td className={styletd}>{item.id}</td>
+                <td className='px-4 py-2'>{item.name}</td>
+                <td className={styletd}>{item.phone}</td>
+                <td className={styletd}>{item.email}</td>
+                <td className={styletd}>{item.address}</td>
+                <td className={styletd}>{item.state}</td>
+              </tr>
+            )
+          })}
+          {!shouldReload && providers && Array.isArray(providers) &&  providers?.length > 0 && providers.map(item => {
             const handleClickRow = () => {
               setPayload({ ...payload, id: item.id })
               setPayloadu({

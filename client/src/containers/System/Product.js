@@ -18,6 +18,20 @@ const Product = () => {
   const { currentData } = useSelector(state => state.user)
   const permis = currentData.idPermission
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+  const [shouldReload, setShouldReload] = useState(false);
+
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value);
+    setShouldReload(event.target.value !== "");
+  };
+
+  let filteredProducts = [];
+  if (products && Array.isArray(products)) {
+    filteredProducts = products.filter((item) =>
+      item.name.includes(searchValue)
+    );
+  }
 
   useEffect(() => {
     let page = searchParmas.get('page');
@@ -44,7 +58,16 @@ const Product = () => {
 
   return (
     <div className='w-full p-2 my-10'>
-      <span className='text-4xl font-bold tracking-widest justify-center items-center'>PRODUCT</span>
+      <div className='grid grid-cols-4'>
+        <span className='text-4xl font-bold col-span-3 tracking-widest justify-center items-center'>PRODUCT</span>
+        <input
+          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          type="text"
+          placeholder='Search by name'
+          value={searchValue}
+          onChange={handleSearch}
+        />
+      </div>
       <div className='mt-5'>
         {functions?.length > 0 && functions.map(item => item.name === 'Create' && (
           <Link to={`${formatVietnameseToString(item.name)}-product`}>
@@ -71,7 +94,7 @@ const Product = () => {
               <th className='text-lg'>{item.name}</th>
             ))}
           </tr>
-          {products?.length > 0 && products.map(item => {
+          {shouldReload && filteredProducts.length > 0 && filteredProducts.map((item) => {
             return (
               <tr>
                 <td className={styletd}>{item.id}</td>
@@ -87,7 +110,30 @@ const Product = () => {
                 {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
                   <th className='flex justify-center items-center text-center text-2xl py-10'>
                     <Link to={`${formatVietnameseToString(items.name)}-product/${item.id}`}>
-                      <Button  IcAfter={BiEdit} textColor='text-secondary'/>
+                      <Button IcAfter={BiEdit} textColor='text-secondary' />
+                    </Link>
+                  </th>
+                ))}
+              </tr>
+            )
+          })}
+          {!shouldReload && products && Array.isArray(products) && products?.length > 0 && products.map(item => {
+            return (
+              <tr>
+                <td className={styletd}>{item.id}</td>
+                <td className='w-[10%]'>
+                  <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
+                </td>
+                <td className='px-4 py-2'>{item.name}</td>
+                <td className={styletd}>{item.idCategory}</td>
+                <td className={styletd}>{item.quantity}</td>
+                <td className={styletd}>{item.discount}</td>
+                <td className={styletd}>{item.price}</td>
+                <td className={styletd}>{item.state}</td>
+                {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
+                  <th className='flex justify-center items-center text-center text-2xl py-10'>
+                    <Link to={`${formatVietnameseToString(items.name)}-product/${item.id}`}>
+                      <Button IcAfter={BiEdit} textColor='text-secondary' />
                     </Link>
                   </th>
                 ))}
