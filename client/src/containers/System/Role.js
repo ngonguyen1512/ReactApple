@@ -95,14 +95,14 @@ const Role = () => {
 
     fields.forEach(item => {
       if (item[1] === '') {
-        setInvalidFields(prev => [...prev, {name: item[0], msg: 'Bạn không được bỏ trống trường này!'}])
+        setInvalidFields(prev => [...prev, { name: item[0], msg: 'Bạn không được bỏ trống trường này!' }])
         invalids++;
         return;
-      } else if (item[1] !== '') 
+      } else if (item[1] !== '')
         switch (item[0]) {
           case 'idPermission': {
             if (+item[1] !== 1 && +item[1] !== 2 && +item[1] !== 3) {
-              setInvalidFields(prev => [...prev, {name: item[0], msg: 'Mã quyền không hợp lệ!'}]);
+              setInvalidFields(prev => [...prev, { name: item[0], msg: 'Mã quyền không hợp lệ!' }]);
               invalids++;
             }
             break;
@@ -133,14 +133,16 @@ const Role = () => {
           <table className='w-full '>
             <tr>
               <th>ID</th>
-              <th>Url</th>
-              <th>Name</th>
-              <th>ID Permis</th>
+              <th>URL</th>
+              <th>NAME</th>
+              <th>ID PERMISSION</th>
             </tr>
             {menus?.length > 0 && menus.map(item => {
               const handleClickRow = () => {
-                setPayloadm({...payloadm, id: item.id, url: item.url, 
-                  name: item.name, idPermission: item.idPermission });
+                setPayloadm({
+                  ...payloadm, id: item.id, url: item.url,
+                  name: item.name, idPermission: item.idPermission
+                });
               };
               return (
                 <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
@@ -154,7 +156,7 @@ const Role = () => {
           </table>
         </div>
         <div className='w-full grid grid-cols-2 gap-x-2'>
-          <p className={stylep}>Menu</p>
+          <p className={stylep}>MENU</p>
           <div className='grid grid-cols-3 gap-x-1'>
             <Button
               text='DELETE'
@@ -219,12 +221,13 @@ const Role = () => {
           <table className='w-full '>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>ID Permis</th>
+              <th>NAME</th>
+              <th>ID PERMISSION</th>
             </tr>
             {allfunctions?.length > 0 && allfunctions.map(item => {
               const handleClickRow = () => {
-                setPayloadf({...payloadf, id: item.id, name: item.name,
+                setPayloadf({
+                  ...payloadf, id: item.id, name: item.name,
                   idPermission: item.idPermission
                 });
               };
@@ -239,7 +242,7 @@ const Role = () => {
           </table>
         </div>
         <div className='w-full grid grid-cols-2 gap-x-2'>
-          <p className={stylep}>Function</p>
+          <p className={stylep}>FUNCTION</p>
           <div className='grid grid-cols-3 gap-x-1'>
             <Button
               text='DELETE'
@@ -297,12 +300,14 @@ const Role = () => {
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>ID Permis</th>
+              <th>ID PERMISSION</th>
             </tr>
             {transfers?.length > 0 && transfers.map(item => {
               const handleClickRow = () => {
-                setPayloadt({...payloadt, id: item.id, name: item.name,
-                  idPermission: item.idPermission});
+                setPayloadt({
+                  ...payloadt, id: item.id, name: item.name,
+                  idPermission: item.idPermission
+                });
               };
               return (
                 <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>

@@ -7,14 +7,6 @@ import * as actions from '../../store/actions'
 const Home = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(state => state.auth)
-  
-  // useEffect(() => {
-  //   const fetchCurrent = async () => {
-  //     const response = await apiGetCurrent();
-  //     console.log(response);
-  //   }
-  //   isLoggedIn && fetchCurrent()
-  // }, [isLoggedIn])
 
   useEffect(() => {
     setTimeout(() => {

@@ -4,12 +4,12 @@ import { useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
 
-const List = ({category}) => {
-  
+const List = ({ category }) => {
+
   const dispatch = useDispatch();
-  const [ searchParmas ] = useSearchParams();
+  const [searchParmas] = useSearchParams();
   const { products } = useSelector(state => state.product);
-  
+
   useEffect(() => {
     let params = [];
     for (let entry of searchParmas.entries()) params.push(entry);
@@ -27,9 +27,9 @@ const List = ({category}) => {
 
   return (
     <div className='w-full p-2'>
-      <p className='text-xl font-semibold tracking-wider'>TẤT CẢ SẢN PHẨM</p>
+      <p className='text-xl font-semibold tracking-wider'>ALL PRODUCTS</p>
       <div className='w-full grid grid-cols-3 gap-2 items-center justify-between'>
-        {products?.length > 0 && products.map(item => item.state === 1 && 
+        {products?.length > 0 && products.map(item => item.state === 1 &&
           <Item
             key={item?.id}
             name={item?.name}

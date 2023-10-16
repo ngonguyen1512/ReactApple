@@ -41,7 +41,7 @@ const Category = () => {
       if (item[1] === '') {
         setInvalidFields(prev => [...prev, {
           name: item[0],
-          msg: 'Bạn không được bỏ trống trường này!'
+          msg: 'You must not leave this input blank!'
         }])
         invalids++;
         return;
@@ -131,8 +131,8 @@ const Category = () => {
         <table className='w-full border-collapse border-2 '>
           <tr>
             <th className='text-lg'>ID</th>
-            <th className='text-lg w-[10%]'>Image</th>
-            <th className='text-lg'>Name</th>
+            <th className='text-lg w-[10%]'>IMAGE</th>
+            <th className='text-lg'>NAME</th>
           </tr>
           {limitcategories?.length > 0 && limitcategories.map(item => {
             const handleClickRow = () => {

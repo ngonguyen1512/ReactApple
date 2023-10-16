@@ -42,7 +42,7 @@ const Sample = () => {
       if (item[1] === '') {
         setInvalidFields(prev => [...prev, {
           name: item[0],
-          msg: 'Bạn không được bỏ trống trường này!'
+          msg: 'You must not leave this input blank!'
         }])
         invalids++;
         return;
@@ -135,9 +135,9 @@ const Sample = () => {
         <table className='w-full border-collapse border-2 '>
           <tr>
             <th className='text-lg'>ID</th>
-            <th className='text-lg'>Id category</th>
-            <th className='text-lg'>Name</th>
-            <th className='text-lg'>State</th>
+            <th className='text-lg'>ID CATEGORY</th>
+            <th className='text-lg'>NAME</th>
+            <th className='text-lg'>STATE</th>
           </tr>
           {limitsamples?.length > 0 && limitsamples.map(item => {
             const handleClickRow = () => {

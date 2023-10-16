@@ -31,10 +31,10 @@ const Detail = () => {
                             </div>
                             <div className='mt-10 pl-10  border-l border-gray-600'>
                                 <p className=' font-bold text-4xl'>{product.name}</p>
-                                <p className='my-5 text-sm'>Giá và khuyến mãi tại: {product.address}</p>
-                                <p className='text-2xl font-semibold'>{product.price.toLocaleString().replace(',', '.')}đ</p>
+                                <p className='my-5 text-sm'>Promotion at: {product.address}</p>
+                                <p className='text-2xl font-semibold'>{product.price.toLocaleString().replace(',', '.')} VND</p>
                                 <div className='mx-1 my-5 bg-gray-200 rounded-lg shadow-md'>
-                                    <p className='p-3 border-b border-gray-500 font-semibold text-lg'>Khuyến mãi</p>
+                                    <p className='p-3 border-b border-gray-500 font-semibold text-lg'>Promotion</p>
                                     <p className='py-3 px-5 whitespace-pre-wrap'>{(product.promotion).split('.').join('.\u00a0\u00a0')}</p>
                                 </div>
                                 <div className='grid grid-cols-2 gap-2 h-14'>
@@ -42,7 +42,7 @@ const Detail = () => {
                                         {({ addToCart }) =>
                                             <>
                                                 <Button
-                                                    text='Buy now'
+                                                    text='BUY NOW'
                                                     bgColor='bg-green-800'
                                                     textColor='text-white'
                                                     className='py-5'
@@ -52,7 +52,7 @@ const Detail = () => {
                                                     }}
                                                 />
                                                 <Button
-                                                    text='Add to cart'
+                                                    text='ADD TO CART'
                                                     bgColor='bg-secondary2'
                                                     textColor='text-white'
                                                     value={product.id}

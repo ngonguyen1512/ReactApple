@@ -19,7 +19,7 @@ const Cart = () => {
 
   return (
     <div className='w-1200 my-10 p-3'>
-      <p className='text-2xl font-bold tracking-wider ml-3'>GIỎ HÀNG</p>
+      <p className='text-2xl font-bold tracking-wider ml-3'>YOUR CART</p>
       <CartContext.Consumer>
         {({ cartItems, updateQuantity, removeFromCart }) => {
           const total = cartItems.reduce((accumulator, product) =>
@@ -29,13 +29,13 @@ const Cart = () => {
               <table className='w-full  border rounded-lg border-black'>
                 <tr className='border-b '>
                   <th>ID</th>
-                  <th>Tên sản phẩm</th>
-                  <th>Số lượng</th>
-                  <th>Đơn giá</th>
-                  <th className='w-[25%]'>Thành tiền</th>
+                  <th>NAME</th>
+                  <th>QUANTITY</th>
+                  <th>PRICE</th>
+                  <th className='w-[25%]'>TOTAL</th>
                   <th></th>
                 </tr>
-                {cartItems.map((product, index) => (
+                {cartItems.map((product) => (
                   <tr className='border-b border-dashed' >
                     <td className='text-center'>{product.id}</td>
                     <td className='pl-4'>{product.name}</td>
@@ -49,12 +49,12 @@ const Cart = () => {
                     <td className='text-center'>{product.price.toLocaleString()}</td>
                     <td className='text-center text-blue-500 w-[25%]'>{(product.price * product.quantity).toLocaleString()}</td>
                     <td className='text-red-500 text-xl'>
-                      <button onClick={() => removeFromCart(product.id)}><TiDelete/></button>
+                      <button onClick={() => removeFromCart(product.id)}><TiDelete /></button>
                     </td>
                   </tr>
                 ))}
                 <tr className='border-t border-black'>
-                  <td className='font-semibold pl-10 text-lg' colspan={4}>TỔNG TIỀN</td>
+                  <td className='font-semibold pl-10 text-lg' colspan={4}>TOTAL ORDER</td>
                   <td className='text-center border-l border-black text-xl font-semibold text-red-500'>{total.toLocaleString()}</td>
                   <td></td>
                 </tr>
@@ -65,14 +65,14 @@ const Cart = () => {
       </CartContext.Consumer>
       {!isLoggedIn &&
         <div className="flex justify-center items-center mt-5">
-          <span>Bạn vui lòng đăng nhập để thanh toán đơn hàng!</span>
+          <span>Please login to continue paying for the order!</span>
           <Button text={'Đăng nhập'} bgColor='bg-secondary2' textColor='text-white' onClick={() => goLogin(false)} />
         </div>
       }
       {isLoggedIn &&
         <div className='w-full flex mt-5 justify-center items-center gap-2'>
-          <Link to={path.HOME} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>Tiếp tục mua hàng</Link>
-          <Link to={'/'+path.PAYMENT} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Tiến hành thanh toán</Link>
+          <Link to={path.HOME} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>COUNTINUE TO BUY</Link>
+          <Link to={'/' + path.PAYMENT} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>PAYMENT</Link>
         </div>
       }
     </div>

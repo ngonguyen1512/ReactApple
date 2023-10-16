@@ -42,7 +42,6 @@ const Product = () => {
     dispatch(actions.getPermissions())
   }, [searchParmas, permis, dispatch])
 
-
   return (
     <div className='w-full p-2 my-10'>
       <span className='text-4xl font-bold tracking-widest justify-center items-center'>PRODUCT</span>
@@ -61,13 +60,13 @@ const Product = () => {
         <table className='w-full border-collapse border-2 '>
           <tr>
             <th className='text-lg'>ID</th>
-            <th className='text-lg w-[10%]'>Image</th>
-            <th className='text-lg'>Name</th>
-            <th className='text-lg'>idCategory</th>
-            <th className='text-lg'>Quantity</th>
-            <th className='text-lg'>Discount</th>
-            <th className='text-lg'>Price</th>
-            <th className='text-lg'>State</th>
+            <th className='text-lg w-[10%]'>IMAGE</th>
+            <th className='text-lg'>NAME</th>
+            <th className='text-lg'>ID CATEGORY</th>
+            <th className='text-lg'>QUANTITY</th>
+            <th className='text-lg'>DISCOUNT</th>
+            <th className='text-lg'>PRICE</th>
+            <th className='text-lg'>STATE</th>
             {functions?.length > 0 && functions.map(item => item.name === 'Edit' && (
               <th className='text-lg'>{item.name}</th>
             ))}

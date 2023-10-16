@@ -13,7 +13,7 @@ const ItemNewProduct = () => {
 
   return (
     <div className="w-full bg-red-500 py-4 px-2 my-2 rounded-lg ">
-      <p className='font-semibold text-lg tracking-wide'>TOP 4 SẢN PHẨM MỚI NHẤT</p>
+      <p className='font-semibold text-lg tracking-wide'>TOP 4 NEW PRODUCTS</p>
       {newProducts?.length > 0 && newProducts.map(item => {
           return ( 
             <Sitem

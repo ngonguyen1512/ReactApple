@@ -46,7 +46,7 @@ const PersonalInfor = () => {
     return (
         <div className='w-1200 my-10 p-3 '>
             <div>
-                <span className='font-bold text-2xl text-center'>THÔNG TIN CÁ NHÂN</span>
+                <span className='font-bold text-2xl text-center'>PERSONAL INFORMATION</span>
                 <div className='w-full py-4 px-10 grid grid-cols-3 gap-3'>
                     <table onClick={handleClickRow}>
                         <tr>
@@ -54,15 +54,15 @@ const PersonalInfor = () => {
                             <td>{currentData.id}</td>
                         </tr>
                         <tr>
-                            <th>Name</th>
+                            <th>NAME</th>
                             <td>{currentData.name}</td>
                         </tr>
                         <tr>
-                            <th>Phone</th>
+                            <th>PHONE</th>
                             <td>{currentData.phone}</td>
                         </tr>
                         <tr>
-                            <th>Email</th>
+                            <th>EMAIL</th>
                             <td>{currentData.email}</td>
                         </tr>
                     </table>
@@ -126,16 +126,16 @@ const PersonalInfor = () => {
                 </div>
             </div>
 
-            <span className='font-semibold text-xl'>Đơn hàng của bạn</span>
+            <span className='font-semibold text-xl'>YOUR ORDER</span>
 
             <div className='py-5 px-10 grid grid-cols-3 gap-4'>
                 <div className='h-40 overflow-auto'>
                     <table className='w-full border-collapse border-2'>
                         <tr>
                             <th>ID</th>
-                            <th>Date</th>
-                            <th>Total</th>
-                            <th>State</th>
+                            <th>DATE</th>
+                            <th>TOTAL</th>
+                            <th>STATE</th>
                         </tr>
                         {invoicesall?.length > 0 && invoicesall.reduce((acc, item) => {
                             if (item?.invoice_detail.idAccount === idcurrent) {
@@ -163,9 +163,9 @@ const PersonalInfor = () => {
                     <table className='w-full border-collapse border-2'>
                         <tr>
                             <th className='w-[8%]'>IDSP</th>
-                            <th className='w-[34%]'>Name</th>
-                            <th className='w-[8%]'>Quantity</th>
-                            <th className='w-[25%]'>Price</th>
+                            <th className='w-[34%]'>NAME</th>
+                            <th className='w-[8%]'>QUANTITY</th>
+                            <th className='w-[25%]'>PRICE</th>
                         </tr>
                         {selectedInvoiceId && invoicesall?.length > 0 && invoicesall.map(item => {
                             if (item?.invoice_detail.idAccount === idcurrent && item.idInvoice === selectedInvoiceId) {

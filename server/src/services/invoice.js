@@ -48,14 +48,14 @@ export const createInvoices = ({ idAccount, phone, address, total, state, invoic
             const createdInvoiceDetails = await Promise.all(invoiceDetailPromises);
             resolve({
                 err: 0,
-                msg: 'Tạo hóa đơn thành công.',
+                msg: 'Create a successful invoice.',
                 invoice,
                 invoiceDetails: createdInvoiceDetails
             });
         } else {
             resolve({
                 err: 2,
-                msg: 'Tạo hóa đơn không thành công',
+                msg: 'Invoice creation failed.',
                 invoice: null,
                 invoiceDetails: null
             });
@@ -82,13 +82,13 @@ export const getInvoiceService = () => new Promise(async (resolve, reject) => {
             });
             resolve({
                 err: 0,
-                msg: 'OK.',
+                msg: 'Get the invoice successfully.',
                 response
             });
         } else {
             resolve({
                 err: 2,
-                msg: 'Không có hoá đơn nào!',
+                msg: 'No invoice!',
                 invoices: null,
                 response: null
             });

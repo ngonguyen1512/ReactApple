@@ -115,12 +115,6 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                           </div>
                         )
                       })}
-                      {/* {items.idCategory === item.id && items.idCategory === list && 
-                        <div className='flex gap-1 items-center'>
-                          <GrNext size={10} color='#E0E0E0'/>
-                          <p>{items.name}</p>
-                        </div>
-                      } */}
                     </div>
                   )
                 })}

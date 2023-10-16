@@ -36,9 +36,9 @@ const Header = () => {
                 </Link>
                 {!isLoggedIn &&
                     <div className='flex items-center gap-1'>
-                        <span className='text-white mr-4'>apple.com xin chào! </span>
+                        <span className='text-white mr-4'>apple.com HELLO! </span>
                         <Button 
-                            text={'Đăng nhập'} 
+                            text={'LOGIN'} 
                             bgColor='bg-secondary2' 
                             textColor='text-white'  
                             onClick={() => goLogin(false)}  
@@ -47,9 +47,9 @@ const Header = () => {
                 }
                 {isLoggedIn &&
                     <div className='flex items-center gap-1 relative'>
-                        <span className='text-white mr-4'>Xin chào, <b>{currentData.name}</b> </span>
+                        <span className='text-white mr-4'>Hello, <b>{currentData.name}</b> </span>
                         <Button
-                            text={'Tài khoản'}
+                            text={'Account'}
                             textColor='text-white'
                             bgColor='bg-secondary2'
                             IcAfter={BsChevronDown}
@@ -65,7 +65,7 @@ const Header = () => {
                                         dispatch(actions.logout())
                                         navigate(path.HOME)
                                     }}
-                                >Log out</span>
+                                >LOGOUT</span>
                             </div>
                         }
                     </div>

@@ -61,7 +61,7 @@ const Account = () => {
       if (item[1] === '') {
         setInvalidFields(prev => [...prev, {
           name: item[0],
-          msg: 'Bạn không được bỏ trống trường này!'
+          msg: 'You must not leave this input blank!'
         }])
         invalids++;
         return;
@@ -71,7 +71,7 @@ const Account = () => {
             if (item[1].length < 4) {
               setInvalidFields(prev => [...prev, {
                 name: item[0],
-                msg: 'Mật khẩu tối thiểu 4 kí tự!'
+                msg: 'Password at least 4 characters!'
               }])
               invalids++;
             }
@@ -81,7 +81,7 @@ const Account = () => {
             if (!+item[1]) {
               setInvalidFields(prev => [...prev, {
                 name: item[0],
-                msg: 'Số điện thoại không hợp lệ!'
+                msg: 'Invalid phone number!'
               }])
               invalids++;
             }
@@ -91,7 +91,7 @@ const Account = () => {
             if (!/\S+@\S+\.\S+/.test(item[1])) {
               setInvalidFields(prev => [...prev, {
                 name: item[0],
-                msg: 'Email không hợp lệ!'
+                msg: 'Invalid email!'
               }])
               invalids++;
             }
@@ -101,7 +101,7 @@ const Account = () => {
             if (+item[1] !== 2 && +item[1] !== 3) {
               setInvalidFields(prev => [...prev, {
                 name: item[0],
-                msg: 'Mã quyền không hợp lệ!'
+                msg: 'Invalid permission code!'
               }]);
               invalids++;
             }
@@ -180,7 +180,7 @@ const Account = () => {
               <InputForm
                 setInvalidFields={setInvalidFields}
                 invalidFields={invalidFields}
-                label={'HỌ TÊN'}
+                label={'NAME'}
                 value={payload.name}
                 setValue={setPayload}
                 keyPayload={'name'}
@@ -201,7 +201,7 @@ const Account = () => {
             {!payload.id &&
               <InputForm
                 setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'SỐ ĐIỆN THOẠI'}
+                invalidFields={invalidFields} label={'PHONE'}
                 value={payload.phone}
                 setValue={setPayload}
                 keyPayload={'phone'}
@@ -212,7 +212,7 @@ const Account = () => {
               <InputForm
                 setInvalidFields={setInvalidFields}
                 invalidFields={invalidFields}
-                label={'MẬT KHẨU'}
+                label={'PASSWORD'}
                 value={payload.password}
                 setValue={setPayload}
                 keyPayload={'password'}
@@ -220,13 +220,7 @@ const Account = () => {
               />
             }
             {!payload.id &&
-              <div></div>
-            }
-            {!payload.id &&
-              <div></div>
-            }
-            {!payload.id &&
-              <div></div>
+              <div className='col-span-3'></div>
             }
             {!payload.id &&
               <Button
@@ -244,12 +238,12 @@ const Account = () => {
         <table className='w-full border-collapse border-2 '>
           <tr>
             <th className='text-lg'>ID</th>
-            <th className='text-lg'>Created at</th>
-            <th className='text-lg'>Name</th>
-            <th className='text-lg'>Email</th>
-            <th className='text-lg'>Phone</th>
-            <th className='text-lg'>Permission</th>
-            <th className='text-lg'>State</th>
+            <th className='text-lg'>CREATED AT</th>
+            <th className='text-lg'>NAME</th>
+            <th className='text-lg'>EMAIL</th>
+            <th className='text-lg'>PHONE</th>
+            <th className='text-lg'>PERMISSION</th>
+            <th className='text-lg'>STATE</th>
           </tr>
           {accounts?.length > 0 && accounts.map(item => {
             const handleClickRow = () => {
@@ -270,7 +264,6 @@ const Account = () => {
               </tr>
             )
           })}
-
         </table>
       </div>
       <Pagination

@@ -78,7 +78,7 @@ export const updateStateAccountsService = ({ id, state }) => new Promise(async (
         });
         resolve({
             err: response ? 0 : 2,
-            msg: response ? 'Cập nhật tài khoản thành công.' : 'Cập nhật tài khoản không thành công',
+            msg: response ? 'Successful state account update.' : 'Account state update failed',
             response: response || null
         });
     } catch (error) {
@@ -95,7 +95,7 @@ export const getAccountOneService = () => new Promise(async (resolve, reject) =>
         })
         resolve({
             err: response ? 0 : 2,
-            msg: response ? 'OK.' : 'No',
+            msg: response ? 'OK.' : 'Failed to get account one',
             response: response || null
         });
     } catch (error) {
@@ -117,13 +117,13 @@ export const updateInfoAccountService = ({ id, name, phone, email, passwordold, 
             });
             resolve({
                 err: response ? 0 : 2,
-                msg: response ? 'Cập nhật tài khoản thành công.' : 'Cập nhật tài khoản không thành công',
+                msg: response ? 'Successful information account update.' : 'Update information account failed',
                 response: response || null
             });
         } else
             resolve({
                 err: accounts ? 0 : 2,
-                msg: 'Mật khẩu cũ không chính xác.'
+                msg: 'The old password is incorrect.'
             });
     } catch (error) {
         reject(error);

@@ -63,7 +63,7 @@ export const createFunctionService = ({ name, idPermission }) => new Promise(asy
 
         resolve({
             err: response ? 0 : 2,
-            msg: response ? 'Tạo chức năng thành công.' : 'Tạo chức năng không thành công',
+            msg: response ? 'Create function successful.' : 'Create function failed.',
             response: response || null
         });
     } catch (error) {
@@ -85,7 +85,7 @@ export const deleteFunctionService = (id) => new Promise(async (resolve, reject)
         await response.destroy();
         resolve({
             err: response ? 0 : 1,
-            msg: response ? 'Xoá chức năng thành công' : 'Xoá chức năng không thành công!',
+            msg: response ? 'Delete function successful.' : 'Delete function failed.',
             response
         });
     } catch (error) {
@@ -93,15 +93,13 @@ export const deleteFunctionService = (id) => new Promise(async (resolve, reject)
     }
 });
 
-
-
 export const updateFunctionsService = ({ id, name, idPermission }) => new Promise(async (resolve, reject) => {
     try {
         const functions = await db.Function.findByPk(id);
         if (!functions) {
             resolve({
                 err: 1,
-                msg: 'Không tìm thấy function',
+                msg: 'No function found.',
                 response: null
             });
             return;
@@ -114,7 +112,7 @@ export const updateFunctionsService = ({ id, name, idPermission }) => new Promis
 
         resolve({
             err: response ? 0 : 2,
-            msg: response ? 'Cập nhật chức năng thành công.' : 'Cập nhật chức năng không thành công',
+            msg: response ? 'Function update successful.' : 'Function update failed.',
             response: response || null
         });
     } catch (error) {

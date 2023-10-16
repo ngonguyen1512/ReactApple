@@ -4,7 +4,7 @@ import icons from '../../utils/icons'
 import * as actions from '../../store/actions'
 import { Button } from '../../components/index'
 
-const { BsCartCheck, TbPackageImport, AiOutlineSetting, MdOutlineSwitchAccount, GiMoneyStack } = icons
+const { BsCartCheck, AiOutlineSetting, MdOutlineSwitchAccount, GiMoneyStack } = icons
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ const Dashboard = () => {
       <span className='text-4xl font-bold tracking-widest justify-center items-center'>DASHBOARD</span>
       <div className='mt-5 grid grid-cols-4 gap-2 items-center justify-between'>
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-green-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><TbPackageImport /></span>
+          <span className='w-[30%] bg-green-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
           <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-green-800'>Tổng Doanh Thu</p>
+            <p className='text-xl font-semibold tracking-wider text-green-800'>Total revenue</p>
             {invoices?.length > 0 && (
               <p className='text-right'>{(invoices.reduce((total, item) => total + item.total, 0)).toLocaleString()} đ</p>
             )}
@@ -35,21 +35,21 @@ const Dashboard = () => {
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
           <span className='w-[30%] bg-blue-500 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><BsCartCheck /></span>
           <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-blue-500'>Đơn Hàng</p>
+            <p className='text-xl font-semibold tracking-wider text-blue-500'>Order</p>
             <p className='text-right'>{countci}</p>
           </div>
         </div>
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
           <span className='w-[30%] bg-gray-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
           <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-gray-600'>Sản Phẩm</p>
+            <p className='text-xl font-semibold tracking-wider text-gray-600'>Product</p>
             <p className='text-right'>{countp}</p>
           </div>
         </div>
         <div className='w-full m-2 flex rounded-xl shadow-md border'>
           <span className='w-[30%] bg-yellow-500 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><MdOutlineSwitchAccount /></span>
           <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-yellow-500'>Tài khoản</p>
+            <p className='text-xl font-semibold tracking-wider text-yellow-500'>Account</p>
             <p className='text-right'>{countca}</p>
           </div>
         </div>

@@ -23,7 +23,7 @@ export const registerService = ({ name, phone, password, email, idPermission, st
         const token = response[1] && jwt.sign({ id: response[0].id, phone: response[0].phone }, process.env.SECRET_KEY, { expiresIn: '1d' });
         resolve({
             err: token ? 0 : 2,
-            msg: token ? 'Đăng ký thành công!' : 'Số điện thoại đã được đăng ký rồi.',
+            msg: token ? 'Successful registration!' : 'The phone number has been registered.',
             token: token || null
         })
     } catch (error) {
@@ -42,7 +42,7 @@ export const loginService = ({ phone, password }) => new Promise(async (resolve,
         const token = isCorrectPassword && jwt.sign({ id: response.id, phone: response.phone }, process.env.SECRET_KEY, { expiresIn: '1d' });
         resolve({
             err: token ? 0 : 2,
-            msg: token ? 'Đăng nhập thành công!' : response ? 'Mật khẩu không chính xác.' : 'Số điện thoại không tồn tại hoặc tài khoản của bạn chưa được kích hoạt.',
+            msg: token ? 'Successful login!' : response ? 'The password is incorrect.' : 'Your phone number does not exist or your account has not been activated.',
             token: token || null,
         })
 
@@ -52,30 +52,24 @@ export const loginService = ({ phone, password }) => new Promise(async (resolve,
 })
 
 const sendEmail = (email, subject, message) => {
-    // Tạo một transporter để gửi email
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'ngonguyenkey1512@gmail.com', // Email của bạn
-            pass: 'kfxd ijlv kvos jocr' // Mật khẩu email của bạn
+            user: 'ngonguyenkey1512@gmail.com',
+            pass: 'kfxd ijlv kvos jocr'
         }
     });
 
-    // Cấu hình các thông tin cần gửi
     const mailOptions = {
-        from: 'ngonguyenkey1512@gmail.com', // Email của bạn
-        to: email, // Địa chỉ email nhận
-        subject: subject, // Tiêu đề email
-        text: message // Nội dung email (dạng text)
+        from: 'ngonguyenkey1512@gmail.com',
+        to: email,
+        subject: subject, 
+        text: message
     };
 
-    // Gửi email
     transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
+        if (error) console.log(error);
+        else console.log('Email sent: ' + info.response);
     });
 };
 
@@ -99,9 +93,10 @@ export const forgotPassword = ({ phone, email }) => new Promise(async (resolve, 
 
         if (account) {
             const newPassword = generateRandomPassword(8);
-            // Gửi email chứa mật khẩu mới tới địa chỉ email
-            sendEmail(email, 'Lấy lại mật khẩu', `Mật khẩu mới của bạn là: ${newPassword}`);
-
+            sendEmail(email, 'REACTAPPLE FORGOT PASSWORD', 
+                `ReactApple has received a request to create a new password for the 
+                email. Your new password is: ${newPassword}`
+            );
             const updatedAccount = await db.Account.update(
                 { password: hashPassword(newPassword)},
                 { where: { id: account.id } }
@@ -109,15 +104,15 @@ export const forgotPassword = ({ phone, email }) => new Promise(async (resolve, 
             if (updatedAccount) {
                 resolve({
                     err: 0,
-                    msg: 'Đã gửi mật khẩu mới tới địa chỉ email đăng ký của bạn.',
+                    msg: 'New password has been sent to your email address.',
                 });
             } else {
-                reject('Không thể cập nhật mật khẩu mới.');
+                reject('Unable to update new password.');
             }
         } else {
             resolve({
                 err: 1,
-                msg: 'Số điện thoại không tồn tại trong cơ sở dữ liệu.',
+                msg: 'The phone number does not exist.',
             });
         }
 

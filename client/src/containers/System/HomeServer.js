@@ -7,13 +7,6 @@ import * as actions from '../../store/actions'
 const HomeServer = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(state => state.auth)
-  // useEffect(() => {
-  //   const fetchCurrent = async () => {
-  //     const response = await apiGetCurrent();
-  //     console.log(response);
-  //   }
-  //   isLoggedIn && fetchCurrent()
-  // }, [isLoggedIn])
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,9 +28,8 @@ const HomeServer = () => {
         <div className='w-full h-full flex items-center justify-center my-[15%]'>
           <div className='bg-white w-[500px] p-8 shadow-lg rounded-lg border'>
             <h2 className='text-3xl tracking-widest font-extrabold mb-3 text-red-500'>NOTICE</h2>
-            <p>Đây là webserver quản trị. Bạn không được quyền truy cập khi chưa đăng nhập và tài khoản 
-              của bạn phải có đủ quyền để truy cập. Vui lòng đăng nhập tài khoản. Cảm ơn!!!
-            </p>
+            <p>This is the management board's webpage. You can not access withou first logging in, and
+              your account must be eligible for access. Please access your account. THANKS!!!</p>
           </div>
         </div>
       }

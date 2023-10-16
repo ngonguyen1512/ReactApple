@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { InputForm, Button } from "../../components";
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as actions from '../../store/actions';
 import { path } from '../../utils/constant';
@@ -24,7 +24,7 @@ const Forgot = () => {
                 await dispatch(actions.forgot(payload));
                 navigate('/' + path.LOGIN)
             } catch (error) {
-                Swal.fire('Oops!', error.message, 'error');
+                Swal.fire('Oops!', msg, 'error');
             }
         }
     };
@@ -74,12 +74,12 @@ const Forgot = () => {
     return (
         <div className='w-full flex items-center justify-center my-10'>
             <div className="bg-white w-[500px] p-[30px] pb-24 shadow-sm rounded-lg border ">
-                <h3 className="font-bold text-3xl mb-12">QUÊN MẬT KHẨU</h3>
+                <h3 className="font-bold text-3xl mb-12">FORGOT PASSWORD</h3>
                 <div className="w-full flex-col gap-5">
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
-                        label={'SỐ ĐIỆN THOẠI'}
+                        label={'PHONE'}
                         value={payload.phone}
                         setValue={setPayload}
                         keyPayload={'phone'}
@@ -96,7 +96,7 @@ const Forgot = () => {
                     />
                     <div className="mt-12">
                         <Button
-                            text='LẤY MẬT KHẨU'
+                            text='GET NEW PASSWORD'
                             textColor='text-white'
                             bgColor='bg-secondary2'
                             fullWidth

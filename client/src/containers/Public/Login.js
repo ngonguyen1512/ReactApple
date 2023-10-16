@@ -19,7 +19,7 @@ const Login = () => {
         email: '',
         password: '',
         idPermission: '3',
-        state:'1'
+        state: '1'
     });
 
     useEffect(() => {
@@ -98,13 +98,13 @@ const Login = () => {
     return (
         <div className='w-full flex items-center justify-center my-10'>
             <div className="bg-white w-[500px] p-[30px] pb-24 shadow-sm rounded-lg border ">
-                <h3 className="font-bold text-3xl mb-12">{isRegister ? 'ĐĂNG KÝ' : 'ĐĂNG NHẬP'}</h3>
+                <h3 className="font-bold text-3xl mb-12">{isRegister ? 'REGISTER' : 'LOGIN'}</h3>
                 <div className="w-full flex-col gap-5">
                     {isRegister &&
                         <InputForm
                             setInvalidFields={setInvalidFields}
                             invalidFields={invalidFields}
-                            label={'HỌ TÊN'}
+                            label={'NAME'}
                             value={payload.name}
                             setValue={setPayload}
                             keyPayload={'name'}
@@ -113,8 +113,8 @@ const Login = () => {
                     }
                     <InputForm
                         setInvalidFields={setInvalidFields}
-                        invalidFields={invalidFields} 
-                        label={'SỐ ĐIỆN THOẠI'}
+                        invalidFields={invalidFields}
+                        label={'PHONE'}
                         value={payload.phone}
                         setValue={setPayload}
                         keyPayload={'phone'}
@@ -134,7 +134,7 @@ const Login = () => {
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
-                        label={'MẬT KHẨU'}
+                        label={'PASSWORD'}
                         value={payload.password}
                         setValue={setPayload}
                         keyPayload={'password'}
@@ -143,7 +143,7 @@ const Login = () => {
                 </div>
                 <div className="mt-12">
                     <Button
-                        text={isRegister ? 'ĐĂNG KÝ' : 'ĐĂNG NHẬP'}
+                        text={isRegister ? 'REGISTER' : 'LOGIN'}
                         textColor='text-white'
                         bgColor='bg-secondary2'
                         fullWidth
@@ -152,7 +152,7 @@ const Login = () => {
                 </div>
                 <div className="mt-5 flex items-center justify-between">
                     {
-                        isRegister ? <small>Bạn đã có tài khoản? <span className='text-blue-500 hover:underline cursor-pointer'
+                        isRegister ? <small>Do you have an account? <span className='text-blue-500 hover:underline cursor-pointer'
                             onClick={() => {
                                 setIsRegister(false)
                                 setPayload({
@@ -162,10 +162,10 @@ const Login = () => {
                                     password: '',
                                     idPermission: '4',
                                 })
-                            }}>Đăng nhập ngay</span></small>
+                            }}>Login now</span></small>
                             : <>
                                 <small className='text-blue-500 hover:text-[red] cursor-pointer'
-                                onClick={() => {navigate('/'+path.FORGOT)}}>Quên mật khẩu</small>
+                                    onClick={() => { navigate('/' + path.FORGOT) }}>Forgot password</small>
                                 <small className='text-blue-500 hover:text-[red] cursor-pointer'
                                     onClick={() => {
                                         setIsRegister(true)
@@ -176,7 +176,7 @@ const Login = () => {
                                             password: '',
                                             idPermission: '4',
                                         })
-                                    }}>Đăng ký tài khoản</small>
+                                    }}>Register an account</small>
                             </>
                     }
                 </div>

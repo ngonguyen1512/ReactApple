@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import * as actions from '../../store/actions'
-import { InputForm, Button, UpdateP, CreateP } from '../../components/index'
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import { path } from '../../utils/constant';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { UpdateP, CreateP } from '../../components/index'
 
 const PageProduct = () => {
-  const { products, msg, update } = useSelector(state => state.product)
-  // const path = window.location.pathname.split('/').pop();
+  const { products } = useSelector(state => state.product)
 
   const url = window.location.href;
   const parts = url.split('/');

@@ -65,7 +65,7 @@ const Payment = () => {
 
     return (
         <div className='w-1200 my-10 p-3'>
-            <p className='text-2xl font-bold tracking-wider ml-3'>THANH TOÁN</p>
+            <p className='text-2xl font-bold tracking-wider ml-3'>PAYMENT</p>
             <div className='grid grid-cols-3 gap-2 my-5'>
                 <div className='col-span-2'>
                     <CartContext.Consumer>
@@ -77,9 +77,9 @@ const Payment = () => {
                                     <table className='w-full  border rounded-lg border-black'>
                                         <tr className='border-b '>
                                             <th>ID</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th className='w-[25%]'>Thành tiền</th>
+                                            <th>NAME</th>
+                                            <th>QUANTITY</th>
+                                            <th className='w-[25%]'>TOTAL</th>
                                         </tr>
                                         {cartItems.map((product) => (
                                             <tr className='border-b border-dashed' >
@@ -90,7 +90,7 @@ const Payment = () => {
                                             </tr>
                                         ))}
                                         <tr className='border-t border-black'>
-                                            <td className='font-semibold pl-10 text-lg' colspan={3}>TỔNG</td>
+                                            <td className='font-semibold pl-10 text-lg' colspan={3}>TOTAL ORDER</td>
                                             <td className='text-center border-l border-black text-xl font-semibold text-red-500'>{total.toLocaleString()}</td>
                                         </tr>
                                     </table>
@@ -101,7 +101,7 @@ const Payment = () => {
                     </CartContext.Consumer>
                 </div>
                 <div>
-                    <p className='text-lg font-semibold mt-5'>Thông tin</p>
+                    <p className='text-lg font-semibold mt-5'>INFORMATION</p>
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
@@ -138,8 +138,7 @@ const Payment = () => {
                 <CartContext.Consumer>
                     {({ cartItems }) => (
                         <Button
-
-                            text={'Thanh toán'}
+                            text={'PAYMENT'}
                             bgColor='bg-secondary2'
                             textColor='text-white'
                             onClick={() => handleCreateInvoices(cartItems)}

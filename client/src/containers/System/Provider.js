@@ -53,7 +53,7 @@ const Provider = () => {
       if (item[1] === '') {
         setInvalidFields(prev => [...prev, {
           name: item[0],
-          msg: 'Bạn không được bỏ trống trường này!'
+          msg: 'You must not leave this input blank!'
         }])
         invalids++;
         return;
@@ -63,7 +63,7 @@ const Provider = () => {
             if (!+item[1]) {
               setInvalidFields(prev => [...prev, {
                 name: item[0],
-                msg: 'Số điện thoại không hợp lệ!'
+                msg: 'Invalid phone number!'
               }])
               invalids++;
             }
@@ -73,7 +73,7 @@ const Provider = () => {
             if (!/\S+@\S+\.\S+/.test(item[1])) {
               setInvalidFields(prev => [...prev, {
                 name: item[0],
-                msg: 'Email không hợp lệ!'
+                msg: 'Invalid email!'
               }])
               invalids++;
             }
@@ -219,11 +219,11 @@ const Provider = () => {
         <table className='w-full border-collapse border-2 '>
           <tr>
             <th className='text-lg'>ID</th>
-            <th className='text-lg'>Name</th>
-            <th className='text-lg'>Phone</th>
-            <th className='text-lg'>email</th>
-            <th className='text-lg'>Address</th>
-            <th className='text-lg'>State</th>
+            <th className='text-lg'>NAME</th>
+            <th className='text-lg'>PHONE</th>
+            <th className='text-lg'>EMAIL</th>
+            <th className='text-lg'>ADDRESS</th>
+            <th className='text-lg'>STATE</th>
           </tr>
           {providers?.length > 0 && providers.map(item => {
             const handleClickRow = () => {

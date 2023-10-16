@@ -41,11 +41,11 @@ const Invoice = () => {
           <table className='w-full'>
             <tr>
               <th>ID</th>
-              <th>Create At</th>
-              <th>ID & Name</th>
-              <th>Totality</th>
-              <th>Refuse</th>
-              <th>Accept</th>
+              <th>CREATED AT</th>
+              <th>ID ACCOUNT</th>
+              <th>TOTALITY</th>
+              <th>REFUSE</th>
+              <th>ACCEPT</th>
             </tr>
             {invoicesall?.length > 0 && invoicesall.reduce((acc, item) => {
               const createdAtDate = new Date(item?.invoice_detail.createdAt).toLocaleDateString();
@@ -88,10 +88,10 @@ const Invoice = () => {
           <table className='w-full'>
             <tr>
               <th className='w-[8%]'>IDSP</th>
-              <th className='w-[24%]'>Name</th>
-              <th className='w-[8%]'>Quantity</th>
-              <th className='w-[25%]'>Price</th>
-              <th className='w-[25%]'>Total</th>
+              <th className='w-[24%]'>NAME</th>
+              <th className='w-[8%]'>QUANTITY</th>
+              <th className='w-[25%]'>PRICE</th>
+              <th className='w-[25%]'>TOTAL</th>
             </tr>
             {selectedInvoiceId && invoicesall?.length > 0 && invoicesall.map(item => {
               if (item.idInvoice === selectedInvoiceId) {
@@ -122,11 +122,11 @@ const Invoice = () => {
           <table className='w-full'>
             <tr>
               <th>ID</th>
-              <th>Create At</th>
-              <th>ID & Name</th>
-              <th>Totality</th>
-              <th>ID Confirm</th>
-              <th>State</th>
+              <th>CREATED AT</th>
+              <th>ID ACCOUNT</th>
+              <th>TOTALITY</th>
+              <th>ID CONFIRM</th>
+              <th>STATR</th>
             </tr>
             {invoicesall?.length > 0 && invoicesall.reduce((acc, item) => {
               const createdAtDate = new Date(item?.invoice_detail.createdAt).toLocaleDateString();

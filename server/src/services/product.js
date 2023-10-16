@@ -61,7 +61,6 @@ export const getProductsLimitService = (page, category, query, { code, sample })
         let offset = (!page || +page <= 1) ? 0 : (+page - 1)
         const queries = { ...query }
         const whereClause = {};
-        const whereCate = {};
         if (code) whereClause.code = code;
         if (sample) whereClause.idSample = sample;
         if (category) whereClause.idCategory = category;
@@ -77,9 +76,6 @@ export const getProductsLimitService = (page, category, query, { code, sample })
                 { model: db.Prices, as: 'prices', attributes: ['value', 'id'] },
             ],
             where: whereClause,
-            // attributes: [
-            //     'id', 'image', 'name', 'price', 'discount', 'code', 'idCategory'
-            // ], 
         });
         resolve({
             err: response ? 0 : 1,
