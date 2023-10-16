@@ -33,6 +33,11 @@ const authReducer = (state = initState, action) => {
                 token: null,
                 msg: ''
             }
+        case actionTypes.FORGOT:
+            return {
+                ...state,
+                msg: action.data,
+            }
         default:
             return state;
     }

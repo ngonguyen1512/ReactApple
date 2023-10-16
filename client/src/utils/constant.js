@@ -4,6 +4,7 @@ export const path = {
     HOME__PAGE: ':page',
     HOMESERVER: 'webserver/*',
     LOGIN: 'login',
+    FORGOT: 'forgot',
     CART: 'cart',
     PAYMENT: 'payment',
     PERSONALINFOR: 'personal-information',

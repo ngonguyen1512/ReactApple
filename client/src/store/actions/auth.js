@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { apiRegister, apiLogin } from '../../services/auth';
+import { apiRegister, apiLogin, apiForgot } from '../../services/auth';
 
 export const register = (payload) => async (dispatch) => {
     try {
@@ -40,6 +40,28 @@ export const login = (payload) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: actionTypes.LOGIN_FAIL,
+            data: null,
+        })
+    }
+}
+
+export const forgot = (payload) => async (dispatch) => {
+    try {
+        const response = await apiForgot(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.FORGOT,
+                data: response.data.msg,
+            })
+        } else {
+            dispatch({
+                type: actionTypes.FORGOT,
+                data: response.data.msg,
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.FORGOT,
             data: null,
         })
     }

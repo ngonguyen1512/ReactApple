@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Home, Login, Cart, HomePage, Retal, Detail } from './containers/Public'
+import { Home, Login, Cart, HomePage, Retal, Detail, Forgot } from './containers/Public'
 import {
   HomeServer, Account, Category, Product, Dashboard, Invoice, Role, Sample, Provider,
   PersonalInfor, PageProduct, Payment
@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path={path.HOME} element={<Home />}>
             <Route path={path.LOGIN} element={<Login />} />
+            <Route path={path.FORGOT} element={<Forgot />} />
             <Route path='*' element={<HomePage />} />
             <Route path={path.PERSONALINFOR} element={<PersonalInfor />} />
             <Route path={path.IPHONE} element={<Retal />} />

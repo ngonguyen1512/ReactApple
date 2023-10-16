@@ -37,3 +37,22 @@ export const login = async (req, res) => {
         })
     }
 }
+
+export const forgotPassword = async (req, res) => {
+    //Get data from body post here
+    const {phone, email} = req.body;
+    try {
+        if (!phone || !email) return res.status(400).json({
+            err: 1,
+            msg: 'Vui lòng điền vào tất cả các trường!'
+        })
+        const response = await authService.forgotPassword(req.body);
+        // console.log(response);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at auth server controller: ' + error
+        })
+    }
+}

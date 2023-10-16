@@ -4,6 +4,7 @@ import * as actions from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { path } from '../../utils/constant';
 
 const Login = () => {
     const location = useLocation()
@@ -90,7 +91,6 @@ const Login = () => {
         isLoggedIn && navigate('/');
     }, [isLoggedIn, navigate]);
 
-
     useEffect(() => {
         msg && Swal.fire('Oops !', msg, 'error');
     }, [msg, update]);
@@ -164,7 +164,8 @@ const Login = () => {
                                 })
                             }}>Đăng nhập ngay</span></small>
                             : <>
-                                <small className='text-blue-500 hover:text-[red] cursor-pointer'>Quên mật khẩu</small>
+                                <small className='text-blue-500 hover:text-[red] cursor-pointer'
+                                onClick={() => {navigate('/'+path.FORGOT)}}>Quên mật khẩu</small>
                                 <small className='text-blue-500 hover:text-[red] cursor-pointer'
                                     onClick={() => {
                                         setIsRegister(true)
