@@ -80,7 +80,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                           }
                         </div>
                       )
-                    }
+                    } return null
                   })}
                 </div>
               )

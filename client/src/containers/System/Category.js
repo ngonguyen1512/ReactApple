@@ -59,7 +59,7 @@ const Category = () => {
         }])
         invalids++;
         return;
-      } 
+      }
     })
     return invalids;
   }
@@ -75,7 +75,7 @@ const Category = () => {
     for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
     params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) 
+      if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
       else
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
@@ -89,7 +89,16 @@ const Category = () => {
 
   return (
     <div className='w-full p-2 my-10'>
-      <span className='text-4xl font-bold tracking-widest justify-center items-center'>CATEGORY</span>
+      <div className='grid grid-cols-4'>
+        <span className='text-4xl font-bold col-span-3 tracking-widest justify-center items-center'>CATEGORY</span>
+        <input
+          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          type="text"
+          placeholder='Search by name'
+          value={searchValue}
+          onChange={handleSearch}
+        />
+      </div>
       <div className='mt-5'>
         {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
           <div className='w-full grid grid-cols-4 gap-2'>
@@ -151,7 +160,7 @@ const Category = () => {
           </tr>
           {shouldReload && filteredCategories.length > 0 && filteredCategories.map((item) => {
             const handleClickRow = () => {
-              setPayload({...payload, id: item.id, name: item.name, image: item.image, state: item.state })
+              setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
             }
             return (
               <tr key={categories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
@@ -166,7 +175,7 @@ const Category = () => {
           })}
           {!shouldReload && limitcategories?.length > 0 && limitcategories.map(item => {
             const handleClickRow = () => {
-              setPayload({...payload, id: item.id, name: item.name, image: item.image, state: item.state })
+              setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
             }
             return (
               <tr key={limitcategories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
