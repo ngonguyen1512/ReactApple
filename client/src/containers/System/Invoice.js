@@ -42,7 +42,7 @@ const Invoice = () => {
             <tr>
               <th>ID</th>
               <th>CREATED AT</th>
-              <th>ID ACCOUNT</th>
+              <th>ID & NAME</th>
               <th>TOTALITY</th>
               <th>REFUSE</th>
               <th>ACCEPT</th>
@@ -54,7 +54,7 @@ const Invoice = () => {
                 return [
                   ...acc,
                   <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(item?.invoice_detail.id)}>
-                    <td className='text-center'>{item?.invoice_detail.id}</td>
+                    <td className='text-center'>{item?.invoice_detail.id} - {item?.invoice_detail?.account_invoice.name}</td>
                     <td className='text-center'>{createdAtDate}</td>
                     <td className='pl-1'>{item?.invoice_detail.idAccount}</td>
                     <td className='text-center'>{(item?.invoice_detail.total).toLocaleString()}</td>
@@ -123,10 +123,10 @@ const Invoice = () => {
             <tr>
               <th>ID</th>
               <th>CREATED AT</th>
-              <th>ID ACCOUNT</th>
+              <th>ID & NAME</th>
               <th>TOTALITY</th>
               <th>ID CONFIRM</th>
-              <th>STATR</th>
+              <th>STATE</th>
             </tr>
             {invoicesall?.length > 0 && invoicesall.reduce((acc, item) => {
               const createdAtDate = new Date(item?.invoice_detail.createdAt).toLocaleDateString();
@@ -137,7 +137,7 @@ const Invoice = () => {
                 return [
                   ...acc,
                   <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(item?.invoice_detail.id)}>
-                    <td className='text-center'>{item?.invoice_detail.id}</td>
+                    <td className='text-center'>{item?.invoice_detail.id} - {item?.invoice_detail?.account_invoice.name}</td>
                     <td className='text-center'>{createdAtDate}</td>
                     <td>{item?.invoice_detail.idAccount}</td>
                     <td className='text-center'>{(item?.invoice_detail.total).toLocaleString()}</td>

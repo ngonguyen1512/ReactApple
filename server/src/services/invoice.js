@@ -76,9 +76,10 @@ export const getInvoiceService = () => new Promise(async (resolve, reject) => {
             const response = await db.InvoiceDetail.findAll({
                 where: { idInvoice: invoiceIds },
                 include: [
-                    { model: db.Invoice, as: 'invoice_detail' },
+                    { model: db.Invoice, as: 'invoice_detail', include: [{ model: db.Account, as: 'account_invoice' },]},
                     { model: db.Product, as: 'product_invoicedetail' },
                 ],
+                order: [['updatedAt', 'DESC']],
             });
             resolve({
                 err: 0,

@@ -64,21 +64,23 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                     <p>{item.name}</p>
                   </Link>
                   {samples?.length > 0 && samples.map(items => {
-                    return (
-                      <div
-                        key={items.id}
-                        onClick={() => handleFilterPosts(items.id)}
-                        className={`flex pl-5 cursor-pointer hover:text-blue-500 
+                    if (items.state === 1) {
+                      return (
+                        <div
+                          key={items.id}
+                          onClick={() => handleFilterPosts(items.id)}
+                          className={`flex pl-5 cursor-pointer hover:text-blue-500 
                           ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
-                      >
-                        {items.idCategory === item.id &&
-                          <div className='flex gap-1 items-center'>
-                            <GrNext size={10} color='#E0E0E0' />
-                            <p>{items.name}</p>
-                          </div>
-                        }
-                      </div>
-                    )
+                        >
+                          {items.idCategory === item.id &&
+                            <div className='flex gap-1 items-center'>
+                              <GrNext size={10} color='#E0E0E0' />
+                              <p>{items.name}</p>
+                            </div>
+                          }
+                        </div>
+                      )
+                    }
                   })}
                 </div>
               )

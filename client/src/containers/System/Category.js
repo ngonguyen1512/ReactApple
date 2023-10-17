@@ -10,12 +10,26 @@ const styletd = 'text-center text-base px-4 py-2 text-base'
 const Category = () => {
   const dispatch = useDispatch()
   const [searchParmas] = useSearchParams()
-  const { count, limitcategories } = useSelector(state => state.app)
+  const { count, categories, limitcategories } = useSelector(state => state.app)
   const { functions } = useSelector(state => state.function)
   const { currentData } = useSelector(state => state.user)
   const permis = currentData.idPermission
   const [currentPage, setCurrentPage] = useState(1);
   const [invalidFields, setInvalidFields] = useState([])
+  const [searchValue, setSearchValue] = useState("");
+  const [shouldReload, setShouldReload] = useState(false);
+
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value);
+    setShouldReload(event.target.value !== "");
+  };
+
+  let filteredCategories = [];
+  if (categories && Array.isArray(categories)) {
+    filteredCategories = categories.filter((item) =>
+      item.name.includes(searchValue)
+    );
+  }
 
   const [payload, setPayload] = useState({
     id: '' || null, name: '', image: '', state: ''
@@ -70,6 +84,7 @@ const Category = () => {
     dispatch(actions.getLimitCategories(searchParamsObject))
     dispatch(actions.getFunctions(searchParamsObject))
     dispatch(actions.getPermissions())
+    dispatch(actions.getCategories())
   }, [searchParmas, permis, dispatch])
 
   return (
@@ -134,7 +149,22 @@ const Category = () => {
             <th className='text-lg w-[10%]'>IMAGE</th>
             <th className='text-lg'>NAME</th>
           </tr>
-          {limitcategories?.length > 0 && limitcategories.map(item => {
+          {shouldReload && filteredCategories.length > 0 && filteredCategories.map((item) => {
+            const handleClickRow = () => {
+              setPayload({...payload, id: item.id, name: item.name, image: item.image, state: item.state })
+            }
+            return (
+              <tr key={categories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                <td className={styletd}>{item.id}</td>
+                <td className='w-[10%]'>
+                  <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
+                </td>
+                <td className='px-4 py-2'>{item.name}</td>
+                <td className={styletd}>{item.state}</td>
+              </tr>
+            )
+          })}
+          {!shouldReload && limitcategories?.length > 0 && limitcategories.map(item => {
             const handleClickRow = () => {
               setPayload({...payload, id: item.id, name: item.name, image: item.image, state: item.state })
             }
