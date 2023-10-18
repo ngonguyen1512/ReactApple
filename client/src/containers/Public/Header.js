@@ -17,14 +17,17 @@ const Header = () => {
     const { isLoggedIn } = useSelector(state => state.auth)
     const { currentData } = useSelector(state => state.user)
     const [isShowMenu, setIsShowMenu] = useState(false)
-    
+    const page = searchParams.get('page');
+    const code = searchParams.get('code');
+    const sample = searchParams.get('sample');
+
     const goLogin = useCallback((flag) => {
-        navigate('/'+path.LOGIN, { state: { flag } })
+        navigate('/' + path.LOGIN, { state: { flag } })
     }, [navigate])
-    
+
     useEffect(() => {
         headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, [searchParams.get('page'), searchParams.get('code'), searchParams.get('sample')])
+    }, [page, code, sample])
 
     return (
         <div ref={headerRef} className='w-full h-60 bg-secondary1 flex justify-center '>
@@ -37,11 +40,11 @@ const Header = () => {
                 {!isLoggedIn &&
                     <div className='flex items-center gap-1'>
                         <span className='text-white mr-4'>apple.com HELLO! </span>
-                        <Button 
-                            text={'LOGIN'} 
-                            bgColor='bg-secondary2' 
-                            textColor='text-white'  
-                            onClick={() => goLogin(false)}  
+                        <Button
+                            text={'LOGIN'}
+                            bgColor='bg-secondary2'
+                            textColor='text-white'
+                            onClick={() => goLogin(false)}
                         />
                     </div>
                 }
@@ -55,9 +58,9 @@ const Header = () => {
                             IcAfter={BsChevronDown}
                             onClick={() => setIsShowMenu(prev => !prev)}
                         />
-                        {isShowMenu && 
+                        {isShowMenu &&
                             <div className="absolute min-w-200 top-full bg-white shadow-md rounded-md py-3 px-5 right-0 flex z-50 flex-col">
-                                <Menu permis={currentData.idPermission}  />
+                                <Menu permis={currentData.idPermission} />
                                 <span
                                     className='cursor-pointer border-t-2 border-gray-200 pt-2 flex items-center'
                                     onClick={() => {

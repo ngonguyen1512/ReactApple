@@ -4,7 +4,6 @@ import { UpdateP, CreateP } from '../../components/index'
 
 const PageProduct = () => {
   const { products } = useSelector(state => state.product)
-
   const url = window.location.href;
   const parts = url.split('/');
   const payloadid = parseInt(parts[parts.length - 1]);
@@ -13,9 +12,7 @@ const PageProduct = () => {
     <div className='w-full p-2 my-10'>
       <span className='text-4xl font-bold tracking-widest justify-center items-center'>CREATE PRODUCT</span>
       <div className='mt-5'>
-        {!payloadid &&
-          <CreateP />
-        }
+        {!payloadid && <CreateP /> }
         {payloadid && products?.length > 0 && products.map(item => {
           if (item.id === payloadid) {
             return (

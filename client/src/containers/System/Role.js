@@ -123,7 +123,7 @@ const Role = () => {
     dispatch(actions.getTransfers())
     dispatch(actions.getAllsFunctions())
     dispatch(actions.getPermissions())
-  })
+  }, [dispatch])
 
   return (
     <div className='w-full p-2 my-6 '>

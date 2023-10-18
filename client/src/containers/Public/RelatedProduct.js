@@ -9,7 +9,7 @@ const ItemNewProduct = () => {
 
   useEffect(() => {
     dispatch(actions.getNewProducts());
-  });
+  }, [dispatch]);
 
   return (
     <div className="w-full bg-red-500 py-4 px-2 my-2 rounded-lg ">

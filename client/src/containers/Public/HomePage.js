@@ -10,7 +10,7 @@ const HomePage = () => {
   const { categories, prices } = useSelector(state => state.app)
   useEffect(() => {
     dispatch(actions.getPrices());
-  });
+  }, [dispatch]);
  
   return (
     <div className='w-full flex flex-col justify-center'>

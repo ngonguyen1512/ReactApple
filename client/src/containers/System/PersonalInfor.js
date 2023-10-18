@@ -41,7 +41,7 @@ const PersonalInfor = () => {
 
     useEffect(() => {
         dispatch(actions.getInvoices())
-    })
+    }, [dispatch])
 
     return (
         <div className='w-1200 my-10 p-3 '>

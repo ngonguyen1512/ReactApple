@@ -31,7 +31,7 @@ const Invoice = () => {
 
   useEffect(() => {
     dispatch(actions.getInvoices())
-  })
+  }, [dispatch])
 
   return (
     <div className='w-full p-2 my-10'>
@@ -147,7 +147,7 @@ const Invoice = () => {
                 ];
               }
               return acc;
-            }, [])}
+            })}
           </table>
         </div>
       </div>

@@ -18,7 +18,7 @@ const Detail = () => {
 
     useEffect(() => {
         dispatch(actions.getProducts())
-    })
+    }, [dispatch])
 
     return (
         <div className='w-full flex flex-col justify-center'>

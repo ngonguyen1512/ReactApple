@@ -19,7 +19,7 @@ const Menu = ({permis}) => {
                 <div>
                     {item.idPermission === permis && 
                         <Link to={item.url}>
-                            <div className='cursor-pointer border-t-2 border-gray-200 py-2'>
+                            <div className='cursor-pointer'>
                                 <span>{item.name}</span>
                             </div>
                         </Link>

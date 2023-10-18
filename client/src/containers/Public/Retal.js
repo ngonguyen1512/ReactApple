@@ -9,16 +9,13 @@ const Retal = () => {
   const { categories, prices } = useSelector(state => state.app)
   const [idCategory, setIdCategory] = useState('none');
   const location = useLocation()
-
   const path = location.pathname;
   const parts = path.split('/');
   const lastPart = parts[parts.length - 1];
   
   useEffect(() => {
     const category = categories?.find(item => `/${formatVietnameseToString(item.name)}` === location.pathname)
-    if(category) {
-      setIdCategory(category.id)
-    }
+    if(category) setIdCategory(category.id)
   }, [location.pathname, categories]);
 
   return (

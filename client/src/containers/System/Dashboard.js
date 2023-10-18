@@ -17,7 +17,7 @@ const Dashboard = () => {
     dispatch(actions.getCountAccounts())
     dispatch(actions.getCountInvoices())
     dispatch(actions.getTopSelling())
-  })
+  }, [dispatch])
 
   return (
     <div className='w-full p-2 my-10'>

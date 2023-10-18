@@ -21,7 +21,7 @@ const Navigation = () => {
   useEffect(() => {
     dispatch(actions.getCategories());
     dispatch(actions.getTransfers());
-  });
+  }, [dispatch]);
 
   const pathurl = location.pathname
   const parts = pathurl.split('/')[1]
