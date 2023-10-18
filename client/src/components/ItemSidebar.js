@@ -15,7 +15,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
   useEffect(() => {
     dispatch(actions.getSamples());
     dispatch(actions.getTypeSamples());
-  });
+  }, [dispatch]);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,7 +33,6 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
   const [selectedDiv, setSelectedDiv] = useState(null);
 
   const handleFilterPosts = (id) => {
-    // dispatch(actions.getProductsLimit({[type]: id}))
     navigate({
       pathname: location?.pathname,
       search: createSearchParams({
@@ -47,7 +46,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
     }
   };
   return (
-    <div className='w-full bg-white p-2 rounded-md'>
+    <div className='w-full bg-[#161616] p-2 rounded-md text-white'>
       <h3 className='text-lg font-semibold mb-1'>{title}</h3>
       {!isDouble &&
         <div>
@@ -59,8 +58,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                     to={`${formatVietnameseToString(item.name)}`}
                     key={item.id}
                     className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-                      hover:bg-secondary1 hover:text-white border-y border-gray-200 py-1 border-dashed'
-                  >
+                      hover:bg-secondary1 hover:text-white border-y border-gray-200 py-1' >
                     <p>{item.name}</p>
                   </Link>
                   {samples?.length > 0 && samples.map(items => {
@@ -92,36 +90,37 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
       {!isDouble &&
         <div>
           <p className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-          hover:bg-secondary1 hover:text-white border-y border-gray-200 py-1 border-dashed'
-          >{texts}</p>
+          hover:bg-secondary1 hover:text-whitepy-1' >{texts}</p>
           {content?.length > 0 && list?.length > 0 && content.map(item => {
-            return (
-              <div >
-                {typesamples?.length > 0 && typesamples.map(items => {
-                  return (
-                    <div
-                      key={items.id}
-                      onClick={() => handleFilterPosts(items.id)}
-                      className={`flex pl-5 cursor-pointer hover:text-blue-500 
+            if (item.state === 1) {
+              return (
+                <div >
+                  {typesamples?.length > 0 && typesamples.map(items => {
+                    return (
+                      <div
+                        key={items.id}
+                        onClick={() => handleFilterPosts(items.id)}
+                        className={`flex pl-5 cursor-pointer hover:text-blue-500 
                         ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
-                    >
-                      {categories?.length > 0 && categories.map(itemsss => {
-                        return (
-                          <div>
-                            {items.idCategory === item.id && items.idCategory === itemsss.id && itemsss.name === list &&
-                              <div className='flex gap-1 items-center'>
-                                <GrNext size={10} color='#E0E0E0' />
-                                <p>{items.name}</p>
-                              </div>
-                            }
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )
-                })}
-              </div>
-            )
+                      >
+                        {categories?.length > 0 && categories.map(itemsss => {
+                          return (
+                            <div>
+                              {items.idCategory === item.id && items.idCategory === itemsss.id && itemsss.name === list &&
+                                <div className='flex gap-1 items-center'>
+                                  <GrNext size={10} color='#E0E0E0' />
+                                  <p>{items.name}</p>
+                                </div>
+                              }
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            } return null
           })}
         </div>
       }

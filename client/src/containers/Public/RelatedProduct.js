@@ -12,8 +12,8 @@ const ItemNewProduct = () => {
   }, [dispatch]);
 
   return (
-    <div className="w-full bg-red-500 py-4 px-2 my-2 rounded-lg ">
-      <p className='font-semibold text-lg tracking-wide'>TOP 4 NEW PRODUCTS</p>
+    <div className="w-full bg-[#161616] py-4 px-2 my-5 rounded-3xl ">
+      <p className='font-bold text-2xl text-center text-white tracking-wider'>NEW PRODUCTS</p>
       {newProducts?.length > 0 && newProducts.map(item => {
           return ( 
             <Sitem

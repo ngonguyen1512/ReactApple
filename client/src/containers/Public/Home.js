@@ -3,6 +3,7 @@ import { Header, Navigation, Footer } from './index'
 import { Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
+import { Slider  } from '../../components/index';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,10 +16,11 @@ const Home = () => {
   }, [isLoggedIn, dispatch])
 
   return (
-    <div className="w-full flex flex-col items-center min-h-full bg-secondary3">
+    <div className="w-full flex flex-col items-center min-h-full bg-[#3e3e3f]">
       <Header />
       <Navigation />
-      <div className='w-1200 flex flex-col items-center justify-start bg-secondary3'>
+      <Slider />
+      <div className='w-1200 flex flex-col items-center justify-start bg-[#3e3e3f'>
         <Outlet />
       </div>
       <Footer />

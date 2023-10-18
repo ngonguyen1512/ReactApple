@@ -30,7 +30,7 @@ const Header = () => {
     }, [page, code, sample])
 
     return (
-        <div ref={headerRef} className='w-full h-60 bg-secondary1 flex justify-center '>
+        <div ref={headerRef} className='w-full h-60 bg-[#101010] flex justify-center '>
             <div className='w-1200 h-60 flex items-center justify-between '>
                 <Link to={'/'}>
                     <div className='flex gap-2.5 text-xl text-white font-bold font-sans tracking-wider hover:cursor-pointer items-center'>
@@ -42,7 +42,7 @@ const Header = () => {
                         <span className='text-white mr-4'>apple.com HELLO! </span>
                         <Button
                             text={'LOGIN'}
-                            bgColor='bg-secondary2'
+                            bgColor='bg-[#2f3033]'
                             textColor='text-white'
                             onClick={() => goLogin(false)}
                         />
@@ -54,7 +54,7 @@ const Header = () => {
                         <Button
                             text={'Account'}
                             textColor='text-white'
-                            bgColor='bg-secondary2'
+                            bgColor='bg-[#2f3033]'
                             IcAfter={BsChevronDown}
                             onClick={() => setIsShowMenu(prev => !prev)}
                         />

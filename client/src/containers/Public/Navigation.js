@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart'
 
-const notActive = 'hover:bg-secondary1 hover:text-white hover:font-bold rounded-b-xl px-8 h-full flex items-center gap-1'
+const notActive = 'hover:bg-[#101010] hover:text-white hover:font-bold rounded-b-xl px-8 h-full flex items-center gap-1'
 const { AiFillHome, BsCart4 } = icons
 
 const Navigation = () => {
@@ -27,7 +27,7 @@ const Navigation = () => {
   const parts = pathurl.split('/')[1]
 
   return (
-    <div className='w-full h-50 flex justify-center border-b drop-shadow-xl bg-primary text-black '>
+    <div className='w-full h-50 flex justify-center  bg-[#2f3033] text-white font-semibold '>
       {parts !== 'webserver' &&
         <div className='w-1200 h-50 flex items-center justify-between'>
           <NavLink to={`/`} className={notActive}><AiFillHome />HOME</NavLink>
@@ -47,7 +47,7 @@ const Navigation = () => {
             {({ cartItems }) => (
               <NavLink to={path.CART} className={notActive}>
                 <BsCart4 />
-                <span className='text-red-500'>({cartItems.length})</span>
+                <span className=''>({cartItems.length})</span>
               </NavLink>
             )}
           </CartContext.Consumer>
