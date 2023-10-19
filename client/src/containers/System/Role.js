@@ -13,6 +13,7 @@ const Role = () => {
   const { allfunctions, msg, update } = useSelector(state => state.function)
   const { permissions } = useSelector(state => state.permission)
   const [invalidFields, setInvalidFields] = useState([])
+  const [shouldRefetch, setShouldRefetch] = useState(false);
 
   //MENU
   const [payloadm, setPayloadm] = useState({
@@ -24,6 +25,7 @@ const Role = () => {
     if (invalids === 0) {
       dispatch(actions.createMenus(payloadm))
       setPayloadm({ url: '', name: '', idPermission: '' });
+      setShouldRefetch(true);
     }
   }
   const handleSubmitUpdateMenu = async () => {
@@ -32,11 +34,13 @@ const Role = () => {
     if (invalids === 0) {
       dispatch(actions.updateMenus(payloadm))
       setPayloadm({ id: '', url: '', name: '', idPermission: '' });
+      setShouldRefetch(true);
     }
   }
   const handleSubmitDeleteMenu = async () => {
     dispatch(actions.deleteMenus(payloadm))
     setPayloadm({ id: '', url: '', name: '', idPermission: '' });
+    setShouldRefetch(true);
   }
 
   //FUNCTION
@@ -49,6 +53,7 @@ const Role = () => {
     if (invalids === 0) {
       dispatch(actions.createFunction(payloadf))
       setPayloadf({ name: '', idPermission: '' });
+      setShouldRefetch(true);
     }
   }
   const handleSubmitUpdateFunction = async () => {
@@ -57,11 +62,13 @@ const Role = () => {
     if (invalids === 0) {
       dispatch(actions.updateFunctions(payloadf))
       setPayloadf({ id: '', name: '', idPermission: '' });
+      setShouldRefetch(true);
     }
   }
   const handleSubmitDeleteFunction = async () => {
     dispatch(actions.deleteFunctions(payloadf))
     setPayloadf({ id: '', name: '', idPermission: '' });
+    setShouldRefetch(true);
   }
 
   //TRANSFER
@@ -74,6 +81,7 @@ const Role = () => {
     if (invalids === 0) {
       dispatch(actions.createTransfers(payloadt))
       setPayloadt({ name: '', idPermission: '' });
+      setShouldRefetch(true);
     }
   }
   const handleSubmitUpdateTransfer = async () => {
@@ -82,11 +90,13 @@ const Role = () => {
     if (invalids === 0) {
       dispatch(actions.updateTransfers(payloadt))
       setPayloadt({ id: '', name: '', idPermission: '' });
+      setShouldRefetch(true);
     }
   }
   const handleSubmitDeleteTransfer = async () => {
     dispatch(actions.deleteTransfers(payloadt))
     setPayloadt({ id: '', name: '', idPermission: '' });
+    setShouldRefetch(true);
   }
 
   const validate = (payload) => {
@@ -125,39 +135,53 @@ const Role = () => {
     dispatch(actions.getPermissions())
   }, [dispatch])
 
+  useEffect(() => {
+    if (shouldRefetch) {
+      dispatch(actions.getMenus());
+      dispatch(actions.getTransfers());
+      dispatch(actions.getAllsFunctions());
+      dispatch(actions.getPermissions());
+      setShouldRefetch(false);
+    }
+  }, [dispatch, shouldRefetch]);
+
   return (
-    <div className='w-full p-2 my-6 '>
-      <span className='text-4xl font-bold flex tracking-widest justify-center items-center'>ROLE</span>
-      <div className='w-full grid grid-cols-2 gap-x-2 '>
-        <div className='w-full border rounded-md h-48 overflow-auto'>
-          <table className='w-full '>
-            <tr>
-              <th>ID</th>
-              <th>URL</th>
-              <th>NAME</th>
-              <th>ID PERMISSION</th>
-            </tr>
-            {menus?.length > 0 && menus.map(item => {
-              const handleClickRow = () => {
-                setPayloadm({
-                  ...payloadm, id: item.id, url: item.url,
-                  name: item.name, idPermission: item.idPermission
-                });
-              };
-              return (
-                <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className='text-center'>{item.id}</td>
-                  <td className='px-4'>{item.url}</td>
-                  <td className='px-4'>{item.name}</td>
-                  <td className='text-center'>{item.idPermission}</td>
-                </tr>
-              )
-            })}
+    <div className='role'>
+      <span className='title'>ROLE</span>
+      <div className='form-frame'>
+        <div className='list-table h-48'>
+          <table className='w-full'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>URL</th>
+                <th>NAME</th>
+                <th>ID PERMISSION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {menus?.length > 0 && menus.map(item => {
+                const handleClickRow = () => {
+                  setPayloadm({
+                    ...payloadm, id: item.id, url: item.url,
+                    name: item.name, idPermission: item.idPermission
+                  });
+                };
+                return (
+                  <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                    <td className='text-center'>{item.id}</td>
+                    <td className='px-4'>{item.url}</td>
+                    <td className='px-4'>{item.name}</td>
+                    <td className='text-center'>{item.idPermission}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
           </table>
         </div>
-        <div className='w-full grid grid-cols-2 gap-x-2'>
+        <div className='form'>
           <p className={stylep}>MENU</p>
-          <div className='grid grid-cols-3 gap-x-1'>
+          <div className='btn'>
             <Button
               text='DELETE'
               bgColor='bg-cancel'
@@ -202,11 +226,11 @@ const Role = () => {
             keyPayload={'name'}
             type='text'
           />
-          <div>
+          <div className='dropselect'>
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadm.idPermission}
               onChange={(e) => setPayloadm({ ...payloadm, idPermission: e.target.value })}
-              className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full ' >
+              className='outline-none bg-[#cacaca] p-2 rounded-md w-full ' >
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -216,34 +240,38 @@ const Role = () => {
         </div>
       </div>
 
-      <div className='w-full grid grid-cols-2 my-2 gap-x-2'>
-        <div className='w-full border rounded-md h-40 overflow-auto'>
+      <div className='form-frame'>
+        <div className='list-table h-40'>
           <table className='w-full '>
-            <tr>
-              <th>ID</th>
-              <th>NAME</th>
-              <th>ID PERMISSION</th>
-            </tr>
-            {allfunctions?.length > 0 && allfunctions.map(item => {
-              const handleClickRow = () => {
-                setPayloadf({
-                  ...payloadf, id: item.id, name: item.name,
-                  idPermission: item.idPermission
-                });
-              };
-              return (
-                <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className='text-center'>{item.id}</td>
-                  <td className='px-4'>{item.name}</td>
-                  <td className='text-center'>{item.idPermission}</td>
-                </tr>
-              )
-            })}
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ID PERMISSION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allfunctions?.length > 0 && allfunctions.map(item => {
+                const handleClickRow = () => {
+                  setPayloadf({
+                    ...payloadf, id: item.id, name: item.name,
+                    idPermission: item.idPermission
+                  });
+                };
+                return (
+                  <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                    <td className='text-center'>{item.id}</td>
+                    <td className='px-4'>{item.name}</td>
+                    <td className='text-center'>{item.idPermission}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
           </table>
         </div>
-        <div className='w-full grid grid-cols-2 gap-x-2'>
+        <div className='form'>
           <p className={stylep}>FUNCTION</p>
-          <div className='grid grid-cols-3 gap-x-1'>
+          <div className='btn'>
             <Button
               text='DELETE'
               bgColor='bg-cancel'
@@ -279,11 +307,11 @@ const Role = () => {
             keyPayload={'name'}
             type='text'
           />
-          <div>
+          <div className='dropselect'>
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadf.idPermission}
               onChange={(e) => setPayloadf({ ...payloadf, idPermission: e.target.value })}
-              className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full ' >
+              className='outline-none bg-[#cacaca] p-2 rounded-md w-full ' >
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.filter(item => item.id === 1 || item.id === 2).map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -294,34 +322,38 @@ const Role = () => {
         </div>
       </div>
 
-      <div className='w-full grid grid-cols-2 gap-x-2'>
-        <div className='w-full border rounded-md h-40 overflow-auto'>
-          <table className='w-full '>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>ID PERMISSION</th>
-            </tr>
-            {transfers?.length > 0 && transfers.map(item => {
-              const handleClickRow = () => {
-                setPayloadt({
-                  ...payloadt, id: item.id, name: item.name,
-                  idPermission: item.idPermission
-                });
-              };
-              return (
-                <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className='text-center'>{item.id}</td>
-                  <td className='px-4'>{item.name}</td>
-                  <td className='text-center'>{item.idPermission}</td>
-                </tr>
-              )
-            })}
+      <div className='form-frame'>
+        <div className='list-table h-40'>
+          <table className='w-full'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>ID PERMISSION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transfers?.length > 0 && transfers.map(item => {
+                const handleClickRow = () => {
+                  setPayloadt({
+                    ...payloadt, id: item.id, name: item.name,
+                    idPermission: item.idPermission
+                  });
+                };
+                return (
+                  <tr onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                    <td className='text-center'>{item.id}</td>
+                    <td className='px-4'>{item.name}</td>
+                    <td className='text-center'>{item.idPermission}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
           </table>
         </div>
-        <div className='w-full grid grid-cols-2 gap-x-2'>
+        <div className='form'>
           <p className={stylep}>Transfer</p>
-          <div className='grid grid-cols-3 gap-x-1'>
+          <div className='btn'>
             <Button
               text='DELETE'
               bgColor='bg-cancel'
@@ -356,11 +388,11 @@ const Role = () => {
             keyPayload={'name'}
             type='text'
           />
-          <div>
+          <div className='dropselect'>
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadt.idPermission}
               onChange={(e) => setPayloadt({ ...payloadt, idPermission: e.target.value })}
-              className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full ' >
+              className='outline-none bg-[#cacaca] p-2 rounded-md w-full ' >
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.filter(item => item.id === 1 || item.id === 2).map(item => (
                 <option value={item.id}>{item.name}</option>

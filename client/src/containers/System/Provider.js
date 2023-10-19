@@ -18,6 +18,7 @@ const Provider = () => {
   const [invalidFields, setInvalidFields] = useState([])
   const [searchValue, setSearchValue] = useState("");
   const [shouldReload, setShouldReload] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);
 
   const handleSearch = (event) => {
     setSearchValue(event.target.value);
@@ -44,7 +45,7 @@ const Provider = () => {
     let invalids = validate(finalPayload);
     if (invalids === 0) {
       dispatch(actions.createProviders(payload))
-      window.location.reload();
+      setShouldRefetch(true);
     }
   }
 
@@ -55,7 +56,7 @@ const Provider = () => {
   })
   const handleSubmitUpdate = async () => {
     dispatch(actions.updateProviders(payloadu))
-    window.location.reload();
+    setShouldRefetch(true);
   }
 
   const validate = (payload) => {
@@ -122,10 +123,30 @@ const Provider = () => {
     dispatch(actions.getPermissions())
   }, [searchParmas, permis, dispatch])
 
+  useEffect(() => {
+    if (shouldRefetch) {
+      let params = [];
+      for (let entry of searchParmas.entries()) params.push(entry);
+      let searchParamsObject = {}
+      params?.forEach(i => {
+        if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+        } else {
+          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+        }
+      })
+      if (permis) searchParamsObject.permis = permis
+      dispatch(actions.getProviders(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
+      setShouldRefetch(false);
+    }
+  }, [searchParmas, permis, dispatch, shouldRefetch])
+
   return (
-    <div className='w-full p-2 my-10'>
-      <div className='grid grid-cols-4'>
-        <span className='text-4xl font-bold col-span-3 tracking-widest justify-center items-center'>PROVIDER</span>
+    <div className='provider'>
+      <div className='header-provider'>
+        <span className='title'>PROVIDER</span>
         <input
           className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"
@@ -134,155 +155,157 @@ const Provider = () => {
           onChange={handleSearch}
         />
       </div>
-      <div className='mt-5'>
-        {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
-          <div className='w-full grid grid-cols-4 gap-2'>
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'NAME'}
-                value={payload.name}
-                setValue={setPayload}
-                keyPayload={'name'}
-                type='text'
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'PHONE'}
-                value={payload.phone}
-                setValue={setPayload}
-                keyPayload={'phone'}
-                type='tel'
-              />}
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'EMAIL'}
-                value={payload.email}
-                setValue={setPayload}
-                keyPayload={'email'}
-                type='email'
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'ADDRESS'}
-                value={payload.address}
-                setValue={setPayload}
-                keyPayload={'address'}
-                type='text'
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'STATE'}
-                value={payload.state}
-                setValue={setPayload}
-                keyPayload={'state'}
-                type='number'
-              />
-            }
-            {payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'NAME'}
-                value={payloadu.name}
-                setValue={setPayloadu}
-                keyPayload={'name'}
-                type='text'
-                disabled={true}
-              />
-            }
-            {payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'STATE'}
-                value={payloadu.state}
-                setValue={setPayloadu}
-                keyPayload={'state'}
-                type='number'
-              />
-            }
-            {payload.id && <div></div>}
-            {payload.id &&
-              <Button
-                class='col-span-2'
-                text={'UPDATE'}
-                value={payloadu.id}
-                setValue={setPayloadu}
-                bgColor='bg-green-800'
-                textColor='text-white'
-                onClick={handleSubmitUpdate}
-              />
-            }
-            {!payload.id && <div></div>}
-            {!payload.id && <div></div>}
-            {!payload.id &&
-              <Button
-                class='col-span-2'
-                text={'CREATE'}
-                bgColor='bg-secondary2'
-                textColor='text-white'
-                onClick={handleSubmitCreate}
-              />
-            }
-          </div>
-        ))}
-      </div>
-      <div className='mt-5'>
-        <table className='w-full border-collapse border-2 '>
-          <tr>
-            <th className='text-lg'>ID</th>
-            <th className='text-lg'>NAME</th>
-            <th className='text-lg'>PHONE</th>
-            <th className='text-lg'>EMAIL</th>
-            <th className='text-lg'>ADDRESS</th>
-            <th className='text-lg'>STATE</th>
-          </tr>
-          {shouldReload && filteredProviders.length > 0 && filteredProviders.map((item) => {
-            const handleClickRow = () => {
-              setPayload({ ...payload, id: item.id })
-              setPayloadu({
-                ...payloadu, id: item.id, name: item.name, state: item.state,
-              });
-            };
-            return (
-              <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                <td className={styletd}>{item.id}</td>
-                <td className='px-4 py-2'>{item.name}</td>
-                <td className={styletd}>{item.phone}</td>
-                <td className={styletd}>{item.email}</td>
-                <td className={styletd}>{item.address}</td>
-                <td className={styletd}>{item.state}</td>
-              </tr>
-            )
-          })}
-          {!shouldReload && providers && Array.isArray(providers) &&  providers?.length > 0 && providers.map(item => {
-            const handleClickRow = () => {
-              setPayload({ ...payload, id: item.id })
-              setPayloadu({
-                ...payloadu, id: item.id, name: item.name, state: item.state,
-              });
-            };
-            return (
-              <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                <td className={styletd}>{item.id}</td>
-                <td className='px-4 py-2'>{item.name}</td>
-                <td className={styletd}>{item.phone}</td>
-                <td className={styletd}>{item.email}</td>
-                <td className={styletd}>{item.address}</td>
-                <td className={styletd}>{item.state}</td>
-              </tr>
-            )
-          })}
+      {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
+        <div className='form-create'>
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'NAME'}
+              value={payload.name}
+              setValue={setPayload}
+              keyPayload={'name'}
+              type='text'
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields} label={'PHONE'}
+              value={payload.phone}
+              setValue={setPayload}
+              keyPayload={'phone'}
+              type='tel'
+            />}
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'EMAIL'}
+              value={payload.email}
+              setValue={setPayload}
+              keyPayload={'email'}
+              type='email'
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'ADDRESS'}
+              value={payload.address}
+              setValue={setPayload}
+              keyPayload={'address'}
+              type='text'
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields} label={'STATE'}
+              value={payload.state}
+              setValue={setPayload}
+              keyPayload={'state'}
+              type='number'
+            />
+          }
+          {payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'NAME'}
+              value={payloadu.name}
+              setValue={setPayloadu}
+              keyPayload={'name'}
+              type='text'
+              disabled={true}
+            />
+          }
+          {payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields} label={'STATE'}
+              value={payloadu.state}
+              setValue={setPayloadu}
+              keyPayload={'state'}
+              type='number'
+            />
+          }
+          {payload.id && <div></div>}
+          {payload.id &&
+            <Button
+              class='col-span-2'
+              text={'UPDATE'}
+              value={payloadu.id}
+              setValue={setPayloadu}
+              bgColor='bg-green-800'
+              textColor='text-white'
+              onClick={handleSubmitUpdate}
+            />
+          }
+          {!payload.id && <div></div>}
+          {!payload.id && <div></div>}
+          {!payload.id &&
+            <Button
+              class='col-span-2'
+              text={'CREATE'}
+              bgColor='bg-secondary2'
+              textColor='text-white'
+              onClick={handleSubmitCreate}
+            />
+          }
+        </div>
+      ))}
+      <div className='list-table'>
+        <table className='w-full'>
+          <thead>
+            <tr>
+              <th className='text-lg'>ID</th>
+              <th className='text-lg'>NAME</th>
+              <th className='text-lg'>PHONE</th>
+              <th className='text-lg'>EMAIL</th>
+              <th className='text-lg'>ADDRESS</th>
+              <th className='text-lg'>STATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shouldReload && filteredProviders.length > 0 && filteredProviders.map((item) => {
+              const handleClickRow = () => {
+                setPayload({ ...payload, id: item.id })
+                setPayloadu({
+                  ...payloadu, id: item.id, name: item.name, state: item.state,
+                });
+              };
+              return (
+                <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                  <td className={styletd}>{item.id}</td>
+                  <td className='px-4 py-2'>{item.name}</td>
+                  <td className={styletd}>{item.phone}</td>
+                  <td className={styletd}>{item.email}</td>
+                  <td className={styletd}>{item.address}</td>
+                  <td className={styletd}>{item.state}</td>
+                </tr>
+              )
+            })}
+            {!shouldReload && providers && Array.isArray(providers) && providers?.length > 0 && providers.map(item => {
+              const handleClickRow = () => {
+                setPayload({ ...payload, id: item.id })
+                setPayloadu({
+                  ...payloadu, id: item.id, name: item.name, state: item.state,
+                });
+              };
+              return (
+                <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                  <td className={styletd}>{item.id}</td>
+                  <td className='px-4 py-2'>{item.name}</td>
+                  <td className={styletd}>{item.phone}</td>
+                  <td className={styletd}>{item.email}</td>
+                  <td className={styletd}>{item.address}</td>
+                  <td className={styletd}>{item.state}</td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       </div>
       <Pagination
