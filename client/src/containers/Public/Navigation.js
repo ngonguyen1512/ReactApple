@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom'
 import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart'
 
-const notActive = 'hover:bg-[#101010] hover:text-white hover:font-bold rounded-b-xl px-8 h-full flex items-center gap-1'
 const { AiFillHome, BsCart4 } = icons
 
 const Navigation = () => {
@@ -27,15 +26,15 @@ const Navigation = () => {
   const parts = pathurl.split('/')[1]
 
   return (
-    <div className='w-full h-50 flex justify-center  bg-[#2f3033] text-white font-semibold '>
+    <div className='navigation'>
       {parts !== 'webserver' &&
-        <div className='w-1200 h-50 flex items-center justify-between'>
-          <NavLink to={`/`} className={notActive}><AiFillHome />HOME</NavLink>
+        <div className='nav-web'>
+          <NavLink to={`/`} className='content'><AiFillHome />HOME</NavLink>
           {categories?.length > 0 && categories.map(item => {
             if (item.state === 1) {
               return (
-                <div className='h-full flex jusitify-center items-center'>
-                  <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className={notActive}>
+                <div className='nav-db'>
+                  <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className='content'>
                     {item.name}
                   </NavLink>
                 </div>
@@ -45,7 +44,7 @@ const Navigation = () => {
           })}
           <CartContext.Consumer>
             {({ cartItems }) => (
-              <NavLink to={path.CART} className={notActive}>
+              <NavLink to={path.CART} className='content'>
                 <BsCart4 />
                 <span className=''>({cartItems.length})</span>
               </NavLink>
@@ -54,18 +53,18 @@ const Navigation = () => {
         </div>
       }
       {parts === 'webserver' &&
-        <div className='w-1200 h-50 flex items-center justify-between'>
+        <div className='nav-web'>
           {transfers?.length > 0 && transfers.map(item => {
             return (
-              <div className='h-full flex jusitify-center items-center'>
+              <>
                 {item.idPermission === currentData.idPermission &&
-                  <div className='h-full flex jusitify-center items-center'>
-                    <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className={notActive}>
+                  <div className='nav-db'>
+                    <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className='content'>
                       {item.name}
                     </NavLink>
                   </div>
                 }
-              </div>
+              </>
             )
           })}
         </div>

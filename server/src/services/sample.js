@@ -3,10 +3,7 @@ import db from '../models';
 //Get all categories
 export const getAllSamplesService = () => new Promise(async(resolve, reject) => {
     try {
-        // const whereClause = { state: '1' };
-        
         const response = await db.Sample.findAll({
-            where: whereClause,
             raw: true,
             include: [
                 {model: db.Category, as: 'categoriesmodel', attributes: ['name']},

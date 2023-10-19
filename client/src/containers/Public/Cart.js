@@ -14,20 +14,20 @@ const Cart = () => {
   const navigate = useNavigate()
 
   const goLogin = useCallback((flag) => {
-    navigate(path.LOGIN, { state: { flag } })
+    navigate('/' + path.LOGIN, { state: { flag } })
   }, [navigate])
 
   return (
-    <div className='w-1200 my-10 p-3'>
-      <p className='text-2xl font-bold tracking-wider ml-3'>YOUR CART</p>
+    <div className='cart'>
+      <p className='title'>YOUR CART</p>
       <CartContext.Consumer>
         {({ cartItems, updateQuantity, removeFromCart }) => {
           const total = cartItems.reduce((accumulator, product) =>
             accumulator + (product.price * product.quantity), 0);
           return (
-            <div className='w-full mt-5 '>
-              <table className='w-full  border rounded-lg border-black'>
-                <tr className='border-b '>
+            <div className='table'>
+              <table>
+                <tr className='border-b'>
                   <th>ID</th>
                   <th>NAME</th>
                   <th>QUANTITY</th>
@@ -64,15 +64,15 @@ const Cart = () => {
         }}
       </CartContext.Consumer>
       {!isLoggedIn &&
-        <div className="flex justify-center items-center mt-5">
-          <span>Please login to continue paying for the order!</span>
-          <Button text={'Đăng nhập'} bgColor='bg-secondary2' textColor='text-white' onClick={() => goLogin(false)} />
+        <div className='footer'>
+          <span className='mr-2'>Please login to continue paying for the order!</span>
+          <Button text={'Login'} bgColor='bg-secondary2' textColor='text-white' onClick={() => goLogin(false)} />
         </div>
       }
       {isLoggedIn &&
-        <div className='w-full flex mt-5 justify-center items-center gap-2'>
-          <Link to={path.HOME} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>COUNTINUE TO BUY</Link>
-          <Link to={'/' + path.PAYMENT} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>PAYMENT</Link>
+        <div className='footer'>
+          <Link to={path.HOME} className='btn bg-green-800'>COUNTINUE TO BUY</Link>
+          <Link to={'/' + path.PAYMENT} className='btn bg-secondary2'>PAYMENT</Link>
         </div>
       }
     </div>

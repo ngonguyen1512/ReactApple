@@ -96,10 +96,10 @@ const Login = () => {
     }, [msg, update]);
 
     return (
-        <div className='w-full flex items-center justify-center my-10'>
-            <div className="bg-white w-[500px] p-[30px] pb-24 shadow-sm rounded-lg border ">
-                <h3 className="font-bold text-3xl mb-12">{isRegister ? 'REGISTER' : 'LOGIN'}</h3>
-                <div className="w-full flex-col gap-5">
+        <div className='bg-frame'>
+            <div className='frame'>
+                <h3 className='title'>{isRegister ? 'REGISTER' : 'LOGIN'}</h3>
+                <div className='forminput'>
                     {isRegister &&
                         <InputForm
                             setInvalidFields={setInvalidFields}
@@ -141,7 +141,7 @@ const Login = () => {
                         type='password'
                     />
                 </div>
-                <div className="mt-12">
+                <div className='formbutton'>
                     <Button
                         text={isRegister ? 'REGISTER' : 'LOGIN'}
                         textColor='text-white'
@@ -150,9 +150,9 @@ const Login = () => {
                         onClick={handleSubmit}
                     />
                 </div>
-                <div className="mt-5 flex items-center justify-between">
+                <div className='transit'>
                     {
-                        isRegister ? <small>Do you have an account? <span className='text-blue-500 hover:underline cursor-pointer'
+                        isRegister ? <small>Do you have an account? <span className='text'
                             onClick={() => {
                                 setIsRegister(false)
                                 setPayload({
@@ -164,9 +164,9 @@ const Login = () => {
                                 })
                             }}>Login now</span></small>
                             : <>
-                                <small className='text-blue-500 hover:text-[red] cursor-pointer'
+                                <small className='text'
                                     onClick={() => { navigate('/' + path.FORGOT) }}>Forgot password</small>
-                                <small className='text-blue-500 hover:text-[red] cursor-pointer'
+                                <small className='text'
                                     onClick={() => {
                                         setIsRegister(true)
                                         setPayload({

@@ -21,23 +21,23 @@ const Detail = () => {
     }, [dispatch])
 
     return (
-        <div className='w-full flex flex-col justify-center'>
+        <div className='detail-product'>
             {products?.length > 0 && products.map(product => {
                 if (product.id === id) {
                     return (
-                        <div className='grid grid-cols-2 mb-10'>
-                            <div className='w-full flex justify-center   '>
+                        <div className='frame'>
+                            <div className='image'>
                                 <img src={product.image} alt={product.name} className='w-full' />
                             </div>
-                            <div className='mt-10 pl-10  border-l border-gray-600'>
-                                <p className=' font-bold text-4xl'>{product.name}</p>
-                                <p className='my-5 text-sm'>Promotion at: {product.address}</p>
-                                <p className='text-2xl font-semibold'>{product.price.toLocaleString().replace(',', '.')} VND</p>
-                                <div className='mx-1 my-5 bg-gray-200 rounded-lg shadow-md'>
-                                    <p className='p-3 border-b border-gray-500 font-semibold text-lg'>Promotion</p>
-                                    <p className='py-3 px-5 whitespace-pre-wrap'>{(product.promotion).split('.').join('.\u00a0\u00a0')}</p>
+                            <div className='content'>
+                                <p className='name'>{product.name}</p>
+                                <p className='address'>Promotion at: {product.address}</p>
+                                <p className='price'>{product.price.toLocaleString().replace(',', '.')} VND</p>
+                                <div className='promotion'>
+                                    <p className='title'>Promotion</p>
+                                    <p className='text'>{(product.promotion).split('.').join('.\u00a0\u00a0')}</p>
                                 </div>
-                                <div className='grid grid-cols-2 gap-2 h-14'>
+                                <div className='btn'>
                                     <CartContext.Consumer>
                                         {({ addToCart }) =>
                                             <>
@@ -63,7 +63,7 @@ const Detail = () => {
                                         }
                                     </CartContext.Consumer>
                                 </div>
-                                <p className='my-5  whitespace-pre-wrap'>{(product.information).split('.').join('.\u00a0\u00a0')}</p>
+                                <p className='information'>{(product.information).split('.').join('.\u00a0\u00a0')}</p>
                             </div>
                         </div>
                     )

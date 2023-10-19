@@ -41,7 +41,7 @@ const appReducer = (state = initState, action) => {
         case actionTypes.GET_SAMPLES:
             return {
                 ...state,
-                samples: action.samples || [],
+                samples: action.samples,
                 msg: action.msg || '',
             }
         case actionTypes.CREATE_SAMPLE_SUCCESS:

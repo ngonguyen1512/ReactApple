@@ -30,27 +30,27 @@ const Header = () => {
     }, [page, code, sample])
 
     return (
-        <div ref={headerRef} className='w-full h-60 bg-[#101010] flex justify-center '>
-            <div className='w-1200 h-60 flex items-center justify-between '>
+        <div ref={headerRef} className='header'>
+            <div className='content'>
                 <Link to={'/'}>
-                    <div className='flex gap-2.5 text-xl text-white font-bold font-sans tracking-wider hover:cursor-pointer items-center'>
+                    <div className='logo'>
                         <BsApple /> APPLE
                     </div>
                 </Link>
                 {!isLoggedIn &&
-                    <div className='flex items-center gap-1'>
-                        <span className='text-white mr-4'>apple.com HELLO! </span>
+                    <div className='login'>
+                        <span className='info'>apple.com HELLO!</span>
                         <Button
                             text={'LOGIN'}
-                            bgColor='bg-[#2f3033]'
+                            bgColor='bg-[#3482F6]'
                             textColor='text-white'
                             onClick={() => goLogin(false)}
                         />
                     </div>
                 }
                 {isLoggedIn &&
-                    <div className='flex items-center gap-1 relative'>
-                        <span className='text-white mr-4'>Hello, <b>{currentData.name}</b> </span>
+                    <div className='account'>
+                        <span className='info'>Hello, <b>{currentData.name}</b> </span>
                         <Button
                             text={'Account'}
                             textColor='text-white'
@@ -59,16 +59,14 @@ const Header = () => {
                             onClick={() => setIsShowMenu(prev => !prev)}
                         />
                         {isShowMenu &&
-                            <div className="absolute min-w-200 top-full bg-white shadow-md rounded-md py-3 px-5 right-0 flex z-50 flex-col">
+                            <div className='menu'>
                                 <Menu permis={currentData.idPermission} />
-                                <span
-                                    className='cursor-pointer border-t-2 border-gray-200 pt-2 flex items-center'
-                                    onClick={() => {
+                                <span onClick={() => {
                                         setIsShowMenu(false)
                                         dispatch(actions.logout())
                                         navigate(path.HOME)
                                     }}
-                                >LOGOUT</span>
+                                >Logout</span>
                             </div>
                         }
                     </div>

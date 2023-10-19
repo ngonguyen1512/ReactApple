@@ -5,7 +5,7 @@ import * as actions from '../store/actions'
 import { formatVietnameseToString } from '../utils/common/formatVietnameseToString'
 import { Link, useLocation, useNavigate, createSearchParams } from 'react-router-dom'
 
-const { GrNext } = icons
+const { AiOutlineCaretRight } = icons
 
 const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
 
@@ -58,7 +58,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                     to={`${formatVietnameseToString(item.name)}`}
                     key={item.id}
                     className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-                      hover:bg-secondary1 hover:text-white border-y border-gray-200 py-1' >
+                      hover:bg-secondary1 border-b border-gray-200 py-1' >
                     <p>{item.name}</p>
                   </Link>
                   {samples?.length > 0 && samples.map(items => {
@@ -72,7 +72,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                         >
                           {items.idCategory === item.id &&
                             <div className='flex gap-1 items-center'>
-                              <GrNext size={10} color='#E0E0E0' />
+                              <AiOutlineCaretRight className="custom-icon" />
                               <p>{items.name}</p>
                             </div>
                           }
@@ -90,7 +90,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
       {!isDouble &&
         <div>
           <p className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-          hover:bg-secondary1 hover:text-whitepy-1' >{texts}</p>
+          hover:bg-secondary1 py-1' >{texts}</p>
           {content?.length > 0 && list?.length > 0 && content.map(item => {
             if (item.state === 1) {
               return (
@@ -108,7 +108,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                             <div>
                               {items.idCategory === item.id && items.idCategory === itemsss.id && itemsss.name === list &&
                                 <div className='flex gap-1 items-center'>
-                                  <GrNext size={10} color='#E0E0E0' />
+                                  <AiOutlineCaretRight className="custom-icon" />
                                   <p>{items.name}</p>
                                 </div>
                               }
@@ -135,7 +135,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                   className={`flex pl-5 flex-1 gap-1 items-center cursor-pointer hover:text-blue-500 
                     ${selectedDiv === item.left.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                 >
-                  <GrNext size={10} color='#ccc' />
+                  <AiOutlineCaretRight className="custom-icon" />
                   <p>{item.left.value}</p>
 
                 </div>
@@ -144,7 +144,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                   className={`flex pl-5 flex-1 gap-1 items-center cursor-pointer hover:text-blue-500 
                       ${selectedDiv === item.right.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                 >
-                  <GrNext size={10} color='#ccc' />
+                  <AiOutlineCaretRight className="custom-icon" />
                   <p>{item.right.value}</p>
                 </div>
               </div>

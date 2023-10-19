@@ -22,7 +22,7 @@ const Retal = () => {
     <div className='w-full flex flex-col justify-center'>
       <p className="flex my-10 font-bold uppercase text-4xl tracking-widest justify-center items-center">{lastPart}</p>
       <div className='w-[100%] flex gap-1'>
-        <div className='w-[24%] flex flex-col gap-4 mt-4 mb-5 items-center justify-start'>
+        <div className='w-[24%] flex flex-col gap-4 mb-5 items-center justify-start'>
           <ItemSidebar content={categories} type='sample' list={lastPart} texts={lastPart} title='Product list'/>
           <ItemSidebar isDouble={true} type='code' content={prices} title='Sort by price'/>
         </div>

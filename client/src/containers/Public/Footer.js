@@ -1,7 +1,8 @@
 import React from 'react';
 import icons from '../../utils/icons';
 import { NavLink } from 'react-router-dom';
-const { BsApple } = icons
+const { BsApple, AiFillInstagram, BiLogoFacebookCircle, AiFillYoutube } = icons
+
 const Footer = () => {
     return (
         <div className='w-screen bg-secondary1 min-h-[400px] pt-10'>
@@ -10,13 +11,14 @@ const Footer = () => {
                 <div>
                     <ul>
                         <li className='font-extrabold'>CONTACT</li>
-                        <li>Purchase: 1900.9696.42 (7:00 - 22:00)</li>
-                        <li>Customer care: 1900.9696.43 (8:00 - 21:30)</li>
-                        <li>Connect with us.</li>
+                        <li>(7:00 - 22:00)<br/>Purchase: 1900.9696.42</li>
+                        <li>(8:00 - 21:30)<br/>Customer care: 1900.9696.43</li>
+                        <li>Connect with us</li>
                         <li>
                             <div className='flex gap-3 leading-9'>
-                                <NavLink className='text-[#FFFFFF] text-3xl font-semibold'>{icons.FB}</NavLink>
-                                <NavLink className='text-[#FFFFFF] text-3xl font-semibold'>{icons.YT}</NavLink>
+                                <NavLink className='text-[#FFFFFF] text-3xl font-semibold'><AiFillYoutube/></NavLink>
+                                <NavLink className='text-[#FFFFFF] text-3xl font-semibold'><AiFillInstagram/></NavLink>
+                                <NavLink className='text-[#FFFFFF] text-3xl font-semibold'><BiLogoFacebookCircle/></NavLink>
                             </div>
                         </li>
                     </ul>
@@ -41,7 +43,7 @@ const Footer = () => {
                 </div>
                 <div>
                     <ul>
-                        <li className='font-extrabold'>APPLECARE SERVICE CENTER</li>
+                        <li className='font-extrabold'>SERVICE CENTER</li>
                         <li>Introduce AppleCare</li>
                     </ul>
                 </div>

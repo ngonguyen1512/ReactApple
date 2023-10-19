@@ -72,10 +72,10 @@ const Forgot = () => {
     }
 
     return (
-        <div className='w-full flex items-center justify-center my-10'>
-            <div className="bg-white w-[500px] p-[30px] pb-24 shadow-sm rounded-lg border ">
-                <h3 className="font-bold text-3xl mb-12">FORGOT PASSWORD</h3>
-                <div className="w-full flex-col gap-5">
+        <div className='bg-frame'>
+            <div className='frame'>
+                <h3 className='title'>FORGOT PASSWORD</h3>
+                <div className='forminput'>
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
@@ -94,15 +94,16 @@ const Forgot = () => {
                         keyPayload={'email'}
                         type='email'
                     />
-                    <div className="mt-12">
-                        <Button
-                            text='GET NEW PASSWORD'
-                            textColor='text-white'
-                            bgColor='bg-secondary2'
-                            fullWidth
-                            onClick={handleSubmit}
-                        />
-                    </div>
+
+                </div>
+                <div className="formbutton">
+                    <Button
+                        text='GET NEW PASSWORD'
+                        textColor='text-white'
+                        bgColor='bg-secondary2'
+                        fullWidth
+                        onClick={handleSubmit}
+                    />
                 </div>
             </div>
         </div>

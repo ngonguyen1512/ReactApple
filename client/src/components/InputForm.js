@@ -7,7 +7,7 @@ const InputForm = ({label, text, value, setValue, keyPayload, type, invalidField
       <input 
         type={type} 
         id={keyPayload}
-        className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+        className='outline-none bg-[#3e3e3f] p-2 rounded-md w-full '
         value={value}
         placeholder={text} 
         onChange={(e) => setValue(prev => ({...prev, [keyPayload]: e.target.value}))}

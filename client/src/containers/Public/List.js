@@ -26,23 +26,20 @@ const List = ({ category }) => {
   }, [searchParmas, category, dispatch]);
 
   return (
-    <div className='w-full p-2'>
-      <p className='text-xl font-semibold tracking-wider'>ALL PRODUCTS</p>
-      <div className='w-full grid grid-cols-3 gap-2 items-center justify-between'>
-        {products?.length > 0 && products.map(item => item.state === 1 &&
-          <Item
-            key={item?.id}
-            name={item?.name}
-            discount={item?.discount}
-            price={item?.price}
-            image={item?.image}
-            idCategory={item?.idCategory}
-            nameCategory={item?.categories?.name}
-            id={item?.id}
-            item={item}
-          />
-        )}
-      </div>
+    <div className='list'>
+      {products?.length > 0 && products.map(item => item.state === 1 &&
+        <Item
+          key={item?.id}
+          name={item?.name}
+          discount={item?.discount}
+          price={item?.price}
+          image={item?.image}
+          idCategory={item?.idCategory}
+          nameCategory={item?.categories?.name}
+          id={item?.id}
+          item={item}
+        />
+      )}
     </div>
   )
 }
