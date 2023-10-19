@@ -159,6 +159,29 @@
     flex-direction: column;
 }
 
+.notice {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15% 0;
+}
+.notice .form {
+    background-color: #fff;
+    border-radius: 1rem;
+    width: 31rem;
+    padding: 2rem;
+}
+.notice .form h2 {
+    font-size: x-large;
+    letter-spacing: 0.1em;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    color: #ff0000;
+}
+
+
 .homepage {
     width: 100%;
     display: flex;

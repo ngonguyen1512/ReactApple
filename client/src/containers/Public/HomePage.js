@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ItemSidebar } from '../../components';
 import { List, Pagination, RelatedProduct } from './index';
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,7 +6,8 @@ import * as actions from '../../store/actions'
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { countp } = useSelector(state => state.product)
+  const { countp, products } = useSelector(state => state.product)
+  const [currentPage, setCurrentPage] = useState(1);
   const { categories, prices } = useSelector(state => state.app)
   useEffect(() => {
     dispatch(actions.getPrices());
@@ -22,7 +23,8 @@ const HomePage = () => {
         </div>
         <div className='list-pagination' >
           <List />
-          <Pagination count={countp} />
+          <Pagination count={countp} currentPage={currentPage}
+            setCurrentPage={setCurrentPage} counts={products} />
         </div>
       </div>
     </div>

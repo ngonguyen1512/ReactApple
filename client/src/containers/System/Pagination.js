@@ -4,46 +4,46 @@ import icons from '../../utils/icons';
 
 const { GrNext, GrPrevious } = icons;
 
-const Pagination = ({count, currentPage, setCurrentPage, counts}) => {
+const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
   const [arrPage, setArrPage] = useState([]);
   const [isHideEnd, setIsHideEnd] = useState(false);
   const [isHideStart, setIsHideStart] = useState(false);
 
   useEffect(() => {
-      let maxPage = Math.ceil(count / 9);
-      let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2)
-      let start = (currentPage - 2) <= 1 ? 1 : (currentPage - 2)
-      let temp = [];
-      for (let i = start; i <= end; i++) 
-        temp.push(i);
-      setArrPage(temp);
-      currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false)
-      currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false)
+    let maxPage = Math.ceil(count / 9);
+    let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2)
+    let start = (currentPage - 2) <= 1 ? 1 : (currentPage - 2)
+    let temp = [];
+    for (let i = start; i <= end; i++)
+      temp.push(i);
+    setArrPage(temp);
+    currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false)
+    currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false)
   }, [count, currentPage]);
 
   return (
     <div className='mt-10 flex items-center justify-center gap-2'>
-      {!isHideStart && <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage}/>}
-      {!isHideStart && <PageNumber text={'...'}/>}
+      {!isHideStart && <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />}
+      {!isHideStart && <PageNumber text={'...'} />}
       {arrPage.length > 0 && arrPage.map(item => {
         return (
-          <PageNumber 
+          <PageNumber
             key={item}
-            text = {item}
+            text={item}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
           />
         )
-      })}  
-      {!isHideEnd && <PageNumber text={'...'}/>}
-      {!isHideEnd && 
-        <PageNumber 
-          icon={<GrNext />} 
-          text={Math.ceil(count / counts.length)} 
-          setCurrentPage={setCurrentPage} 
+      })}
+      {!isHideEnd && <PageNumber text={'...'} />}
+      {!isHideEnd &&
+        <PageNumber
+          icon={<GrNext />}
+          text={Math.ceil(count / counts.length)}
+          setCurrentPage={setCurrentPage}
           type='end'
         />
-      }   
+      }
     </div>
   )
 }

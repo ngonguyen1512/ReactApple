@@ -7,6 +7,8 @@ import {formatVietnameseToString} from '../../utils/common/formatVietnameseToStr
 
 const Retal = () => {
   const { categories, prices } = useSelector(state => state.app)
+  const { countp, products } = useSelector(state => state.product)
+  const [currentPage, setCurrentPage] = useState(1);
   const [idCategory, setIdCategory] = useState('none');
   const location = useLocation()
   const path = location.pathname;
@@ -28,7 +30,8 @@ const Retal = () => {
         </div>
         <div className='w-[76%]' >
           <List category={idCategory} />
-          <Pagination />
+          <Pagination count={countp} currentPage={currentPage}
+            setCurrentPage={setCurrentPage} counts={products} />
         </div>
       </div>
     </div>
