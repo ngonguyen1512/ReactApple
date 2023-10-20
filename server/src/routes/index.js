@@ -12,6 +12,7 @@ import functionRouter from './function';
 import permissionRouter from './permission'
 import providerRouter from './provider'
 import invoiceRouter from './invoice'
+import likeRouter from './like'
 
 const initRoutes = (app) => {
     app.use('/api/v1/auth', authRouter)
@@ -28,6 +29,7 @@ const initRoutes = (app) => {
     app.use('/api/v1/permission', permissionRouter)
     app.use('/api/v1/provider', providerRouter)
     app.use('/api/v1/invoice', invoiceRouter)
+    app.use('/api/v1/like', likeRouter)
 
     return app.use('/', (req, res) => {
         res.send('Server on...');

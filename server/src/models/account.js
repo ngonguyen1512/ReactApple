@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Account.belongsTo(models.Permission, {foreignKey: 'idPermission', targetKey: 'id', as: 'permissionsAccount'});
-      
+      Account.belongsTo(models.Permission, { foreignKey: 'idPermission', targetKey: 'id', as: 'permissionsAccount' });
+      Account.hasOne(models.Like, { foreignKey: 'idAccount', as: 'like_account' })
     }
   }
   Account.init({

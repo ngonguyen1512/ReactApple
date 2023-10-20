@@ -8,6 +8,7 @@ import functionReducer from "./functionReducer";
 import permissionReducer from "./permissionReducer";
 import providerReducer from "./providerReducer"
 import invoiceReducer from "./invoiceReducer";
+import likeReducer from "./likeReducer";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
     permission: permissionReducer,
     provider: providerReducer,
     invoice: invoiceReducer,
+    like: likeReducer,
 })
 
 export default rootReducer;

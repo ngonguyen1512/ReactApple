@@ -5,7 +5,7 @@ const initState = {
     count: 0,
 }
 
-const functionReducer = (state = initState, action) => {
+const providerReducer = (state = initState, action) => {
     switch (action.type) {
         case actionTypes.GET_PROVIDER:
             return {
@@ -13,7 +13,7 @@ const functionReducer = (state = initState, action) => {
                 providers: action.providers || [],
                 msg: action.msg || '',
                 count: action.count || 0
-            } 
+            }
         case actionTypes.CREATE_PROVIDER_SUCCESS:
             return {
                 ...state,
@@ -37,4 +37,4 @@ const functionReducer = (state = initState, action) => {
 
 }
 
-export default functionReducer;
+export default providerReducer;

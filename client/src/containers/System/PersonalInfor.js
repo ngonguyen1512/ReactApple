@@ -10,6 +10,8 @@ const PersonalInfor = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { invoicesall } = useSelector(state => state.invoice)
+    const { likes } = useSelector(state => state.like)
+    console.log(likes)
     const { currentData } = useSelector(state => state.user)
     const idcurrent = parseInt(currentData.id)
     const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
@@ -41,13 +43,14 @@ const PersonalInfor = () => {
 
     useEffect(() => {
         dispatch(actions.getInvoices())
+        dispatch(actions.getLikes())
     }, [dispatch])
 
     return (
-        <div className='w-1200 my-10 p-3 '>
-            <div>
-                <span className='font-bold text-2xl text-center'>PERSONAL INFORMATION</span>
-                <div className='w-full py-4 px-10 grid grid-cols-3 gap-3'>
+        <div className='personalInfo'>
+            <div className='formaccout'>
+                <span className='title'>PERSONAL INFORMATION</span>
+                <div className='table-account-form'>
                     <table onClick={handleClickRow}>
                         <tr>
                             <th>ID</th>
@@ -66,7 +69,7 @@ const PersonalInfor = () => {
                             <td>{currentData.email}</td>
                         </tr>
                     </table>
-                    <div className='col-span-2 grid grid-cols-2 gap-3'>
+                    <div className='form'>
                         <InputForm
                             setInvalidFields={setInvalidFields}
                             invalidFields={invalidFields}
@@ -126,7 +129,7 @@ const PersonalInfor = () => {
                 </div>
             </div>
 
-            <span className='font-semibold text-xl'>YOUR ORDER</span>
+            <span className='title'>YOUR ORDER</span>
 
             <div className='py-5 px-10 grid grid-cols-3 gap-4'>
                 <div className='h-40 overflow-auto'>
