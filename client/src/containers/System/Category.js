@@ -18,6 +18,7 @@ const Category = () => {
   const [invalidFields, setInvalidFields] = useState([])
   const [searchValue, setSearchValue] = useState("");
   const [shouldReload, setShouldReload] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);
 
   const handleSearch = (event) => {
     setSearchValue(event.target.value);
@@ -39,12 +40,12 @@ const Category = () => {
     let invalids = validate(finalPayload);
     if (invalids === 0) {
       dispatch(actions.createCategories(payload))
-      window.location.reload();
+      setShouldRefetch(true);
     }
   }
   const handleSubmitUpdate = async () => {
     dispatch(actions.updateCategories(payload))
-    window.location.reload();
+    setShouldRefetch(true);
   }
 
   const validate = (payload) => {
@@ -87,107 +88,130 @@ const Category = () => {
     dispatch(actions.getCategories())
   }, [searchParmas, permis, dispatch])
 
+  useEffect(() => {
+    if (shouldRefetch) {
+      let params = [];
+      for (let entry of searchParmas.entries()) params.push(entry);
+      let searchParamsObject = {}
+      params?.forEach(i => {
+        if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
+          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+        else
+          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+      })
+      if (permis) searchParamsObject.permis = permis
+      dispatch(actions.getLimitCategories(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
+      dispatch(actions.getCategories())
+      setShouldRefetch(false);
+    }
+  }, [searchParmas, permis, dispatch, shouldRefetch])
+
   return (
-    <div className='w-full p-2 my-10'>
-      <div className='grid grid-cols-4'>
-        <span className='text-4xl font-bold col-span-3 tracking-widest justify-center items-center'>CATEGORY</span>
+    <div className='category'>
+      <div className='header-category'>
+        <span className='title'>CATEGORY</span>
         <input
-          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"
           placeholder='Search by name'
           value={searchValue}
           onChange={handleSearch}
         />
       </div>
-      <div className='mt-5'>
-        {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
-          <div className='w-full grid grid-cols-4 gap-2'>
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields}
-              label={'NAME'}
-              value={payload.name}
+      {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
+        <div className='form-create'>
+          <InputForm
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            label={'NAME'}
+            value={payload.name}
+            setValue={setPayload}
+            keyPayload={'name'}
+            type='text'
+          />
+          <InputForm
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields}
+            label={'IMAGE'}
+            value={payload.image}
+            setValue={setPayload}
+            keyPayload={'image'}
+            type='text'
+          />
+          <InputForm
+            setInvalidFields={setInvalidFields}
+            invalidFields={invalidFields} label={'STATE'}
+            value={payload.state}
+            setValue={setPayload}
+            keyPayload={'state'}
+            type='number'
+          />
+          {payload.id &&
+            <Button
+              class='col-span-2'
+              text={'UPDATE'}
+              value={payload.id}
               setValue={setPayload}
-              keyPayload={'name'}
-              type='text'
+              bgColor='bg-green-800'
+              textColor='text-white'
+              onClick={handleSubmitUpdate}
             />
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields}
-              label={'IMAGE'}
-              value={payload.image}
-              setValue={setPayload}
-              keyPayload={'image'}
-              type='text'
+          }
+          {!payload.id &&
+            <Button
+              class='col-span-2'
+              text={'CREATE'}
+              bgColor='bg-secondary2'
+              textColor='text-white'
+              onClick={handleSubmitCreate}
             />
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields} label={'STATE'}
-              value={payload.state}
-              setValue={setPayload}
-              keyPayload={'state'}
-              type='number'
-            />
-            {payload.id &&
-              <Button
-                class='col-span-2'
-                text={'UPDATE'}
-                value={payload.id}
-                setValue={setPayload}
-                bgColor='bg-green-800'
-                textColor='text-white'
-                onClick={handleSubmitUpdate}
-              />
-            }
-            {!payload.id &&
-              <Button
-                class='col-span-2'
-                text={'CREATE'}
-                bgColor='bg-secondary2'
-                textColor='text-white'
-                onClick={handleSubmitCreate}
-              />
-            }
-          </div>
-        ))}
-      </div>
-      <div className='mt-5'>
-        <table className='w-full border-collapse border-2 '>
-          <tr>
-            <th className='text-lg'>ID</th>
-            <th className='text-lg w-[10%]'>IMAGE</th>
-            <th className='text-lg'>NAME</th>
-          </tr>
-          {shouldReload && filteredCategories.length > 0 && filteredCategories.map((item) => {
-            const handleClickRow = () => {
-              setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
-            }
-            return (
-              <tr key={categories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                <td className={styletd}>{item.id}</td>
-                <td className='w-[10%]'>
-                  <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
-                </td>
-                <td className='px-4 py-2'>{item.name}</td>
-                <td className={styletd}>{item.state}</td>
-              </tr>
-            )
-          })}
-          {!shouldReload && limitcategories?.length > 0 && limitcategories.map(item => {
-            const handleClickRow = () => {
-              setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
-            }
-            return (
-              <tr key={limitcategories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                <td className={styletd}>{item.id}</td>
-                <td className='w-[10%]'>
-                  <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
-                </td>
-                <td className='px-4 py-2'>{item.name}</td>
-                <td className={styletd}>{item.state}</td>
-              </tr>
-            )
-          })}
+          }
+        </div>
+      ))}
+      <div className='list-table'>
+        <table className='w-full'>
+          <thead>
+            <tr>
+              <th className='text-lg'>ID</th>
+              <th className='text-lg w-[10%]'>IMAGE</th>
+              <th className='text-lg'>NAME</th>
+              <th className='text-lg'>STATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shouldReload && filteredCategories.length > 0 && filteredCategories.map((item) => {
+              const handleClickRow = () => {
+                setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
+              }
+              return (
+                <tr key={categories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                  <td className={styletd}>{item.id}</td>
+                  <td className='w-[10%]'>
+                    <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
+                  </td>
+                  <td className='px-4 py-2'>{item.name}</td>
+                  <td className={styletd}>{item.state}</td>
+                </tr>
+              )
+            })}
+            {!shouldReload && limitcategories?.length > 0 && limitcategories.map(item => {
+              const handleClickRow = () => {
+                setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
+              }
+              return (
+                <tr key={limitcategories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                  <td className={styletd}>{item.id}</td>
+                  <td className='w-[10%]'>
+                    <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
+                  </td>
+                  <td className='px-4 py-2'>{item.name}</td>
+                  <td className={styletd}>{item.state}</td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       </div>
       <Pagination count={count} currentPage={currentPage}

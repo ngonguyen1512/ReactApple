@@ -143,12 +143,32 @@ const Provider = () => {
     }
   }, [searchParmas, permis, dispatch, shouldRefetch])
 
+  useEffect(() => {
+    if (shouldRefetch) {
+      let params = [];
+      for (let entry of searchParmas.entries()) params.push(entry);
+      let searchParamsObject = {}
+      params?.forEach(i => {
+        if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+        } else {
+          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+        }
+      })
+      if (permis) searchParamsObject.permis = permis
+      dispatch(actions.getProviders(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
+      setShouldRefetch(false);
+    }
+  }, [searchParmas, permis, dispatch, shouldRefetch])
+
   return (
     <div className='provider'>
       <div className='header-provider'>
         <span className='title'>PROVIDER</span>
         <input
-          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
           type="text"
           placeholder='Search by name'
           value={searchValue}

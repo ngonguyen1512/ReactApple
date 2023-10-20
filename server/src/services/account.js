@@ -11,7 +11,7 @@ export const getCountAccountService = () => new Promise(async (resolve, reject) 
             raw: true,
             nest: true,
         });
-        response = response && bcrypt.compareSync(password, response.password);
+        // response = response && bcrypt.compareSync(password, response.password);
         resolve({
             err: response ? 0 : 1,
             msg: response ? 'OK' : 'Failed to get category',

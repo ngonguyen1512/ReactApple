@@ -20,6 +20,7 @@ const Account = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [shouldReload, setShouldReload] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);
 
   useEffect(() => {
     let page = searchParmas.get('page');
@@ -53,7 +54,7 @@ const Account = () => {
     let invalids = validate(finalPayload);
     if (invalids === 0) {
       dispatch(actions.register(payload))
-      window.location.reload();
+      setShouldRefetch(true);
     }
   }
 
@@ -64,7 +65,7 @@ const Account = () => {
   })
   const handleSubmitUpdate = async () => {
     dispatch(actions.updateStateAccount(payloadu))
-    window.location.reload();
+    setShouldRefetch(true);
   }
 
   const validate = (payload) => {
@@ -150,163 +151,185 @@ const Account = () => {
     dispatch(actions.getPermissions())
   }, [searchParmas, permis, dispatch])
 
+  useEffect(() => {
+    if (shouldRefetch) {
+      let params = [];
+      for (let entry of searchParmas.entries()) params.push(entry);
+      let searchParamsObject = {}
+      params?.forEach(i => {
+        if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+        } else {
+          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+        }
+      })
+      if (permis) searchParamsObject.permis = permis
+      dispatch(actions.getAccounts(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
+      setShouldRefetch(false);
+    }
+  }, [searchParmas, permis, dispatch, shouldRefetch])
+
   return (
-    <div className='w-full p-2 my-10'>
-      <div className='grid grid-cols-4'>
-        <span className='text-4xl font-bold tracking-widest justify-center items-center col-span-3'>ACCOUNT</span>
+    <div className='account'>
+      <div className='header-account'>
+        <span className='title'>ACCOUNT</span>
         <input
-          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
           type="text"
           placeholder='Search by name'
           value={searchValue}
           onChange={handleSearch}
         />
       </div>
-      <div className='mt-5'>
-        {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
-          <div className='w-full grid grid-cols-4 gap-2'>
-            {payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'NAME'}
-                value={payloadu.name}
-                setValue={setPayloadu}
-                keyPayload={'name'}
-                type='text'
-                disabled={true}
-              />
-            }
-            {payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'STATE'}
-                value={payloadu.state}
-                setValue={setPayloadu}
-                keyPayload={'state'}
-                type='number'
-              />
-            }
-            {payload.id && <div></div>}
-            {payload.id &&
-              <Button
-                class='col-span-2'
-                text={'UPDATE'}
-                value={payloadu.id}
-                setValue={setPayloadu}
-                bgColor='bg-green-800'
-                textColor='text-white'
-                onClick={handleSubmitUpdate}
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'NAME'}
-                value={payload.name}
-                setValue={setPayload}
-                keyPayload={'name'}
-                type='text'
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'EMAIL'}
-                value={payload.email}
-                setValue={setPayload}
-                keyPayload={'email'}
-                type='email'
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'PHONE'}
-                value={payload.phone}
-                setValue={setPayload}
-                keyPayload={'phone'}
-                type='tel'
-              />
-            }
-            {!payload.id &&
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'PASSWORD'}
-                value={payload.password}
-                setValue={setPayload}
-                keyPayload={'password'}
-                type='password'
-              />
-            }
-            {!payload.id &&
-              <div className='col-span-3'></div>
-            }
-            {!payload.id &&
-              <Button
-                class='col-span-2'
-                text={'CREATE'}
-                bgColor='bg-secondary2'
-                textColor='text-white'
-                onClick={handleSubmitCreate}
-              />
-            }
-          </div>
-        ))}
-      </div>
-      <div className='mt-5'>
-        <table className='w-full border-collapse border-2 '>
-          <tr>
-            <th className='text-lg'>ID</th>
-            <th className='text-lg'>CREATED AT</th>
-            <th className='text-lg'>NAME</th>
-            <th className='text-lg'>EMAIL</th>
-            <th className='text-lg'>PHONE</th>
-            <th className='text-lg'>PERMISSION</th>
-            <th className='text-lg'>STATE</th>
-          </tr>
-          {shouldReload && filteredAccounts.length > 0 && filteredAccounts.map((item) => {
-            const handleClickRow = () => {
-              setPayload({ ...payload, id: item.id })
-              setPayloadu({
-                ...payloadu, id: item.id, name: item.name, state: item.state,
-              });
-            };
-            return (
-              <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                <td className={styletd}>{item.id}</td>
-                <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
-                <td className='px-4 py-2'>{item.name}</td>
-                <td className='px-4 py-2'>{item.email}</td>
-                <td className={styletd}>{item.phone}</td>
-                <td className={styletd}>{item.idPermission}</td>
-                <td className={styletd}>{item.state}</td>
-              </tr>
-            )
-          })}
+      {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
+        <div className='form-create'>
+          {payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'NAME'}
+              value={payloadu.name}
+              setValue={setPayloadu}
+              keyPayload={'name'}
+              type='text'
+              disabled={true}
+            />
+          }
+          {payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields} label={'STATE'}
+              value={payloadu.state}
+              setValue={setPayloadu}
+              keyPayload={'state'}
+              type='number'
+            />
+          }
+          {payload.id && <div></div>}
+          {payload.id &&
+            <Button
+              class='col-span-2'
+              text={'UPDATE'}
+              value={payloadu.id}
+              setValue={setPayloadu}
+              bgColor='bg-green-800'
+              textColor='text-white'
+              onClick={handleSubmitUpdate}
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'NAME'}
+              value={payload.name}
+              setValue={setPayload}
+              keyPayload={'name'}
+              type='text'
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'EMAIL'}
+              value={payload.email}
+              setValue={setPayload}
+              keyPayload={'email'}
+              type='email'
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields} label={'PHONE'}
+              value={payload.phone}
+              setValue={setPayload}
+              keyPayload={'phone'}
+              type='tel'
+            />
+          }
+          {!payload.id &&
+            <InputForm
+              setInvalidFields={setInvalidFields}
+              invalidFields={invalidFields}
+              label={'PASSWORD'}
+              value={payload.password}
+              setValue={setPayload}
+              keyPayload={'password'}
+              type='password'
+            />
+          }
+          {!payload.id &&
+            <div className='col-span-3'></div>
+          }
+          {!payload.id &&
+            <Button
+              class='col-span-2'
+              text={'CREATE'}
+              bgColor='bg-secondary2'
+              textColor='text-white'
+              onClick={handleSubmitCreate}
+            />
+          }
+        </div>
+      ))}
+      <div className='list-table'>
+        <table className='w-full'>
+          <thead>
+            <tr>
+              <th className='text-lg'>ID</th>
+              <th className='text-lg'>CREATED AT</th>
+              <th className='text-lg'>NAME</th>
+              <th className='text-lg'>EMAIL</th>
+              <th className='text-lg'>PHONE</th>
+              <th className='text-lg'>PERMISSION</th>
+              <th className='text-lg'>STATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shouldReload && filteredAccounts.length > 0 && filteredAccounts.map((item) => {
+              const handleClickRow = () => {
+                setPayload({ ...payload, id: item.id })
+                setPayloadu({
+                  ...payloadu, id: item.id, name: item.name, state: item.state,
+                });
+              };
+              return (
+                <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                  <td className={styletd}>{item.id}</td>
+                  <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
+                  <td className='px-4 py-2'>{item.name}</td>
+                  <td className='px-4 py-2'>{item.email}</td>
+                  <td className={styletd}>{item.phone}</td>
+                  <td className={styletd}>{item.idPermission}</td>
+                  <td className={styletd}>{item.state}</td>
+                </tr>
+              )
+            })}
 
-          {!shouldReload && accounts && Array.isArray(accounts) && accounts?.length > 0 && accounts.map(item => {
-            const handleClickRow = () => {
-              setPayload({ ...payload, id: item.id })
-              setPayloadu({
-                ...payloadu, id: item.id, name: item.name, state: item.state,
-              });
-            };
-            return (
-              <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                <td className={styletd}>{item.id}</td>
-                <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
-                <td className='px-4 py-2'>{item.name}</td>
-                <td className='px-4 py-2'>{item.email}</td>
-                <td className={styletd}>{item.phone}</td>
-                <td className={styletd}>{item.idPermission}</td>
-                <td className={styletd}>{item.state}</td>
-              </tr>
-            )
-          })}
+            {!shouldReload && accounts && Array.isArray(accounts) && accounts?.length > 0 && accounts.map(item => {
+              const handleClickRow = () => {
+                setPayload({ ...payload, id: item.id })
+                setPayloadu({
+                  ...payloadu, id: item.id, name: item.name, state: item.state,
+                });
+              };
+              return (
+                <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+                  <td className={styletd}>{item.id}</td>
+                  <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
+                  <td className='px-4 py-2'>{item.name}</td>
+                  <td className='px-4 py-2'>{item.email}</td>
+                  <td className={styletd}>{item.phone}</td>
+                  <td className={styletd}>{item.idPermission}</td>
+                  <td className={styletd}>{item.state}</td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       </div>
       <Pagination

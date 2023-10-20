@@ -3,10 +3,25 @@ import { Header, Navigation } from '../Public/index'
 import { Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
+import $ from 'jquery'
 
 const HomeServer = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(state => state.auth)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      var scroll = $(window).scrollTop();
+      if (scroll > 0)
+        $('.navigation').addClass('fixed');
+      else
+        $('.navigation').removeClass('fixed');
+    };
+    $(window).scroll(handleScroll);
+    return () => {
+      $(window).off('scroll', handleScroll);
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     setTimeout(() => {

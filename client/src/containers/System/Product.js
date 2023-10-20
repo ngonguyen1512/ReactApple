@@ -108,7 +108,7 @@ const Product = () => {
                   <td className={styletd}>{item.idCategory}</td>
                   <td className={styletd}>{item.quantity}</td>
                   <td className={styletd}>{item.discount}</td>
-                  <td className={styletd}>{item.price}</td>
+                  <td className={styletd}>{(item.price).toLocaleString()}</td>
                   <td className={styletd}>{item.state}</td>
                   {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
                     <th className='flex justify-center items-center text-center text-2xl py-10'>
@@ -131,7 +131,7 @@ const Product = () => {
                   <td className={styletd}>{item.idCategory}</td>
                   <td className={styletd}>{item.quantity}</td>
                   <td className={styletd}>{item.discount}</td>
-                  <td className={styletd}>{item.price}</td>
+                  <td className={styletd}>{(item.price).toLocaleString()}</td>
                   <td className={styletd}>{item.state}</td>
                   {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
                     <th className='flex justify-center items-center text-center text-2xl py-10'>

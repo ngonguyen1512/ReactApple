@@ -20,45 +20,54 @@ const Dashboard = () => {
   }, [dispatch])
 
   return (
-    <div className='w-full p-2 my-10'>
-      <span className='text-4xl font-bold tracking-widest justify-center items-center'>DASHBOARD</span>
-      <div className='mt-5 grid grid-cols-4 gap-2 items-center justify-between'>
-        <div className='w-full m-2 flex rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-green-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
-          <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-green-800'>Total revenue</p>
+    <div className='dashboard'>
+      <span className='title'>DASHBOARD</span>
+      <div className='dashboard-container'>
+        <div className='container'>
+          <span className='icons bg-green-600' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
+          <div className='content'>
+            <p className='title text-green-800'>Total revenue</p>
             {invoices?.length > 0 && (
-              <p className='text-right'>{(invoices.reduce((total, item) => total + item.total, 0)).toLocaleString()} đ</p>
+              <p className='text-right text-[#000]'>{(invoices.reduce((total, item) => total + item.total, 0)).toLocaleString()} đ</p>
             )}
           </div>
         </div>
-        <div className='w-full m-2 flex rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-blue-500 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><BsCartCheck /></span>
-          <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-blue-500'>Order</p>
-            <p className='text-right'>{countci}</p>
+        <div className='container'>
+          <span className='icons bg-blue-500' style={{ fontSize: '2rem', fontWeight: 'bold' }}><BsCartCheck /></span>
+          <div className='content'>
+            <p className='title text-blue-500'>Order</p>
+            <p className='text-right text-[#000]'>{countci}</p>
           </div>
         </div>
-        <div className='w-full m-2 flex rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-gray-600 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
-          <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-gray-600'>Product</p>
-            <p className='text-right'>{countp}</p>
+        <div className='container'>
+          <span className='icons bg-[#101010]' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
+          <div className='content'>
+            <p className='title text-[#101010]'>Product</p>
+            <p className='text-right text-[#000]'>{countp}</p>
           </div>
         </div>
-        <div className='w-full m-2 flex rounded-xl shadow-md border'>
-          <span className='w-[30%] bg-yellow-500 items-center justify-center flex rounded-l-lg text-white' style={{ fontSize: '2rem', fontWeight: 'bold' }}><MdOutlineSwitchAccount /></span>
-          <div className='w-[70%] p-3'>
-            <p className='text-xl font-semibold tracking-wider text-yellow-500'>Account</p>
-            <p className='text-right'>{countca}</p>
+        <div className='container'>
+          <span className='icons bg-yellow-500' style={{ fontSize: '2rem', fontWeight: 'bold' }}><MdOutlineSwitchAccount /></span>
+          <div className='content'>
+            <p className='title text-yellow-500'>Account</p>
+            <p className='text-right text-[#000]'>{countca}</p>
           </div>
         </div>
       </div>
-      <div className='my-5 grid grid-cols-5 gap-2 pl-3'>
-        <div className='w-full col-span-3'>
-          <span className='font-semibold tracking-wider text-lg'>TOP BEST SELLER</span>
-          <div className='w-full border rounded-md shadow-md'>
-            <table className='w-full '>
+      <div className='div-table'>
+        <span className='title'>TOP BEST SELLER</span>
+        <div className='form-search'>
+          <input type='date' className='input'></input>
+          <Button
+            text='Search'
+            bgColor='bg-secondary2'
+            textColor='text-white'
+          // onClick={() => setIsShowCreate(prev => !prev)}
+          />
+        </div>
+        <div className='table-bestseller'>
+          <table className='w-full'>
+            <thead>
               <tr>
                 <th>ID</th>
                 <th>IMAGE</th>
@@ -66,7 +75,8 @@ const Dashboard = () => {
                 <th>TOTALSOLD</th>
                 <th>PRICE</th>
               </tr>
-
+            </thead>
+            <tbody>
               {topselling?.length > 0 && topselling.map(item => {
                 return (
                   <tr>
@@ -75,45 +85,38 @@ const Dashboard = () => {
                       <img src={item?.product_invoicedetail.image} alt={item?.product_invoicedetail.name} className='w-[100%] object-cover' />
                     </td>
                     <td>{item?.product_invoicedetail.name}</td>
-                    <td>{item.totalSold}</td>
-                    <td className='text-center'>{item?.product_invoicedetail.price}</td>
+                    <td className='text-center'>{item.totalSold}</td>
+                    <td className='text-center'>{(item?.product_invoicedetail.price).toLocaleString()}</td>
                   </tr>
                 )
               })}
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
-        <div className='w-full col-span-2 pl-3'>
-          <div className='flex'>
-            <input type='date' className='w-full text-center'></input>
-            <Button
-              text='Search'
-              bgColor='bg-secondary2'
-              textColor='text-white'
-            // onClick={() => setIsShowCreate(prev => !prev)}
-            />
-          </div>
-          <div className='w-full mt-3 border rounded-md shadow-sm'>
-            <table className='w-full'>
+        <div className='newinvoice'>
+          <table className='w-full'>
+            <thead>
               <tr>
                 <th>ID BILL</th>
                 <th>ID & Name</th>
                 <th>Total</th>
               </tr>
+            </thead>
+            <tbody>
               {invoices?.length > 0 && invoices.map(item => {
                 if (item.state === 1) {
                   return (
                     <tr>
                       <td className='text-center'>{item.id}</td>
                       <td>{item?.account_invoice.id} - {item?.account_invoice.name}</td>
-                      <td className='text-center'>{item.total}</td>
+                      <td className='text-center'>{(item.total).toLocaleString()}</td>
                     </tr>
                   )
                 }
                 return null
               })}
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

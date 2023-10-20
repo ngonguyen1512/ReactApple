@@ -9,6 +9,7 @@
     align-items: center;
     flex-direction: column;
     min-height: 100%;
+    position: relative;
 }
 
 /* ---------- HEADER ---------- */
@@ -46,6 +47,7 @@
     align-items: center;
     /* gap: 0.25rem; */
     position: relative;
+    justify-content: end;
 }
 .header .content .login .info,
 .header .content .account .info {
@@ -81,6 +83,12 @@
     color: #fff;
     font-weight: 600;
 }
+.navigation.fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+  }
 .navigation .nav-web {
     width: 84%;
     display: flex;
@@ -397,21 +405,148 @@
     padding: 0.5rem 1rem;
 }
 
-.provider, .role, .product {
+/* ---------- WEB SERVER ---------- */
+.provider, .role, .product, .dashboard, .account, .category,
+.sample, .invoice {
     width: 100%;
     padding: 0.5rem;
     margin: 2.5rem 0;
     color: #fff;
 }
 
-/* ---------- PROVIDER / PRODUCT ---------- */
+/* ---------- DASHBOARD ---------- */
+.dashboard .title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    justify-content: center;
+    align-items: center;
+}
+.dashboard .dashboard-container {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashboard .dashboard-container .container {
+    width: 100%;
+     margin: 0.5rem;
+     display: flex;
+     border-radius: 0.75rem;
+}
+.dashboard .dashboard-container .container .icons {
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    color: #fff
+}
+.dashboard .dashboard-container .container .content {
+    width: 70%;
+    padding: 0.5rem;
+    background-color: #fafafa;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+.dashboard .dashboard-container .container .content .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+.dashboard .div-table {
+    margin: 1.25rem 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding-left: 0.75rem;
+}
+.dashboard .div-table .title {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: 1.5rem;
+    grid-column: span 3 / span 3;
+}
+.dashboard .div-table .form-search {
+    display: flex;
+    padding: 0.5rem;
+    grid-column: span 2 / span 2;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+.dashboard .div-table .form-search .input {
+    width: 50%;
+    align-items: center;
+    color: #000;
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+}
+.dashboard .div-table .table-bestseller,
+.dashboard .div-table .newinvoice {
+    width: 100%;
+    /* padding-left: 0.75rem; */
+    background-color: #a0a0a0;
+    color: #000;
+    border-radius: 1rem;
+    overflow: auto;
+}
+.dashboard .div-table .table-bestseller {
+    grid-column: span 3 / span 3;
+}
+.dashboard .div-table .newinvoice {
+    grid-column: span 2 / span 2;
+}
+
+/* ---------- INVOICE ---------- */
+.invoice .invoice-accept-detail {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+.invoice .invoice-accept-detail .invoice-accept,
+.invoice .invoice-accept-detail .invoice-detail {
+    height: 11rem;
+}
+.invoice .invoice-all .header-invoice {
+    margin-bottom: 0.75rem;
+}
+.invoice .invoice-all .header-invoice .input {
+    width: 100%;
+    align-items: center;
+    color: #000;
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+}
+.invoice .invoice-all .header-invoice .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    grid-column: span 3 / span 3;
+    letter-spacing: 0.1em;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ---------- PROVIDER / PRODUCT / ACCOUNT / CATEGORY / SAMPLE ---------- */
 .provider .header-provider,
-.product .header-product {
+.product .header-product,
+.account .header-account,
+.sample .header-sample,
+.invoice .invoice-all .header-invoice,
+.category .header-category{
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .provider .header-provider .title,
-.product .header-product .title{
+.product .header-product .title,
+.account .header-account .title,
+.sample .header-sample .title,
+.invoice .title,
+.category .header-category .title{
     font-size: 2.25rem;
     font-weight: 700;
     grid-column: span 3 / span 3;
@@ -419,7 +554,10 @@
     justify-content: center;
     align-items: center;
 }
-.provider .form-create {
+.provider .form-create,
+.account .form-create,
+.sample .form-create,
+.category .form-create {
     margin: 1.25rem 0;
     width: 100%;
     display: grid;
@@ -428,7 +566,13 @@
 }
 .provider .list-table,
 .product .list-table, 
-.role .form-frame .list-table {
+.account .list-table, 
+.category .list-table, 
+.sample .list-table, 
+.role .form-frame .list-table,
+.invoice .invoice-all .list-table,
+.invoice .invoice-accept-detail .invoice-accept,
+.invoice .invoice-accept-detail .invoice-detail   {
     width: 100%;
     background-color: #a0a0a0;
     color: #000;
@@ -437,16 +581,33 @@
 }
 .provider .list-table table th, td,
 .product .list-table table th, td,
-.role .form-frame .list-table table th, td {
+.account .list-table table th, td,
+.category .list-table table th, td,
+.invoice .invoice-all .list-table table th, td,
+.invoice .invoice-accept-detail .invoice-accept table th, td,
+.invoice .invoice-accept-detail .invoice-detail table th, td,
+.sample .list-table table th, td,
+.role .form-frame .list-table table th, td,
+.dashboard .div-table .table-bestseller table th, td,
+.dashboard .div-table .newinvoice table th, td{
     padding:0.5rem;
 }
 .provider .list-table table thead,
 .product .list-table table thead,
-.role .form-frame .list-table table thead {
+.account .list-table table thead,
+.category .list-table table thead,
+.sample .list-table table thead,
+.invoice .invoice-all .list-table table thead,
+.invoice .invoice-accept-detail .invoice-accept table thead,
+.invoice .invoice-accept-detail .invoice-detail table thead,
+.role .form-frame .list-table table thead,
+.dashboard .div-table .table-bestseller table thead,
+.dashboard .div-table .newinvoice table thead {
     position: sticky;
     top: 0;
     background-color: #323232;
     color: #fff;
+    border-radius: 0.25rem;
 }
 
 /* ---------- ROLE ---------- */
