@@ -33,7 +33,7 @@ const Navigation = () => {
           {categories?.length > 0 && categories.map(item => {
             if (item.state === 1) {
               return (
-                <div className='nav-db'>
+                <div className='nav-db center'>
                   <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className='content'>
                     {item.name}
                   </NavLink>
@@ -58,7 +58,7 @@ const Navigation = () => {
             return (
               <>
                 {item.idPermission === currentData.idPermission &&
-                  <div className='nav-db'>
+                  <div className='nav-db center'>
                     <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className='content'>
                       {item.name}
                     </NavLink>

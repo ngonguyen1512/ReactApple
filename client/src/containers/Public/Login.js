@@ -96,7 +96,7 @@ const Login = () => {
     }, [msg, update]);
 
     return (
-        <div className='bg-frame'>
+        <div className='bg-frame center'>
             <div className='frame'>
                 <h3 className='title'>{isRegister ? 'REGISTER' : 'LOGIN'}</h3>
                 <div className='forminput'>

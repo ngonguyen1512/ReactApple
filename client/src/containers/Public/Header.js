@@ -30,7 +30,7 @@ const Header = () => {
     }, [page, code, sample])
 
     return (
-        <div ref={headerRef} className='header'>
+        <div ref={headerRef} className='header center'>
             <div className='content'>
                 <Link to={'/'}>
                     <div className='logo'>

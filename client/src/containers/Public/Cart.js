@@ -71,8 +71,8 @@ const Cart = () => {
       }
       {isLoggedIn &&
         <div className='footer'>
-          <Link to={path.HOME} className='btn bg-green-800'>COUNTINUE TO BUY</Link>
-          <Link to={'/' + path.PAYMENT} className='btn bg-secondary2'>PAYMENT</Link>
+          <Link to={path.HOME} className='btn center bg-green-800'>COUNTINUE TO BUY</Link>
+          <Link to={'/' + path.PAYMENT} className='btn center bg-secondary2'>PAYMENT</Link>
         </div>
       }
     </div>

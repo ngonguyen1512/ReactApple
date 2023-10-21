@@ -39,7 +39,7 @@ const Home = () => {
       <Header />
       <Navigation />
       {parts === '' && <Slider />}
-      <div className='main'>
+      <div className='main center'>
         <Outlet />
       </div>
       <Footer />

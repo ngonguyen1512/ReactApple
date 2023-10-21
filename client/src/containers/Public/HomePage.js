@@ -14,7 +14,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <div className='homepage'>
+    <div className='homepage center'>
       <RelatedProduct />
       <div className='main-content'>
         <div className='sidebar'>

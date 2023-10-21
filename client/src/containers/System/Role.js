@@ -147,7 +147,7 @@ const Role = () => {
 
   return (
     <div className='role'>
-      <span className='title'>ROLE</span>
+      <span className='title center'>ROLE</span>
       <div className='form-frame'>
         <div className='list-table h-48'>
           <table className='w-full'>

@@ -174,7 +174,7 @@ const Account = () => {
   return (
     <div className='account'>
       <div className='header-account'>
-        <span className='title'>ACCOUNT</span>
+        <span className='title center'>ACCOUNT</span>
         <input
           className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
           type="text"

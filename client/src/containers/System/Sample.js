@@ -114,7 +114,7 @@ const Sample = () => {
   return (
     <div className='sample'>
       <div className='header-sample'>
-        <span className='title'>SAMPLE</span>
+        <span className='title center'>SAMPLE</span>
         <input
           className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"

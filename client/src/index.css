@@ -12,13 +12,18 @@
     position: relative;
 }
 
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* ---------- HEADER ---------- */
 .header {
     width: 100%;
     height: 60px;
     background-color: #101010;
-    display: flex;
-    justify-content: center;
+    cursor: pointer;
 }
 .header .content {
     width: 84%;
@@ -110,17 +115,11 @@
 }
 .navigation .nav-web .nav-db {
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* ---------- LOGIN - REGISTER - FORGOT ---------- */
 .bg-frame {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 2.5rem 0;
 }
 .bg-frame .frame {
@@ -162,17 +161,11 @@
 .main {
     width: 84%;
     background: #3e3e3f;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
-
 .notice {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 15% 0;
 }
 .notice .form {
@@ -189,12 +182,9 @@
     color: #ff0000;
 }
 
-
 .homepage {
     width: 100%;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 .homepage .main-content {
     width: 100%;
@@ -259,25 +249,16 @@
 }
 .card-items .image {
     height: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .card-items .content {
     height: 35%;
     color: #fff;
 }
 .card-items .content span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: medium;
 }
 .card-items .content .tag {
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin-top: 0.5rem;
 }
 .card-items .content .tag .price {
@@ -304,9 +285,7 @@
 /* ---------- DETAILPRODUCT ---------- */
 .detail-product {
     width: 100%;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 .detail-product .frame {
     display: grid;
@@ -315,8 +294,6 @@
 }
 .detail-product .frame .image {
     width: 100%;
-    display: flex;
-    justify-content: center;
 }
 .detail-product .frame .content {
     margin-top: 2.5rem;
@@ -361,6 +338,34 @@
     margin: 1.25rem;
     white-space: pre-wrap;
 }
+
+/* ---------- RENTAL ---------- */
+.rental {
+    width: 100%;
+    flex-direction: column;
+}
+.rental .title {
+    margin: 2.5rem 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 2.25rem;
+    letter-spacing: 0.1em;
+}
+.rental .main-rental {
+    width: 100%;
+    display: flex;
+    gap: 0.25rem;
+}
+.rental .main-rental .side-bar {
+    width: 24%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: center;
+    justify-content: start;
+}
+
 /* ---------- PERSONAL INFORMATION ---------- */
 .personalInfo .formaccout .table-account-form {
     width: 100%;
@@ -375,9 +380,47 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
 }
-.personalInfo .title {
+.personalInfo .invoice-like .header-invoicelike{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.personalInfo .invoice-like .header-invoicelike .title {
     font-weight: 600;
     font-size: x-large;
+}
+.personalInfo .invoice-like .pi-table-invoicedetail {
+    padding: 1.25rem 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-invoice,
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-detail {
+    height: 21rem;
+    overflow: auto;
+    width: 100%;
+    background-color: #a0a0a0;
+    color: #000;
+    border-radius: 1rem;
+}
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-invoice table th, td,
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-detail table th, td {
+    padding: 0.5rem;
+}
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-invoice table thead,
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-detail table thead {
+    position: sticky;
+    top: 0;
+    background-color: #323232;
+    color: #fff;
+    border-radius: 0.25rem;
+}
+.personalInfo .invoice-like .pi-table-invoicedetail .pi-detail {
+    grid-column: span 2 / span 2;
+}
+.personalInfo .invoice-like .pi-like {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 /* ---------- CART ---------- */
@@ -416,9 +459,6 @@
     outline: 2px solid transparent;
     border-radius: 0.375rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 0.25rem;
     color: #fff;
     padding: 0.5rem 1rem;
@@ -438,8 +478,6 @@
     font-size: 2.25rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    justify-content: center;
-    align-items: center;
 }
 .dashboard .dashboard-container {
     margin-top: 1.25rem;
@@ -457,9 +495,6 @@
 }
 .dashboard .dashboard-container .container .icons {
     width: 30%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     color: #fff
@@ -545,8 +580,6 @@
     font-weight: 600;
     grid-column: span 3 / span 3;
     letter-spacing: 0.1em;
-    justify-content: center;
-    align-items: center;
 }
 
 
@@ -570,8 +603,6 @@
     font-weight: 700;
     grid-column: span 3 / span 3;
     letter-spacing: 0.1em;
-    justify-content: center;
-    align-items: center;
 }
 .provider .form-create,
 .account .form-create,
@@ -633,9 +664,6 @@
 .role .title {
     font-size: 2.25rem;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-bottom: 1.5rem;
 }
 .role .form-frame {

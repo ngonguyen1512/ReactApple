@@ -21,12 +21,12 @@ const Detail = () => {
     }, [dispatch])
 
     return (
-        <div className='detail-product'>
+        <div className='detail-product center'>
             {products?.length > 0 && products.map(product => {
                 if (product.id === id) {
                     return (
                         <div className='frame'>
-                            <div className='image'>
+                            <div className='image center'>
                                 <img src={product.image} alt={product.name} className='w-full' />
                             </div>
                             <div className='content'>

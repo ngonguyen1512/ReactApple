@@ -59,7 +59,7 @@ const Product = () => {
   return (
     <div className='product'>
       <div className='header-product'>
-        <span className='title'>PRODUCT</span>
+        <span className='title center'>PRODUCT</span>
         <input
           className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"

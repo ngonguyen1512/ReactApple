@@ -3,13 +3,11 @@ import db from '../models';
 //Get all categories
 export const getAllLikesService = () => new Promise(async (resolve, reject) => {
     try {
-        const response = await db.Like.findAndCountAll({
+        const response = await db.Like.findAll({
             order: [['updatedAt', 'DESC']],
-            raw: true,
-            nest: true,
             include: [
                 { model: db.Account, as: 'like_account' },
-                { model: db.Product, as: 'like_product' }
+                { model: db.Product, as: 'like_product', include: [{ model: db.Category, as: 'categories', attributes: ['name'] }] }
             ],
         });
         resolve({
@@ -38,3 +36,22 @@ export const createLikesService = ({ idAccount, idProduct }) => new Promise(asyn
         reject(error)
     }
 })
+
+export const deleteLikesService = ({ idAccount, idProduct }) => new Promise(async (resolve, reject) => {
+    try {
+        const whereClause = {};
+        whereClause.idAccount = idAccount;
+        whereClause.idProduct = idProduct;
+        const response = await db.Like.findOne({
+            where: whereClause,
+        });
+        await response.destroy();
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'Delete like successful' : 'Delete like is not successful!',
+            response
+        });
+    } catch (error) {
+        reject(error);
+    }
+});

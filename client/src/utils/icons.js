@@ -1,6 +1,6 @@
 import { BsApple, BsCart4, BsChevronDown, BsChevronUp, BsCartCheck } from 'react-icons/bs'
 import { MdOutlineLogout, MdOutlineCancelPresentation, MdOutlineSwitchAccount } from 'react-icons/md'
-import { AiFillHome, AiOutlineSetting, AiOutlineCaretRight, AiFillInstagram, AiFillYoutube, AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHome, AiOutlineSetting, AiOutlineCaretRight, AiFillInstagram, AiFillYoutube, AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { GrPrevious, GrNext } from 'react-icons/gr'
 import { BiCommentDetail, BiEdit, BiTrash, BiLogoFacebookCircle } from 'react-icons/bi'
 import { TbPackageImport } from 'react-icons/tb'
@@ -25,7 +25,7 @@ const icons = {
     AiFillInstagram,
     AiFillYoutube,
     AiOutlineHeart,
-
+    AiFillHeart,
     MdOutlineCancelPresentation,
 
     //Dashboard

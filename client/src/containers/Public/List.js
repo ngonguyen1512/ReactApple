@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
 
 const List = ({ category }) => {
-
   const dispatch = useDispatch();
+  const { currentData } = useSelector(state => state.user)
+  const idcurrent = parseInt(currentData.id)
   const [searchParmas] = useSearchParams();
   const { products } = useSelector(state => state.product);
 
@@ -37,6 +38,7 @@ const List = ({ category }) => {
           idCategory={item?.idCategory}
           nameCategory={item?.categories?.name}
           id={item?.id}
+          idCurrent={idcurrent}
           item={item}
         />
       )}

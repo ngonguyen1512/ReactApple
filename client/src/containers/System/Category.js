@@ -111,7 +111,7 @@ const Category = () => {
   return (
     <div className='category'>
       <div className='header-category'>
-        <span className='title'>CATEGORY</span>
+        <span className='title center'>CATEGORY</span>
         <input
           className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"

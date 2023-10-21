@@ -24,3 +24,16 @@ export const apiCreateLikes = (payload) => new Promise(async (resolve, reject) =
         reject(error);
     }
 });
+
+export const apiDeleteLikes = (payload) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'delete',
+            url: 'api/v1/like/delete',
+            data: payload
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+});

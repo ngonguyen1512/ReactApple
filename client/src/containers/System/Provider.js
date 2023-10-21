@@ -166,7 +166,7 @@ const Provider = () => {
   return (
     <div className='provider'>
       <div className='header-provider'>
-        <span className='title'>PROVIDER</span>
+        <span className='title center'>PROVIDER</span>
         <input
           className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
           type="text"

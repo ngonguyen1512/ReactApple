@@ -8,6 +8,10 @@ import $ from 'jquery'
 const HomeServer = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(state => state.auth)
+  const { currentData } = useSelector(state => state.user)
+  const permis = currentData.idPermission
+
+  console.log(permis)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +36,7 @@ const HomeServer = () => {
   return (
     <div className='background-home'>
       <Header />
-      {isLoggedIn && <div className='background-home'>
+      {isLoggedIn && permis !== 3 && <div className='background-home'>
         <Navigation />
         <div className='main'>
           <Outlet />
@@ -40,11 +44,18 @@ const HomeServer = () => {
       </div>}
 
       {!isLoggedIn &&
-        <div className='notice'>
+        <div className='notice center'>
           <div className='form'>
             <h2>NOTICE</h2>
-            <p>This is the management board's webpage. You can not access withou first logging in, and
-              your account must be eligible for access. Please access your account. THANKS!!!</p>
+            <p>This is the management board's webpage. You can not access without first login. Please access your account. THANKS!!!</p>
+          </div>
+        </div>
+      }
+      {permis === 3 &&
+        <div className='notice center'>
+          <div className='form'>
+            <h2>NOTICE</h2>
+            <p>This is the management board's webpage. You can not access because you are not an employee. THANKS!!!</p>
           </div>
         </div>
       }

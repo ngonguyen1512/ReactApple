@@ -44,3 +44,25 @@ export const createLikes = (payload) => async (dispatch) => {
         });
     }
 };
+
+export const deleteLikes = (payload) => async (dispatch) => {
+    try {
+        const response = await apis.apiDeleteLikes(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.DELETE_LIKE,
+                data: response.data.response,
+            })
+        } else {
+            dispatch({
+                type: actionTypes.DELETE_LIKE,
+                msg: response.data.msg,
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.DELETE_LIKE,
+            data: null,
+        })
+    }
+}

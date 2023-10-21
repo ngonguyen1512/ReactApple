@@ -23,6 +23,12 @@ const likeReducer = (state = initState, action) => {
                 ...state,
                 msg: action.msg || '',
             }
+        case actionTypes.DELETE_LIKE:
+            return {
+                ...state,
+                likes: action.data,
+                msg: action.msg || '',
+            }
         default:
             return state;
     }

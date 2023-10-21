@@ -21,10 +21,10 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard'>
-      <span className='title'>DASHBOARD</span>
+      <span className='title center'>DASHBOARD</span>
       <div className='dashboard-container'>
         <div className='container'>
-          <span className='icons bg-green-600' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
+          <span className='icons center bg-green-600' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
           <div className='content'>
             <p className='title text-green-800'>Total revenue</p>
             {invoices?.length > 0 && (
@@ -33,21 +33,21 @@ const Dashboard = () => {
           </div>
         </div>
         <div className='container'>
-          <span className='icons bg-blue-500' style={{ fontSize: '2rem', fontWeight: 'bold' }}><BsCartCheck /></span>
+          <span className='icons center bg-blue-500' style={{ fontSize: '2rem', fontWeight: 'bold' }}><BsCartCheck /></span>
           <div className='content'>
             <p className='title text-blue-500'>Order</p>
             <p className='text-right text-[#000]'>{countci}</p>
           </div>
         </div>
         <div className='container'>
-          <span className='icons bg-[#101010]' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
+          <span className='icons center bg-[#101010]' style={{ fontSize: '2rem', fontWeight: 'bold' }}><AiOutlineSetting /></span>
           <div className='content'>
             <p className='title text-[#101010]'>Product</p>
             <p className='text-right text-[#000]'>{countp}</p>
           </div>
         </div>
         <div className='container'>
-          <span className='icons bg-yellow-500' style={{ fontSize: '2rem', fontWeight: 'bold' }}><MdOutlineSwitchAccount /></span>
+          <span className='icons center bg-yellow-500' style={{ fontSize: '2rem', fontWeight: 'bold' }}><MdOutlineSwitchAccount /></span>
           <div className='content'>
             <p className='title text-yellow-500'>Account</p>
             <p className='text-right text-[#000]'>{countca}</p>
