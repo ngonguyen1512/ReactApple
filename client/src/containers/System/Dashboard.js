@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import icons from '../../utils/icons'
 import * as actions from '../../store/actions'
@@ -11,6 +11,26 @@ const Dashboard = () => {
   const { countp } = useSelector(state => state.product)
   const { countca } = useSelector(state => state.account)
   const { topselling, invoices, countci } = useSelector(state => state.invoice)
+  const [selectedDate, setSelectedDate] = useState('');
+  const [shouldReload, setShouldReload] = useState(false);
+
+  const handleSearch = (event) => {
+    setSelectedDate(event.target.value);
+    setShouldReload(event.target.value !== "");
+  };
+
+  let filteredInvoice = [];
+  if (invoices && Array.isArray(invoices)) {
+    filteredInvoice = invoices.filter((item) =>
+      item.createdAt.includes(selectedDate)
+    );
+  }
+  let filteredTop = [];
+  if (topselling && Array.isArray(topselling)) {
+    filteredTop = topselling.filter((item) =>
+      item.createdAt.includes(selectedDate)
+    );
+  }
 
   useEffect(() => {
     dispatch(actions.getProductsLimit())
@@ -57,27 +77,43 @@ const Dashboard = () => {
       <div className='div-table'>
         <span className='title'>TOP BEST SELLER</span>
         <div className='form-search'>
-          <input type='date' className='input'></input>
-          <Button
-            text='Search'
-            bgColor='bg-secondary2'
-            textColor='text-white'
-          // onClick={() => setIsShowCreate(prev => !prev)}
-          />
+          <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
         </div>
         <div className='table-bestseller'>
           <table className='w-full'>
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>IMAGE</th>
-                <th>NAME</th>
-                <th>TOTALSOLD</th>
-                <th>PRICE</th>
-              </tr>
+              {shouldReload &&
+                <tr>
+                  <th>ID</th>
+                  <th>IMAGE</th>
+                  <th>NAME</th>
+                  <th>PRICE</th>
+                </tr>
+              }
+              {!shouldReload &&
+                <tr>
+                  <th>ID</th>
+                  <th>IMAGE</th>
+                  <th>NAME</th>
+                  <th>TOTALSOLD</th>
+                  <th>PRICE</th>
+                </tr>
+              }
             </thead>
             <tbody>
-              {topselling?.length > 0 && topselling.map(item => {
+              {shouldReload && filteredTop.length > 0 && filteredTop.map(item => {
+                return (
+                  <tr>
+                    <td className='text-center'>{item?.product_invoicedetail.id}</td>
+                    <td className='text-center w-[12%]'>
+                      <img src={item?.product_invoicedetail.image} alt={item?.product_invoicedetail.name} className='w-[100%] object-cover' />
+                    </td>
+                    <td>{item?.product_invoicedetail.name}</td>
+                    <td className='text-center'>{(item?.product_invoicedetail.price).toLocaleString()}</td>
+                  </tr>
+                )
+              })}
+              {!shouldReload && topselling?.length > 0 && topselling.map(item => {
                 return (
                   <tr>
                     <td className='text-center'>{item?.product_invoicedetail.id}</td>
@@ -103,7 +139,19 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {invoices?.length > 0 && invoices.map(item => {
+              {shouldReload && filteredInvoice.length > 0 && filteredInvoice.map(item => {
+                if (item.state === 1) {
+                  return (
+                    <tr>
+                      <td className='text-center'>{item.id}</td>
+                      <td>{item?.account_invoice.id} - {item?.account_invoice.name}</td>
+                      <td className='text-center'>{(item.total).toLocaleString()}</td>
+                    </tr>
+                  )
+                }
+                return null
+              })}
+              {!shouldReload && invoices?.length > 0 && invoices.map(item => {
                 if (item.state === 1) {
                   return (
                     <tr>

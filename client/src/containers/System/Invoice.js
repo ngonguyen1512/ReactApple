@@ -11,6 +11,7 @@ const Invoice = () => {
   const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [shouldReload, setShouldReload] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);
 
   const handleSearch = (event) => {
     setSelectedDate(event.target.value);
@@ -24,7 +25,6 @@ const Invoice = () => {
     );
   }
 
-
   const handleSubmitYes = async (id) => {
     const payload = {
       id: id,
@@ -32,7 +32,7 @@ const Invoice = () => {
       state: 1
     }
     dispatch(actions.updateInvoices(payload))
-    // window.location.reload();
+    setShouldRefetch(true);
   }
   const handleSubmitNo = async (id) => {
     const payload = {
@@ -41,12 +41,19 @@ const Invoice = () => {
       state: 2
     }
     dispatch(actions.updateInvoices(payload))
-    // window.location.reload();
+    setShouldRefetch(true);
   }
 
   useEffect(() => {
     dispatch(actions.getInvoices())
   }, [dispatch])
+
+  useEffect(() => {
+    if (shouldRefetch) {
+      dispatch(actions.getInvoices())
+      setShouldRefetch(false);
+    }
+  }, [dispatch, shouldRefetch])
 
   return (
     <div className='invoice'>

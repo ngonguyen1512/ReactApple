@@ -134,7 +134,7 @@ export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(as
 export const getTopSellingProducts = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.InvoiceDetail.findAll({
-            attributes: ['idProduct', [db.sequelize.fn('SUM', db.sequelize.col('InvoiceDetail.quantity')), 'totalSold']],
+            attributes: ['idProduct','createdAt', [db.sequelize.fn('SUM', db.sequelize.col('InvoiceDetail.quantity')), 'totalSold']],
             include: [{ model: db.Product, as: 'product_invoicedetail' },],
             group: ['idProduct'],
             order: [[db.sequelize.literal('totalSold'), 'DESC']],
