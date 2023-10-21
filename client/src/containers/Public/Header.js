@@ -1,11 +1,12 @@
 import icons from '../../utils/icons'
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Button } from '../../components';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import { Menu } from '../../components'
+import { CartContext, } from '../../contexts/Cart';
 
 const { BsApple, BsChevronDown } = icons
 
@@ -20,10 +21,19 @@ const Header = () => {
     const page = searchParams.get('page');
     const code = searchParams.get('code');
     const sample = searchParams.get('sample');
+    const cartContext = useContext(CartContext);
+    const { removeAllFromCart } = cartContext;
 
     const goLogin = useCallback((flag) => {
         navigate('/' + path.LOGIN, { state: { flag } })
     }, [navigate])
+
+    const handleLogout = () => {
+        removeAllFromCart();
+        setIsShowMenu(false);
+        dispatch(actions.logout());
+        navigate(path.HOME);
+    }
 
     useEffect(() => {
         headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -61,11 +71,7 @@ const Header = () => {
                         {isShowMenu &&
                             <div className='menu'>
                                 <Menu permis={currentData.idPermission} />
-                                <span onClick={() => {
-                                        setIsShowMenu(false)
-                                        dispatch(actions.logout())
-                                        navigate(path.HOME)
-                                    }}
+                                <span onClick={() => handleLogout()}
                                 >Logout</span>
                             </div>
                         }

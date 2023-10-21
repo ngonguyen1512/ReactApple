@@ -153,27 +153,33 @@ const PersonalInfor = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {invoicesall?.length > 0 && invoicesall.reduce((acc, item) => {
-                                        const invoiceDetail = item?.invoice_detail;
-                                        if (!invoiceDetail) return acc;
-                                        const createdAtDate = new Date(invoiceDetail?.createdAt).toLocaleDateString();
-                                        const stateString = invoiceDetail?.state === 1 ? 'Done' : invoiceDetail?.state === 0 ? 'Not yet' : 'Cancel';
-                                        const stateColor = invoiceDetail?.state === 1 ? 'text-green-800' : 'text-red-500';
-                                        if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id)) {
-                                            acc.push({
-                                                invoiceDetailId: invoiceDetail?.id,
-                                                jsx: (
-                                                    <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
-                                                        <td className='text-center'>{invoiceDetail?.id}</td>
-                                                        <td className='text-center'>{createdAtDate}</td>
-                                                        <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
-                                                        <td className={`text-center ${stateColor}`}>{stateString}</td>
-                                                    </tr>
-                                                )
-                                            });
-                                        }
-                                        return acc;
-                                    }, []).map(item => item.jsx)}
+                                    {invoicesall?.length > 0 && invoicesall
+                                        .filter(item => item?.invoice_detail.idAccount === idcurrent) // Filter out the unwanted items
+                                        .reduce((acc, item) => {
+                                            const invoiceDetail = item?.invoice_detail;
+                                            if (!invoiceDetail) return acc;
+                                            const createdAtDate = new Date(invoiceDetail?.createdAt).toLocaleDateString();
+                                            const stateString = invoiceDetail?.state === 1 ? 'Done' : invoiceDetail?.state === 0 ? 'Not yet' : 'Cancel';
+                                            const stateColor = invoiceDetail?.state === 1 ? 'text-green-800' : 'text-red-500';
+
+                                            if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id)) {
+                                                acc.push({
+                                                    invoiceDetailId: invoiceDetail?.id,
+                                                    jsx: (
+                                                        <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
+                                                            <td className='text-center'>{invoiceDetail?.id}</td>
+                                                            <td className='text-center'>{createdAtDate}</td>
+                                                            <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
+                                                            <td className={`text-center ${stateColor}`}>{stateString}</td>
+                                                        </tr>
+                                                    )
+                                                });
+                                            }
+                                            return acc;
+                                        }, [])
+                                        .map(item => item.jsx)
+                                    }
+
                                 </tbody>
                             </table>
                         </div>

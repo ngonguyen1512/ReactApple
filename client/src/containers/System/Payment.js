@@ -96,7 +96,6 @@ const Payment = () => {
                                     </table>
                                 </div>
                             )
-
                         }}
                     </CartContext.Consumer>
                 </div>

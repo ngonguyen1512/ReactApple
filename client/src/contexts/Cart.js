@@ -5,13 +5,13 @@ export const CartContext = React.createContext();
 export class CartProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = {cartItems: []};
+    this.state = { cartItems: [] };
     this.addToCart = this.addToCart.bind(this);
     this.updateQuantity = this.updateQuantity.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
+    this.removeAllFromCart = this.removeAllFromCart.bind(this);
   }
   addToCart(product) {
-    console.log('add to cart: ', product);
     const existingProductIndex = this.state.cartItems.findIndex(item => item.id === product.id);
     if (existingProductIndex >= 0) {
       const updatedCartItems = [...this.state.cartItems];
@@ -47,6 +47,11 @@ export class CartProvider extends Component {
       cartItems: updatedCartItems
     });
   }
+  removeAllFromCart() {
+    this.setState({
+      cartItems: [] // Set the cart items to an empty array
+    });
+  }
   render() {
     return (
       <CartContext.Provider
@@ -54,7 +59,8 @@ export class CartProvider extends Component {
           cartItems: this.state.cartItems,
           addToCart: this.addToCart,
           updateQuantity: this.updateQuantity,
-          removeFromCart: this.removeFromCart
+          removeFromCart: this.removeFromCart,
+          removeAllFromCart: this.removeAllFromCart
         }}
       >
         {this.props.children}

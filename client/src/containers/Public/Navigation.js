@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { formatVietnameseToString } from '../../utils/common/formatVietnameseToString'
 import icons from '../../utils/icons'
@@ -16,6 +16,7 @@ const Navigation = () => {
   const { categories } = useSelector(state => state.app)
   const { transfers } = useSelector(state => state.transfer)
   const { currentData } = useSelector(state => state.user)
+  const [isShowMiniCart, setIsShowMiniCart] = useState(false)
 
   useEffect(() => {
     dispatch(actions.getCategories());
@@ -48,6 +49,17 @@ const Navigation = () => {
                 <BsCart4 />
                 <span className=''>({cartItems.length})</span>
               </NavLink>
+              //               <div className='relative'>
+              //                 <span className='content' onClick={() => setIsShowMiniCart(prev => !prev)}>
+              //                   <BsCart4 />
+              //                   <span className=''>({cartItems.length})</span>
+              //                 </span>
+              //                 {isShowMiniCart &&
+              //                   <div className='bg-red-500 h-16 w-44 absolute top-full z-50'>
+              //                      sdfsadfsfsf
+              //                   </div>
+              //                 }
+              //               </div>
             )}
           </CartContext.Consumer>
         </div>
