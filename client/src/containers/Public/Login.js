@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { InputForm, Button } from "../../components";
 import * as actions from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { path } from '../../utils/constant';
 
 const Login = () => {
-    const location = useLocation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { isLoggedIn, msg, update } = useSelector(state => state.auth)
@@ -99,7 +98,7 @@ const Login = () => {
                 </div>
                 <div className='formbutton'>
                     <Button
-                        text={'LOGIN'}
+                        text='LOGIN'
                         textColor='text-white'
                         bgColor='bg-secondary2'
                         fullWidth
