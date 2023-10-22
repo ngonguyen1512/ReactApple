@@ -11,7 +11,6 @@ const { AiOutlineHeart, AiFillHeart } = icons;
 const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) => {
   const dispatch = useDispatch()
   const { likes } = useSelector(state => state.like)
-  const [shouldRefetch, setShouldRefetch] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [payload, setPayload] = useState({
     idAccount: '',
@@ -22,8 +21,14 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
       ...payload, idAccount: idCurrent, idProduct: id
     });
     dispatch(actions.createLikes(payload))
-    setShouldRefetch(true);
     setIsLiked(true);
+  }
+  const handleUnLike = (id) => {
+    setPayload({
+      ...payload, idAccount: idCurrent, idProduct: id
+    });
+    dispatch(actions.deleteLikes(payload))
+    setIsLiked(false);
   }
   let hasSomeLikes = false;
   if (Array.isArray(likes)) {
@@ -39,17 +44,11 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
   useEffect(() => {
     dispatch(actions.getLikes())
   }, [dispatch])
-  useEffect(() => {
-    if (shouldRefetch) {
-      dispatch(actions.getLikes())
-      setShouldRefetch(false);
-    }
-  }, [dispatch, shouldRefetch])
 
   return (
     <div className='card-items'>
       {hasSomeLikes ? (
-        <span className='icons'><AiFillHeart /></span>
+        <span className='icons' onClick={() => handleUnLike(id)}><AiFillHeart /></span>
       ) : (
         <span className='icons' onClick={() => handleLike(id)}><AiOutlineHeart /></span>
       )}

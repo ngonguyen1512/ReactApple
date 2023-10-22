@@ -62,25 +62,23 @@ const Navigation = () => {
                     <div className='cart-menu'>
                       <table className='w-full'>
                         <tr className='border-b'>
-                          <th>ID</th>
-                          <th>NAME</th>
-                          <th>QUANTITY</th>
-                          <th>PRICE</th>
-                          <th></th>
+                          <th className='w-[40%]'>NAME</th>
+                          <th className='w-[25%]'>QUANTITY</th>
+                          <th className='w-[30%]'>PRICE</th>
+                          <th className='w-[5%]'></th>
                         </tr>
                         {cartItems.map((product) => (
                           <tr className='border-b border-dashed' >
-                            <td className='text-center'>{product.id}</td>
-                            <td className='pl-4'>{product.name}</td>
-                            <td className='text-center'>
-                              <button className='px-2 bg-gray-500 rounded-sm mx-3'
+                            <td className='w-[40%]'>{product.name}</td>
+                            <td className='text-center w-[25%]'>
+                              <button className='px-1.5 bg-gray-500 rounded-sm mx-1.5'
                                 onClick={() => updateQuantity(product, product.quantity - 1)}>-</button>
                               {product.quantity}
-                              <button className='px-2 bg-gray-500 rounded-sm mx-3'
+                              <button className='px-1.5 bg-gray-500 rounded-sm mx-1.5'
                                 onClick={() => updateQuantity(product, product.quantity + 1)}>+</button>
                             </td>
-                            <td className='text-center'>{product.price.toLocaleString()}</td>
-                            <td className='text-red-500 text-xl'>
+                            <td className='text-center w-[30%]'>{product.price.toLocaleString()}</td>
+                            <td className='text-red-500 text-xl w-[5%]'>
                               <button onClick={() => removeFromCart(product.id)}><TiDelete /></button>
                             </td>
                           </tr>

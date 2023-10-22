@@ -124,7 +124,7 @@
 }
 .navigation .nav-web .cart-menu {
     position: absolute;
-    min-width: 520px;
+    min-width: 500px;
     top: 100%;
     background-color: #101010;
     color: #fff;

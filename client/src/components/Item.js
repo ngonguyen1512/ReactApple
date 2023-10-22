@@ -11,7 +11,6 @@ const { AiOutlineHeart, AiFillHeart } = icons;
 const Item = ({ image, name, discount, nameCategory, price, id, idCurrent }) => {
   const dispatch = useDispatch()
   const { likes } = useSelector(state => state.like)
-  const [shouldRefetch, setShouldRefetch] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [payload, setPayload] = useState({
     idAccount: '',
@@ -22,7 +21,6 @@ const Item = ({ image, name, discount, nameCategory, price, id, idCurrent }) => 
       ...payload, idAccount: idCurrent, idProduct: id
     });
     dispatch(actions.createLikes(payload))
-    setShouldRefetch(true);
     setIsLiked(true);
   }
   const handleUnLike = (id) => {
@@ -30,7 +28,6 @@ const Item = ({ image, name, discount, nameCategory, price, id, idCurrent }) => 
       ...payload, idAccount: idCurrent, idProduct: id
     });
     dispatch(actions.deleteLikes(payload))
-    setShouldRefetch(true);
     setIsLiked(false);
   }
   let hasSomeLikes = false;
@@ -47,12 +44,6 @@ const Item = ({ image, name, discount, nameCategory, price, id, idCurrent }) => 
   useEffect(() => {
     dispatch(actions.getLikes())
   }, [dispatch])
-  useEffect(() => {
-    if (shouldRefetch) {
-      dispatch(actions.getLikes())
-      setShouldRefetch(false);
-    }
-  }, [dispatch, shouldRefetch])
   return (
     <div>
       <div className='card-items' key={id}>
