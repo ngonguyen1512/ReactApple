@@ -12,34 +12,66 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
   const dispatch = useDispatch()
   const { likes } = useSelector(state => state.like)
   const [isLiked, setIsLiked] = useState(false);
+  const [likess, setLikess] = useState([]);
   const [payload, setPayload] = useState({
-    idAccount: '',
-    idProduct: ''
+    idAccount: "",
+    idProduct: "",
   });
+
   const handleLike = (id) => {
-    setPayload({
-      ...payload, idAccount: idCurrent, idProduct: id
-    });
-    dispatch(actions.createLikes(payload))
-    setIsLiked(true);
-  }
-  const handleUnLike = (id) => {
-    setPayload({
-      ...payload, idAccount: idCurrent, idProduct: id
-    });
-    dispatch(actions.deleteLikes(payload))
-    setIsLiked(false);
-  }
-  let hasSomeLikes = false;
-  if (Array.isArray(likes)) {
-    for (let i = 0; i < likes.length; i++) {
-      const item = likes[i];
-      if (item.idProduct === id && item.idAccount === idCurrent) {
-        hasSomeLikes = true;
-        break;
+    const updatedPayload = {
+      idAccount: idCurrent,
+      idProduct: id,
+    };
+    if (Array.isArray(likess)) {
+      const existingLikeIndex = likess.findIndex(
+        (item) =>
+          item.idProduct === id && item.idAccount === idCurrent
+      );
+      if (existingLikeIndex > -1) {
+        setIsLiked(true);
+        return;
       }
     }
-  }
+
+    dispatch(actions.createLikes(updatedPayload));
+
+    const updatedLikes = [...likess, updatedPayload];
+    setLikess(updatedLikes);
+
+    setIsLiked(true);
+  };
+
+
+  const handleUnLike = (id) => {
+    const updatedPayload = {
+      idAccount: idCurrent,
+      idProduct: id,
+    };
+    dispatch(actions.deleteLikes(updatedPayload));
+
+    const updatedLikes = likess.filter(
+      (item) =>
+        item.idProduct !== id || item.idAccount !== idCurrent
+    );
+    setLikess(updatedLikes);
+
+    const hasSomeLikes = updatedLikes.some(
+      (item) =>
+        item.idProduct === id && item.idAccount === idCurrent
+    );
+    setIsLiked(hasSomeLikes || false);
+  };
+
+  useEffect(() => {
+    if (Array.isArray(likes)) {
+      const hasLiked = likes.some(
+        (item) =>
+          item.idProduct === id && item.idAccount === idCurrent
+      );
+      setIsLiked(hasLiked);
+    }
+  }, [likes, id, idCurrent]);
 
   useEffect(() => {
     dispatch(actions.getLikes())
@@ -47,10 +79,14 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
 
   return (
     <div className='card-items'>
-      {hasSomeLikes ? (
-        <span className='icons' onClick={() => handleUnLike(id)}><AiFillHeart /></span>
+      {isLiked ? (
+        <span className="icons" onClick={() => handleUnLike(id)}>
+          <AiFillHeart />
+        </span>
       ) : (
-        <span className='icons' onClick={() => handleLike(id)}><AiOutlineHeart /></span>
+        <span className="icons" onClick={() => handleLike(id)}>
+          <AiOutlineHeart />
+        </span>
       )}
       <Link to={`${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
         <div className='image center'>
