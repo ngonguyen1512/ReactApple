@@ -179,34 +179,37 @@ const Role = () => {
             </tbody>
           </table>
         </div>
+
         <div className='form'>
-          <p className={stylep}>MENU</p>
-          <div className='btn'>
-            <Button
-              text='DELETE'
-              bgColor='bg-cancel'
-              textColor='text-white'
-              value={payloadm.id}
-              setValue={setPayloadm}
-              className='py-5'
-              onClick={handleSubmitDeleteMenu}
-            />
-            <Button
-              text='UPDATE'
-              bgColor='bg-green-800'
-              textColor='text-white'
-              value={payloadm.id}
-              setValue={setPayloadm}
-              className='py-5'
-              onClick={handleSubmitUpdateMenu}
-            />
-            <Button
-              text='CREATE'
-              bgColor='bg-secondary2'
-              textColor='text-white'
-              className='py-5'
-              onClick={handleSubmitMenu}
-            />
+          <div className='formheader-btn'>
+            <p className={stylep}>MENU</p>
+            <div className='btn'>
+              <Button
+                text='DELETE'
+                bgColor='bg-cancel'
+                textColor='text-white'
+                value={payloadm.id}
+                setValue={setPayloadm}
+                className='py-5'
+                onClick={handleSubmitDeleteMenu}
+              />
+              <Button
+                text='UPDATE'
+                bgColor='bg-green-800'
+                textColor='text-white'
+                value={payloadm.id}
+                setValue={setPayloadm}
+                className='py-5'
+                onClick={handleSubmitUpdateMenu}
+              />
+              <Button
+                text='CREATE'
+                bgColor='bg-secondary2'
+                textColor='text-white'
+                className='py-5'
+                onClick={handleSubmitMenu}
+              />
+            </div>
           </div>
           <InputForm
             setInvalidFields={setInvalidFields}
@@ -270,33 +273,35 @@ const Role = () => {
           </table>
         </div>
         <div className='form'>
-          <p className={stylep}>FUNCTION</p>
-          <div className='btn'>
-            <Button
-              text='DELETE'
-              bgColor='bg-cancel'
-              textColor='text-white'
-              value={payloadf.id}
-              setValue={setPayloadf}
-              className='py-5'
-              onClick={handleSubmitDeleteFunction}
-            />
-            <Button
-              text='UPDATE'
-              bgColor='bg-green-800'
-              textColor='text-white'
-              value={payloadf.id}
-              setValue={setPayloadf}
-              className='py-5'
-              onClick={handleSubmitUpdateFunction}
-            />
-            <Button
-              text='CREATE'
-              bgColor='bg-secondary2'
-              textColor='text-white'
-              fullWidth
-              onClick={handleSubmitFunction}
-            />
+          <div className='formheader-btn'>
+            <p className={stylep}>FUNCTION</p>
+            <div className='btn'>
+              <Button
+                text='DELETE'
+                bgColor='bg-cancel'
+                textColor='text-white'
+                value={payloadf.id}
+                setValue={setPayloadf}
+                className='py-5'
+                onClick={handleSubmitDeleteFunction}
+              />
+              <Button
+                text='UPDATE'
+                bgColor='bg-green-800'
+                textColor='text-white'
+                value={payloadf.id}
+                setValue={setPayloadf}
+                className='py-5'
+                onClick={handleSubmitUpdateFunction}
+              />
+              <Button
+                text='CREATE'
+                bgColor='bg-secondary2'
+                textColor='text-white'
+                fullWidth
+                onClick={handleSubmitFunction}
+              />
+            </div>
           </div>
           <InputForm
             setInvalidFields={setInvalidFields}
@@ -352,32 +357,34 @@ const Role = () => {
           </table>
         </div>
         <div className='form'>
-          <p className={stylep}>Transfer</p>
-          <div className='btn'>
-            <Button
-              text='DELETE'
-              bgColor='bg-cancel'
-              textColor='text-white'
-              value={payloadt.id}
-              setValue={setPayloadt}
-              className='py-5'
-              onClick={handleSubmitDeleteTransfer}
-            />
-            <Button
-              text='UPDATE'
-              bgColor='bg-green-800'
-              textColor='text-white'
-              value={payloadt.id}
-              setValue={setPayloadt}
-              className='py-5'
-              onClick={handleSubmitUpdateTransfer}
-            />
-            <Button
-              text='CREATE'
-              bgColor='bg-secondary2'
-              textColor='text-white'
-              onClick={handleSubmitTransfer}
-            />
+          <div className='formheader-btn'>
+            <p className={stylep}>Transfer</p>
+            <div className='btn'>
+              <Button
+                text='DELETE'
+                bgColor='bg-cancel'
+                textColor='text-white'
+                value={payloadt.id}
+                setValue={setPayloadt}
+                className='py-5'
+                onClick={handleSubmitDeleteTransfer}
+              />
+              <Button
+                text='UPDATE'
+                bgColor='bg-green-800'
+                textColor='text-white'
+                value={payloadt.id}
+                setValue={setPayloadt}
+                className='py-5'
+                onClick={handleSubmitUpdateTransfer}
+              />
+              <Button
+                text='CREATE'
+                bgColor='bg-secondary2'
+                textColor='text-white'
+                onClick={handleSubmitTransfer}
+              />
+            </div>
           </div>
           <InputForm
             setInvalidFields={setInvalidFields}

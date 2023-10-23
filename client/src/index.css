@@ -703,7 +703,15 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 0.5rem;
 }
-.role .form-frame .form .btn {
+.role .form-frame .form .formheader-btn {
+    grid-column: span 2 / span 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0.5rem;
+}
+.role .form-frame .formheader-btn .btn {
+    grid-column: span 2 / span 2;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: 0.25rem;
