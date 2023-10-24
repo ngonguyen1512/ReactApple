@@ -5,9 +5,9 @@ const { BsApple, AiFillInstagram, BiLogoFacebookCircle, AiFillYoutube } = icons
 
 const Footer = () => {
     return (
-        <div className='w-screen bg-secondary1 min-h-[400px] pt-10'>
-            <span className='flex gap-2.5 text-4xl text-white ml-40 font-bold hover:cursor-pointer tracking-widest'><BsApple /> APPLE</span>
-            <div className='flex w-full justify-between py-10 px-32 text-white text-base leading-9'>
+        <div className='main-footer'>
+            <span className='title'><BsApple /> APPLE</span>
+            <div className='footer-content'>
                 <div>
                     <ul>
                         <li className='font-extrabold'>CONTACT</li>

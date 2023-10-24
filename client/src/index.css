@@ -78,6 +78,58 @@
     display: flex;
     align-items: center;
 }
+
+/* ---------- FOOTER ---------- */
+.main-footer {
+    width: 100%;
+    background-color: #101010;
+    min-height: 400px;
+    padding-top: 2rem;
+    color: #fff
+}
+.main-footer .title {
+    display: flex;
+    gap: 0.625rem;
+    font-size: xx-large ;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+}
+.main-footer .footer-content{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 2rem 6rem;
+    font-size: medium;
+    line-height: 2.25rem;
+}
+
+/* ---------- SIDEBAR ---------- */
+.side-bar {
+    width: 100%; 
+    background-color: #161616;
+    border-radius: 0.5rem;
+    color: #fff;
+    padding: 0.5rem;
+}
+.side-bar .title {
+    font-size: large;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+.side-bar .tagname .link{
+    gap: 0.25rem;
+    border-bottom: 1px solid #a2a2a2;
+    padding: 0.25rem 0;
+    cursor: pointer;
+}
+.side-bar .tagname .link .link-child,
+.side-bar .tagname .link-child {
+    /* display: flex; */
+    cursor: pointer;
+    padding-left: 1.25rem;
+}
+
 /* ---------- NAVIGATION ---------- */
 .navigation {
     width: 100%;
@@ -229,10 +281,12 @@
 /* ---------- PRODUCT ---------- */
 .related-product {
     width: 100%;
+    height: 100%;
     background-color: #161616;
-    padding: 1rem 0.5rem;
-    margin: 1.25rem 0; 
+    margin: 1rem 0; 
     border-radius: 1.5rem;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 .related-product p {
     font-weight: 700;
@@ -251,9 +305,9 @@
 }
 .card-items {
     display: inline-block;
-    height: 22rem;
+    height: 21rem;
     width: 17rem;
-    margin: 1rem 0.625rem;
+    margin: 1rem 0.75rem;
     background-color: #323232;
     align-items: center;
     border-radius: 1.5rem;
@@ -271,10 +325,10 @@
     font-size: larger;
 }
 .card-items .image {
-    height: 60%;
+    height: 55%;
 }
 .card-items .content {
-    height: 35%;
+    height: 40%;
     color: #fff;
 }
 .card-items .content span {
@@ -320,7 +374,7 @@
 }
 .detail-product .frame .content {
     margin-top: 2.5rem;
-    padding-left: 2.5rem;
+    padding: 0 2rem;
     border-left: 1px solid #101010;
     color: #fff;
 }
@@ -389,6 +443,9 @@
     align-items: center;
     justify-content: start;
 }
+.rental .main-rental .main-rental-content {
+    width: 76%;
+}
 
 /* ---------- PERSONAL INFORMATION ---------- */
 .personalInfo .formaccout .table-account-form {
@@ -420,7 +477,7 @@
 }
 .personalInfo .invoice-like .pi-table-invoicedetail .pi-invoice,
 .personalInfo .invoice-like .pi-table-invoicedetail .pi-detail {
-    height: 21rem;
+    height: 20rem;
     overflow: auto;
     width: 100%;
     background-color: #a0a0a0;
@@ -488,9 +545,31 @@
     padding: 0.5rem 1rem;
 }
 
+/* ---------- PAYMENT ---------- */
+.payment {
+    width: 84%;
+    margin: 2.5rem 0;
+    padding: 0.75rem;
+}
+.payment .main-payment {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 1.25rem 0;
+}
+.payment .main-payment .cart-info {
+    grid-column: span 2 / span 2;
+}
+.payment .main-payment .payment-btn{
+    width: 100%;
+    grid-column: span 2 / span 2;
+    margin: 1.25rem 0.5rem;
+    gap: 0.5rem;
+}
+
 /* ---------- WEB SERVER ---------- */
 .provider, .role, .product, .dashboard, .account, .category,
-.sample, .invoice {
+.sample, .invoice, .page-product {
     width: 100%;
     padding: 0.5rem;
     margin: 2.5rem 0;
@@ -606,6 +685,12 @@
     letter-spacing: 0.1em;
 }
 
+/* ---------- PAGE PRODUCT ---------- */
+.page-product .title{
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
 
 /* ---------- PROVIDER / PRODUCT / ACCOUNT / CATEGORY / SAMPLE ---------- */
 .provider .header-provider,
@@ -723,4 +808,216 @@
 
 .custom-icon {
     color: #fff
+}
+
+
+@media (min-width: 1100px) and (max-width: 1300px) {
+    .main,
+    .rental .main-rental .main-rental-content,
+    .payment {
+        width: 100%;
+        padding: 2rem;
+    }
+    .homepage .main-content .sidebar,
+    .rental .main-rental .side-bar {
+        width: 20%;
+    }
+    .side-bar .tagname .link .link-child,
+    .side-bar .tagname .link-child {
+        padding-left: 0.25rem;
+    }
+    .homepage .main-content .list-pagination {
+        width: 80%;
+    }
+    .card-items {
+        margin: 1rem 0.25rem;
+    }
+}
+
+@media (min-width: 960px) and (max-width: 1099px) {
+    .main,
+    .rental .main-rental .main-rental-content,
+    .payment {
+        width: 100%;
+        padding: 2rem;
+    }
+    .homepage .main-content .sidebar,
+    .rental .main-rental .side-bar {
+        width: 20%;
+    }
+    .side-bar .tagname .link .link-child,
+    .side-bar .tagname .link-child {
+        padding-left: 0.25rem;
+    }
+    .homepage .main-content .list-pagination {
+        width: 80%;
+    }
+    .card-items {
+        width: 15rem;
+        margin: 1rem 0.5rem;
+    }
+    .personalInfo .formaccout .table-account-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .personalInfo .formaccout .table-account-form .form {
+        grid-column: span 1 / span 1;
+    }
+}
+
+@media (min-width: 750px) and (max-width: 959px) {
+    .header .content {
+        width: 100%;
+        padding: 1rem;
+    }
+    .navigation .nav-web {
+        width: 100%;
+        padding: 1rem;
+    }
+    .navigation .nav-web .content {
+        padding: 0.75rem 1.25rem;
+    }
+    .main, .payment,
+    .rental .main-rental .main-rental-content {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .homepage .main-content .sidebar,
+    .rental .main-rental .side-bar {
+        width: 24%;
+    }
+    .side-bar .tagname .link .link-child,
+    .side-bar .tagname .link-child {
+        padding-left: 0.25rem;
+    }
+    .homepage .main-content .list-pagination {
+        width: 76%;
+    }
+    .list, .personalInfo .invoice-like .pi-like {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .card-items {
+        width: 17rem;
+        margin: 0.5rem 0.25rem;
+    }
+    .main-footer .title {
+        font-size: x-large ;
+        margin-left: 1.5rem;
+    }
+    .main-footer .footer-content{
+        padding: 1rem 2rem;
+    }
+    .personalInfo .formaccout .table-account-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .personalInfo .formaccout .table-account-form .form {
+        grid-column: span 1 / span 1;
+    }
+}
+@media (max-width: 800px) {
+    .detail-product .frame {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        margin-bottom: 2.5rem;
+    }
+    .detail-product .frame .content {
+        padding: 1rem auto;
+        border: 0;
+    }
+    .payment .main-payment {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .payment .main-payment .payment-content {
+        grid-column: span 2 / span 2;
+        gap: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .payment .main-payment .payment-btn{
+        grid-column: span 1 / span 1;
+    }
+    .personalInfo .formaccout .table-account-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .personalInfo .formaccout .table-account-form .form {
+        grid-column: span 1 / span 1;
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .personalInfo .invoice-like .pi-table-invoicedetail {
+        padding: 1.25rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .personalInfo .invoice-like .pi-table-invoicedetail .pi-invoice {
+        grid-column: span 2 / span 2;
+    }
+    .personalInfo .invoice-like .pi-table-invoicedetail .pi-invoice,
+    .personalInfo .invoice-like .pi-table-invoicedetail .pi-detail {
+        height: 16rem;
+    }
+}
+@media (max-width: 749px) {
+    .header .content {
+        width: 100%;
+        padding: 1rem;
+    }
+    .navigation .nav-web {
+        width: 100%;
+        padding: 1rem;
+    }
+    .navigation .nav-web .content {
+        padding: 0.75rem 1.25rem;
+    }
+    .main, .payment,
+    .rental .main-rental .main-rental-content {
+        width: 100%;
+        padding: 1rem;
+    }
+    .homepage .main-content .sidebar,
+    .rental .main-rental .side-bar {
+        display: none;
+    }
+    .list, .personalInfo .invoice-like .pi-like {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .card-items {
+        width: 17rem;
+        margin: 0.5rem auto;
+    }
+    .homepage .main-content .list-pagination {
+        width: 100%;
+    }
+    .main-footer .title {
+        font-size: large ;
+        margin-left: 1.5rem;
+    }
+    .main-footer .footer-content{
+        font-size: small;
+        padding: 1rem 2rem;
+    }
+    .personalInfo .formaccout .table-account-form .form{
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .navigation .nav-web {
+        width: 100%;
+    }
+    .navigation .nav-web .content {
+        padding: 0.75rem;
+    }
+}
+@media (max-width: 579px) {
+    .card-items {
+        width: 16rem;
+        margin: 0.5rem auto;
+    }
+    
 }

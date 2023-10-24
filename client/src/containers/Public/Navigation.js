@@ -31,7 +31,7 @@ const Navigation = () => {
     <div className='navigation'>
       {parts !== 'webserver' &&
         <div className='nav-web'>
-          <NavLink to={`/`} className='content'><AiFillHome />HOME</NavLink>
+          <NavLink to={`/`} className='content'><AiFillHome /></NavLink>
           {categories?.length > 0 && categories.map(item => {
             if (item.state === 1) {
               return (

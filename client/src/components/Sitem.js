@@ -78,7 +78,7 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
   }, [dispatch])
 
   return (
-    <div className='card-items'>
+    <div className='card-items '>
       {isLiked ? (
         <span className="icons" onClick={() => handleUnLike(id)}>
           <AiFillHeart />

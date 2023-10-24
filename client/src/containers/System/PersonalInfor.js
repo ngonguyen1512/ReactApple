@@ -179,7 +179,6 @@ const PersonalInfor = () => {
                                         }, [])
                                         .map(item => item.jsx)
                                     }
-
                                 </tbody>
                             </table>
                         </div>

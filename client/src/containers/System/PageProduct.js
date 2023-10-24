@@ -9,8 +9,8 @@ const PageProduct = () => {
   const payloadid = parseInt(parts[parts.length - 1]);
 
   return (
-    <div className='w-full p-2 my-10'>
-      <span className='text-4xl font-bold tracking-widest justify-center items-center'>CREATE PRODUCT</span>
+    <div className='page-product'>
+      <span className='title'>CREATE PRODUCT</span>
       <div className='mt-5'>
         {!payloadid && <CreateP /> }
         {payloadid && products?.length > 0 && products.map(item => {

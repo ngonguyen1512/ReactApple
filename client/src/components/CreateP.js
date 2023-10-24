@@ -13,8 +13,8 @@ const CreateP = () => {
     const [invalidFields, setInvalidFields] = useState([])
 
     const [payload, setPayload] = useState({
-        idCategory: '', idSample: '', image: '', name: '', address: 'Hồ Chí Minh', quantity: 0,
-        price: '', discount: '', code: '', promotion: '', information: '', idProvider: '', state: 0,
+        idCategory: '', idSample: '', image: '', name: '', address: 'Hồ Chí Minh', quantity: '',
+        price: '', discount: '', code: '', promotion: '', information: '', idProvider: '', state: '',
     });
 
     const handleSubmit = async () => {
@@ -54,6 +54,10 @@ const CreateP = () => {
         msg && Swal.fire('Oops !', msg, 'error');
     }, [msg, update]);
 
+    useEffect(() => {
+        dispatch(actions.getCategories())
+    }, [dispatch])
+
     return (
         <div className='w-full grid grid-cols-3 gap-2'>
             <InputForm
@@ -82,7 +86,7 @@ const CreateP = () => {
                 setValue={setPayload}
                 keyPayload={'idProvider'}
                 type='text'
-                
+
             />
             <InputForm
                 setInvalidFields={setInvalidFields}
@@ -119,7 +123,6 @@ const CreateP = () => {
                 setValue={setPayload}
                 keyPayload={'quantity'}
                 type='number'
-                disabled={true}
             />
             <InputForm
                 setInvalidFields={setInvalidFields}
@@ -174,7 +177,6 @@ const CreateP = () => {
                 setValue={setPayload}
                 keyPayload={'state'}
                 type='number'
-                disabled={true}
             />
             <Button
                 class='col-span-2'

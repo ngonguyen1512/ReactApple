@@ -90,23 +90,10 @@ const Category = () => {
 
   useEffect(() => {
     if (shouldRefetch) {
-      let params = [];
-      for (let entry of searchParmas.entries()) params.push(entry);
-      let searchParamsObject = {}
-      params?.forEach(i => {
-        if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
-          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-        else
-          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      })
-      if (permis) searchParamsObject.permis = permis
-      dispatch(actions.getLimitCategories(searchParamsObject))
-      dispatch(actions.getFunctions(searchParamsObject))
-      dispatch(actions.getPermissions())
       dispatch(actions.getCategories())
       setShouldRefetch(false);
     }
-  }, [searchParmas, permis, dispatch, shouldRefetch])
+  }, [dispatch, shouldRefetch])
 
   return (
     <div className='category'>

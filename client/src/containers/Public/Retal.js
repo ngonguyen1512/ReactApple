@@ -28,7 +28,7 @@ const Retal = () => {
           <ItemSidebar content={categories} type='sample' list={lastPart} texts={lastPart} title='Product list'/>
           <ItemSidebar isDouble={true} type='code' content={prices} title='Sort by price'/>
         </div>
-        <div className='w-[76%]' >
+        <div className='main-retal-content' >
           <List category={idCategory} />
           <Pagination count={countp} currentPage={currentPage}
             setCurrentPage={setCurrentPage} counts={products} />

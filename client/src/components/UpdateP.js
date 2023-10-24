@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../utils/constant'
 
-const UpdateP = ({id, name, quantity, price, discount, idProvider, state}) => {
+const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const { msg, update } = useSelector(state => state.product)
@@ -14,16 +14,16 @@ const UpdateP = ({id, name, quantity, price, discount, idProvider, state}) => {
 
   const [payload, setPayload] = useState({
     id: id,
-    name: name, quantity: quantity, 
-    price: price, discount: discount, 
-    idProvider: idProvider , state: state
+    name: name, quantity: quantity,
+    price: price, discount: discount,
+    idProvider: idProvider, state: state
   });
   const handleSubmitUpdate = async () => {
     let finalPayload = payload;
     let invalids = validate(finalPayload);
     if (invalids === 0) {
       dispatch(actions.updateProducts(payload))
-      navigate('/' + path.PRODUCT)
+      navigate('/webserver/' + path.PRODUCT)
     }
   }
 
@@ -33,7 +33,7 @@ const UpdateP = ({id, name, quantity, price, discount, idProvider, state}) => {
 
     fields.forEach(item => {
       if (item[1] === '') {
-        setInvalidFields(prev => [...prev, {name: item[0], msg: 'Bạn không được bỏ trống trường này!'}])
+        setInvalidFields(prev => [...prev, { name: item[0], msg: 'Bạn không được bỏ trống trường này!' }])
         invalids++;
         return;
       }

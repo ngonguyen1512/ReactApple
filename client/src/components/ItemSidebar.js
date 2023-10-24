@@ -46,19 +46,18 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
     }
   };
   return (
-    <div className='w-full bg-[#161616] p-2 rounded-md text-white'>
-      <h3 className='text-lg font-semibold mb-1'>{title}</h3>
+    <div className='side-bar'>
+      <h3 className='title'>{title}</h3>
       {!isDouble &&
         <div>
           {content?.length > 0 && list === 0 && content.map(item => {
             if (item.state === 1) {
               return (
-                <div >
+                <div className='tagname'>
                   <Link
                     to={`${formatVietnameseToString(item.name)}`}
                     key={item.id}
-                    className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-                      hover:bg-secondary1 border-b border-gray-200 py-1' >
+                    className='center link hover:bg-secondary1 ' >
                     <p>{item.name}</p>
                   </Link>
                   {samples?.length > 0 && samples.map(items => {
@@ -67,7 +66,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                         <div
                           key={items.id}
                           onClick={() => handleFilterPosts(items.id)}
-                          className={`flex pl-5 cursor-pointer hover:text-blue-500 
+                          className={`link-child hover:text-blue-500 
                           ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                         >
                           {items.idCategory === item.id &&
@@ -94,13 +93,13 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
           {content?.length > 0 && list?.length > 0 && content.map(item => {
             if (item.state === 1) {
               return (
-                <div >
+                <div className='tagname'>
                   {typesamples?.length > 0 && typesamples.map(items => {
                     return (
                       <div
                         key={items.id}
                         onClick={() => handleFilterPosts(items.id)}
-                        className={`flex pl-5 cursor-pointer hover:text-blue-500 
+                        className={`link-child hover:text-blue-500 
                         ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                       >
                         {categories?.length > 0 && categories.map(itemsss => {

@@ -40,10 +40,10 @@ const Cart = () => {
                     <td className='text-center'>{product.id}</td>
                     <td className='pl-4'>{product.name}</td>
                     <td className='text-center'>
-                      <button className='px-2 bg-gray-500 rounded-sm mx-3'
+                      <button className='px-2 bg-gray-500 rounded-sm mx-1.5'
                         onClick={() => updateQuantity(product, product.quantity - 1)}>-</button>
                       {product.quantity}
-                      <button className='px-2 bg-gray-500 rounded-sm mx-3'
+                      <button className='px-2 bg-gray-500 rounded-sm mx-1.5'
                         onClick={() => updateQuantity(product, product.quantity + 1)}>+</button>
                     </td>
                     <td className='text-center'>{product.price.toLocaleString()}</td>

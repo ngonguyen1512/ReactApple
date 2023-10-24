@@ -64,10 +64,10 @@ const Payment = () => {
     }, [msg, update]);
 
     return (
-        <div className='w-1200 my-10 p-3'>
+        <div className='payment'>
             <p className='text-2xl font-bold tracking-wider ml-3'>PAYMENT</p>
-            <div className='grid grid-cols-3 gap-2 my-5'>
-                <div className='col-span-2'>
+            <div className='main-payment'>
+                <div className='cart-info'>
                     <CartContext.Consumer>
                         {({ cartItems }) => {
                             const total = cartItems.reduce((accumulator, product) =>
@@ -99,8 +99,8 @@ const Payment = () => {
                         }}
                     </CartContext.Consumer>
                 </div>
-                <div>
-                    <p className='text-lg font-semibold mt-5'>INFORMATION</p>
+                <div className='payment-content'>
+                    <p className='text-lg font-semibold mt-5 col-span-2' >INFORMATION</p>
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
@@ -131,7 +131,7 @@ const Payment = () => {
                     />
                 </div>
             </div>
-            <div className='w-full flex mt-5 justify-center items-center gap-2'>
+            <div className='payment-btn center'>
                 <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>Back</Link>
                 {/* <Link to={'/'} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Thanh toán</Link> */}
                 <CartContext.Consumer>
