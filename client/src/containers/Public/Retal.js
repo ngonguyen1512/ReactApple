@@ -22,9 +22,9 @@ const Retal = () => {
 
   return (
     <div className='rental center'>
-      <p className='title center'>{lastPart}</p>
+      <p className='headTitle center'>{lastPart}</p>
       <div className='main-rental'>
-        <div className='side-bar'>
+        <div className='side-bar-rental'>
           <ItemSidebar content={categories} type='sample' list={lastPart} texts={lastPart} title='Product list'/>
           <ItemSidebar isDouble={true} type='code' content={prices} title='Sort by price'/>
         </div>

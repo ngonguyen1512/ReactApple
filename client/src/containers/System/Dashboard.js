@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import icons from '../../utils/icons'
 import * as actions from '../../store/actions'
-import { Button } from '../../components/index'
+import { RevenueChart, Chart } from '../../components/index'
 
 const { BsCartCheck, AiOutlineSetting, MdOutlineSwitchAccount, GiMoneyStack } = icons
 
@@ -42,6 +42,8 @@ const Dashboard = () => {
   return (
     <div className='dashboard'>
       <span className='title center'>DASHBOARD</span>
+      {/* <RevenueChart invoices={invoices}/> */}
+
       <div className='dashboard-container'>
         <div className='container'>
           <span className='icons center bg-green-600' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
@@ -80,7 +82,8 @@ const Dashboard = () => {
           <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
         </div>
         <div className='table-bestseller'>
-          <table className='w-full'>
+          <Chart />
+          {/* <table className='w-full bg-[#a0a0a0]'>
             <thead>
               {shouldReload &&
                 <tr>
@@ -127,10 +130,10 @@ const Dashboard = () => {
                 )
               })}
             </tbody>
-          </table>
+          </table> */}
         </div>
         <div className='newinvoice'>
-          <table className='w-full'>
+          <table className='w-full bg-[#a0a0a0]'>
             <thead>
               <tr>
                 <th>ID BILL</th>

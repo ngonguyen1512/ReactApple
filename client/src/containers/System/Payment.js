@@ -132,7 +132,7 @@ const Payment = () => {
                 </div>
             </div>
             <div className='payment-btn center'>
-                <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4'>Back</Link>
+                <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4 mr-2'>Back</Link>
                 {/* <Link to={'/'} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Thanh toán</Link> */}
                 <CartContext.Consumer>
                     {({ cartItems }) => (

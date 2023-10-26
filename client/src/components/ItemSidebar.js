@@ -89,7 +89,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
       {!isDouble &&
         <div>
           <p className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-          hover:bg-secondary1 py-1' >{texts}</p>
+          hover:bg-secondary1 py-1' onClick={() => { navigate(`/${texts}`) }}>{texts}</p>
           {content?.length > 0 && list?.length > 0 && content.map(item => {
             if (item.state === 1) {
               return (
