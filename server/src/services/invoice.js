@@ -68,7 +68,7 @@ export const createInvoices = ({ idAccount, phone, address, total, state, invoic
 export const getInvoiceService = () => new Promise(async (resolve, reject) => {
     try {
         const invoices = await db.Invoice.findAll({
-            order: [['updatedAt', 'DESC']],
+            // order: [['updatedAt', 'DESC']],
         });
 
         if (invoices.length > 0) {
@@ -90,7 +90,6 @@ export const getInvoiceService = () => new Promise(async (resolve, reject) => {
             resolve({
                 err: 2,
                 msg: 'No invoice!',
-                invoices: null,
                 response: null
             });
         }

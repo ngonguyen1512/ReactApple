@@ -11,8 +11,6 @@ const HomeServer = () => {
   const { currentData } = useSelector(state => state.user)
   const permis = currentData.idPermission
 
-  console.log(permis)
-
   useEffect(() => {
     const handleScroll = () => {
       var scroll = $(window).scrollTop();

@@ -27,7 +27,7 @@ const Dashboard = () => {
   }
   let filteredTop = [];
   if (topselling && Array.isArray(topselling)) {
-    filteredTop = topselling.filter((item) =>
+    filteredTop = topselling.filter(item =>
       item.createdAt.includes(selectedDate)
     );
   }
@@ -38,11 +38,10 @@ const Dashboard = () => {
     dispatch(actions.getCountInvoices())
     dispatch(actions.getTopSelling())
   }, [dispatch])
-
   return (
     <div className='dashboard'>
       <span className='title center'>DASHBOARD</span>
-      {/* <RevenueChart invoices={invoices}/> */}
+      <RevenueChart />
 
       <div className='dashboard-container'>
         <div className='container'>
@@ -82,55 +81,7 @@ const Dashboard = () => {
           <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
         </div>
         <div className='table-bestseller'>
-          <Chart />
-          {/* <table className='w-full bg-[#a0a0a0]'>
-            <thead>
-              {shouldReload &&
-                <tr>
-                  <th>ID</th>
-                  <th>IMAGE</th>
-                  <th>NAME</th>
-                  <th>PRICE</th>
-                </tr>
-              }
-              {!shouldReload &&
-                <tr>
-                  <th>ID</th>
-                  <th>IMAGE</th>
-                  <th>NAME</th>
-                  <th>TOTALSOLD</th>
-                  <th>PRICE</th>
-                </tr>
-              }
-            </thead>
-            <tbody>
-              {shouldReload && filteredTop.length > 0 && filteredTop.map(item => {
-                return (
-                  <tr>
-                    <td className='text-center'>{item?.product_invoicedetail.id}</td>
-                    <td className='text-center w-[12%]'>
-                      <img src={item?.product_invoicedetail.image} alt={item?.product_invoicedetail.name} className='w-[100%] object-cover' />
-                    </td>
-                    <td>{item?.product_invoicedetail.name}</td>
-                    <td className='text-center'>{(item?.product_invoicedetail.price).toLocaleString()}</td>
-                  </tr>
-                )
-              })}
-              {!shouldReload && topselling?.length > 0 && topselling.map(item => {
-                return (
-                  <tr>
-                    <td className='text-center'>{item?.product_invoicedetail.id}</td>
-                    <td className='text-center w-[12%]'>
-                      <img src={item?.product_invoicedetail.image} alt={item?.product_invoicedetail.name} className='w-[100%] object-cover' />
-                    </td>
-                    <td>{item?.product_invoicedetail.name}</td>
-                    <td className='text-center'>{item.totalSold}</td>
-                    <td className='text-center'>{(item?.product_invoicedetail.price).toLocaleString()}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table> */}
+          <Chart chartData={filteredTop || ''}/>
         </div>
         <div className='newinvoice'>
           <table className='w-full bg-[#a0a0a0]'>

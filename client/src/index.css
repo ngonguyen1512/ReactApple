@@ -549,6 +549,7 @@
 
 /* ---------- PAYMENT ---------- */
 .payment {
+    color: #fff;
     width: 84%;
     margin: 2.5rem 0;
     padding: 0.75rem;
@@ -660,6 +661,20 @@
 }
 .dashboard .div-table .newinvoice {
     grid-column: span 2 / span 2;
+}
+.custom-tooltip {
+    background-color: #a0a0a0;
+    color:#000;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+}
+.custom-tooltip .label {
+    font-weight: 600;
+    letter-spacing: 0.075em;
+}
+.custom-tooltip .quantity,
+.custom-tooltip .total {
+    font-size: medium;
 }
 
 /* ---------- INVOICE ---------- */
