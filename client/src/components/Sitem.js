@@ -8,7 +8,7 @@ import * as actions from '../store/actions'
 
 const { AiOutlineHeart, AiFillHeart } = icons;
 
-const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) => {
+const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idCurrent }) => {
   const dispatch = useDispatch()
   const { likes } = useSelector(state => state.like)
   const [isLiked, setIsLiked] = useState(false);
@@ -90,7 +90,7 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
       )}
       <Link to={`${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
         <div className='image center'>
-          <img src={image} alt={name} className='h-[80%] object-cover' />
+          <img src={`/images/${idCategory}/${image}`} alt={name} className='h-[80%] object-cover' />
         </div>
         <div className='content'>
           <span className='center'>{name}</span>

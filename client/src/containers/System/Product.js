@@ -102,7 +102,7 @@ const Product = () => {
                 <tr>
                   <td className={styletd}>{item.id}</td>
                   <td className='w-[10%]'>
-                    <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
+                    <img src={`/images/${item.idCategory}/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
                   </td>
                   <td className='px-4 py-2'>{item.name}</td>
                   <td className={styletd}>{item.idCategory}</td>
@@ -125,7 +125,7 @@ const Product = () => {
                 <tr>
                   <td className={styletd}>{item.id}</td>
                   <td className='w-[10%]'>
-                    <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
+                    <img src={`/images/${item.idCategory}/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
                   </td>
                   <td className='px-4 py-2'>{item.name}</td>
                   <td className={styletd}>{item.idCategory}</td>

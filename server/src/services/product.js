@@ -87,7 +87,6 @@ export const getProductsLimitService = (page, category, query, { code, sample })
     }
 });
 
-
 export const createProductsService = ({ idCategory, idSample, image, name, address, quantity, price, discount, 
     code, promotion, information, idProvider, state }) => new Promise(async (resolve, reject) => {
     try {

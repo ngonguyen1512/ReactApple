@@ -4,7 +4,8 @@ import * as actions from '../store/actions'
 import { InputForm, Button } from './index'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import { path } from '../utils/constant'
+// import { path } from '../utils/constant'
+import axios from 'axios';
 
 const CreateP = () => {
     const dispatch = useDispatch()
@@ -13,16 +14,21 @@ const CreateP = () => {
     const [invalidFields, setInvalidFields] = useState([])
 
     const [payload, setPayload] = useState({
-        idCategory: '', idSample: '', image: '', name: '', address: 'Hồ Chí Minh', quantity: '',
+        idCategory: '', idSample: '', image: null, name: '', address: 'Hồ Chí Minh', quantity: '',
         price: '', discount: '', code: '', promotion: '', information: '', idProvider: '', state: '',
     });
-
+    const extractFileName = (path) => {
+        const fileName = path.split('\\').pop();
+        return fileName !== undefined ? fileName : '';
+    };
     const handleSubmit = async () => {
-        let finalPayload = payload;
+        let finalPayload = { ...payload }; // Tạo một bản sao của payload để không ghi đè trực tiếp lên payload gốc
+        finalPayload.image = extractFileName(payload.image);
+
         let invalids = validate(finalPayload);
         if (invalids === 0) {
-            dispatch(actions.createProducts(payload))
-            navigate('/webserver/' + path.PRODUCT)
+            dispatch(actions.createProducts(finalPayload));
+            navigate('/webserver/product')
         }
     }
     const validate = (payload) => {
@@ -95,7 +101,7 @@ const CreateP = () => {
                 value={payload.image}
                 setValue={setPayload}
                 keyPayload={'image'}
-                type='text'
+                type='file'
             />
             <InputForm
                 setInvalidFields={setInvalidFields}
