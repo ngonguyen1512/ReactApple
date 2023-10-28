@@ -4,8 +4,6 @@ import * as actions from '../store/actions'
 import { InputForm, Button } from './index'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-// import { path } from '../utils/constant'
-import axios from 'axios';
 
 const CreateP = () => {
     const dispatch = useDispatch()
