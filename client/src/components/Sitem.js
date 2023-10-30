@@ -90,7 +90,7 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
       )}
       <Link to={`${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
         <div className='image center'>
-          <img src={`/images/${idCategory}/${image}`} alt={name} className='h-[80%] object-cover' />
+          <img src={`/images/${image}`} alt={name} className='h-[80%] object-cover' />
         </div>
         <div className='content'>
           <span className='center'>{name}</span>

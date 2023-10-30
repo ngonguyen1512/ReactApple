@@ -13,4 +13,3 @@ export * from './provider'
 export * from './invoice'
 export * from './function';
 export * from './like';
-export * from './uploadImage';

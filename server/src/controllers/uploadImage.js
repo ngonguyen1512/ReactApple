@@ -1,9 +1,7 @@
-// server/src/controllers/imageController.js
-import * as services from '../services'
 import multer from 'multer';
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, '../client/public/images');
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -24,7 +22,6 @@ export const uploadImage = (req, res) => {
             return res.status(400).json({ error: 'Error uploading file' });
         }
         // Xử lý logic upload file ở đây
-        // const response = await services.saveImage(file)
         return res.status(200).json({ message: 'File uploaded successfully' });
     });
 };
