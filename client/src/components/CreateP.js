@@ -4,6 +4,7 @@ import * as actions from '../store/actions'
 import { InputForm, Button } from './index'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const CreateP = () => {
     const dispatch = useDispatch()
@@ -19,13 +20,31 @@ const CreateP = () => {
         const fileName = path.split('\\').pop();
         return fileName !== undefined ? fileName : '';
     };
+    const uploadFileAndDispatch = (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        return axios.post('http://localhost:5000/api/v1/image/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+    };
     const handleSubmit = async () => {
         let finalPayload = { ...payload }; // Tạo một bản sao của payload để không ghi đè trực tiếp lên payload gốc
         finalPayload.image = extractFileName(payload.image);
-
+        let fileInput = document.querySelector('input[type="file"]');
+        let file = fileInput.files[0];
         let invalids = validate(finalPayload);
+        
         if (invalids === 0) {
-            dispatch(actions.createProducts(finalPayload));
+            dispatch(actions.createProducts(finalPayload))
+                .then(() => {
+                    uploadFileAndDispatch(file)
+                        .then(response => {
+                            console.log('File uploaded to server:', response.data);
+                        }).catch(error => {
+                            console.error('Error uploading file:', error);
+                        });
+                })
+                .catch(error => { console.error('Error dispatching action:', error); });
             navigate('/webserver/product')
         }
     }

@@ -13,10 +13,6 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
   const { likes } = useSelector(state => state.like)
   const [isLiked, setIsLiked] = useState(false);
   const [likess, setLikess] = useState([]);
-  const [payload, setPayload] = useState({
-    idAccount: "",
-    idProduct: "",
-  });
 
   const handleLike = (id) => {
     const updatedPayload = {
@@ -25,23 +21,19 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
     };
     if (Array.isArray(likess)) {
       const existingLikeIndex = likess.findIndex(
-        (item) =>
-          item.idProduct === id && item.idAccount === idCurrent
+        (item) => item.idProduct === id && item.idAccount === idCurrent
       );
       if (existingLikeIndex > -1) {
         setIsLiked(true);
         return;
       }
     }
-
     dispatch(actions.createLikes(updatedPayload));
 
     const updatedLikes = [...likess, updatedPayload];
     setLikess(updatedLikes);
-
     setIsLiked(true);
   };
-
 
   const handleUnLike = (id) => {
     const updatedPayload = {
@@ -51,14 +43,12 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
     dispatch(actions.deleteLikes(updatedPayload));
 
     const updatedLikes = likess.filter(
-      (item) =>
-        item.idProduct !== id || item.idAccount !== idCurrent
+      (item) => item.idProduct !== id || item.idAccount !== idCurrent
     );
     setLikess(updatedLikes);
 
     const hasSomeLikes = updatedLikes.some(
-      (item) =>
-        item.idProduct === id && item.idAccount === idCurrent
+      (item) => item.idProduct === id && item.idAccount === idCurrent
     );
     setIsLiked(hasSomeLikes || false);
   };
@@ -66,8 +56,7 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
   useEffect(() => {
     if (Array.isArray(likes)) {
       const hasLiked = likes.some(
-        (item) =>
-          item.idProduct === id && item.idAccount === idCurrent
+        (item) => item.idProduct === id && item.idAccount === idCurrent
       );
       setIsLiked(hasLiked);
     }
@@ -80,13 +69,9 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
   return (
     <div className='card-items '>
       {isLiked ? (
-        <span className="icons" onClick={() => handleUnLike(id)}>
-          <AiFillHeart />
-        </span>
+        <span className="icons" onClick={() => handleUnLike(id)}><AiFillHeart /></span>
       ) : (
-        <span className="icons" onClick={() => handleLike(id)}>
-          <AiOutlineHeart />
-        </span>
+        <span className="icons" onClick={() => handleLike(id)}><AiOutlineHeart /></span>
       )}
       <Link to={`${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
         <div className='image center'>

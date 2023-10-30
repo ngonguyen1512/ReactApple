@@ -13,10 +13,6 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
   const { likes } = useSelector(state => state.like)
   const [isLiked, setIsLiked] = useState(false);
   const [likess, setLikess] = useState([]);
-  const [payload, setPayload] = useState({
-    idAccount: "",
-    idProduct: "",
-  });
 
   const handleLike = (id) => {
     const updatedPayload = {
@@ -25,20 +21,17 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
     };
     if (Array.isArray(likess)) {
       const existingLikeIndex = likess.findIndex(
-        (item) =>
-          item.idProduct === id && item.idAccount === idCurrent
+        (item) => item.idProduct === id && item.idAccount === idCurrent
       );
       if (existingLikeIndex > -1) {
         setIsLiked(true);
         return;
       }
     }
-
     dispatch(actions.createLikes(updatedPayload));
 
     const updatedLikes = [...likess, updatedPayload];
     setLikess(updatedLikes);
-
     setIsLiked(true);
   };
 
@@ -51,14 +44,12 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
     dispatch(actions.deleteLikes(updatedPayload));
 
     const updatedLikes = likess.filter(
-      (item) =>
-        item.idProduct !== id || item.idAccount !== idCurrent
+      (item) => item.idProduct !== id || item.idAccount !== idCurrent
     );
     setLikess(updatedLikes);
 
     const hasSomeLikes = updatedLikes.some(
-      (item) =>
-        item.idProduct === id && item.idAccount === idCurrent
+      (item) => item.idProduct === id && item.idAccount === idCurrent
     );
     setIsLiked(hasSomeLikes || false);
   };
@@ -66,8 +57,7 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
   useEffect(() => {
     if (Array.isArray(likes)) {
       const hasLiked = likes.some(
-        (item) =>
-          item.idProduct === id && item.idAccount === idCurrent
+        (item) => item.idProduct === id && item.idAccount === idCurrent
       );
       setIsLiked(hasLiked);
     }
@@ -80,13 +70,9 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
   return (
     <div className='card-items' key={id}>
       {isLiked ? (
-        <span className="icons" onClick={() => handleUnLike(id)}>
-          <AiFillHeart />
-        </span>
+        <span className="icons" onClick={() => handleUnLike(id)}><AiFillHeart /></span>
       ) : (
-        <span className="icons" onClick={() => handleLike(id)}>
-          <AiOutlineHeart />
-        </span>
+        <span className="icons" onClick={() => handleLike(id)}><AiOutlineHeart /></span>
       )}
 
       <Link to={`${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
