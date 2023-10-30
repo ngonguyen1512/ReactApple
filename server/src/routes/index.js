@@ -13,6 +13,7 @@ import permissionRouter from './permission'
 import providerRouter from './provider'
 import invoiceRouter from './invoice'
 import likeRouter from './like'
+import uplodaImageRouter from './uplodaImage'
 
 const initRoutes = (app) => {
     app.use('/api/v1/auth', authRouter)
@@ -30,6 +31,7 @@ const initRoutes = (app) => {
     app.use('/api/v1/provider', providerRouter)
     app.use('/api/v1/invoice', invoiceRouter)
     app.use('/api/v1/like', likeRouter)
+    app.use('/api/v1/image', uplodaImageRouter)
 
     return app.use('/', (req, res) => {
         res.send('Server on...');
