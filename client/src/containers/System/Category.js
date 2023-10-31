@@ -4,6 +4,7 @@ import { Pagination } from './index'
 import * as actions from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
+import axios from 'axios';
 
 const styletd = 'text-center text-base px-4 py-2 text-base'
 
@@ -35,11 +36,36 @@ const Category = () => {
   const [payload, setPayload] = useState({
     id: '' || null, name: '', image: '', state: ''
   });
+  const handleReloadu = async () => {
+    setPayload({ id: '', name: '', image: '', state: '' });
+    setShouldRefetch(true);
+  }
+  const extractFileName = (path) => {
+    const fileName = path.split('\\').pop();
+    return fileName !== undefined ? fileName : '';
+  };
+  const uploadFileAndDispatch = (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return axios.post('http://localhost:5000/api/v1/image/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  };
   const handleSubmitCreate = async () => {
-    let finalPayload = payload;
+    let finalPayload = { ...payload };
+    finalPayload.image = extractFileName(payload.image);
+    let fileInput = document.querySelector('input[type="file"]');
+    let file = fileInput.files[0];
     let invalids = validate(finalPayload);
     if (invalids === 0) {
-      dispatch(actions.createCategories(payload))
+      dispatch(actions.createCategories(payload)).then(() => {
+        uploadFileAndDispatch(file)
+          .then(response => {
+            console.log('File uploaded to server:', response.data);
+          }).catch(error => {
+            console.error('Error uploading file:', error);
+          });
+      }).catch(error => { console.error('Error dispatching action:', error); });
       setShouldRefetch(true);
     }
   }
@@ -95,10 +121,28 @@ const Category = () => {
     }
   }, [dispatch, shouldRefetch])
 
+  const mapRows = (data) => {
+    return data.map((item) => {
+      const handleClickRow = () => {
+        setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state });
+      };
+      return (
+        <tr key={item.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+          <td className={styletd}>{item.id}</td>
+          <td className='w-[10%]'>
+            <img src={`/images/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
+          </td>
+          <td className='px-4 py-2'>{item.name}</td>
+          <td className={styletd}>{item.state}</td>
+        </tr>
+      );
+    });
+  };
+
   return (
     <div className='category'>
       <div className='header-category'>
-        <span className='title center'>CATEGORY</span>
+        <span className='title center cursor-pointer' onClick={handleReloadu}>CATEGORY</span>
         <input
           className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"
@@ -109,32 +153,61 @@ const Category = () => {
       </div>
       {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
         <div className='form-create'>
-          <InputForm
-            setInvalidFields={setInvalidFields}
-            invalidFields={invalidFields}
-            label={'NAME'}
-            value={payload.name}
-            setValue={setPayload}
-            keyPayload={'name'}
-            type='text'
-          />
-          <InputForm
-            setInvalidFields={setInvalidFields}
-            invalidFields={invalidFields}
-            label={'IMAGE'}
-            value={payload.image}
-            setValue={setPayload}
-            keyPayload={'image'}
-            type='text'
-          />
-          <InputForm
-            setInvalidFields={setInvalidFields}
-            invalidFields={invalidFields} label={'STATE'}
-            value={payload.state}
-            setValue={setPayload}
-            keyPayload={'state'}
-            type='number'
-          />
+          {payload.id ? (
+            <>
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'NAME'}
+                value={payload.name}
+                setValue={setPayload}
+                keyPayload={'name'}
+                type='text'
+                disabled={true}
+              />
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'IMAGE'}
+                value={payload.image}
+                setValue={setPayload}
+                keyPayload={'image'}
+                type='text'
+                disabled={true}
+              />
+            </>
+          ) : (
+            <>
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'NAME'}
+                value={payload.name}
+                setValue={setPayload}
+                keyPayload={'name'}
+                type='text'
+              />
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'IMAGE'}
+                value={payload.image}
+                setValue={setPayload}
+                keyPayload={'image'}
+                type='file'
+              />
+            </>
+          )}
+          <div>
+            <label className='text-xs mt-4'>STATE</label>
+            <select value={payload.state}
+              onChange={(e) => setPayload({ ...payload, state: e.target.value })}
+              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+              <option value="">Select STATE</option>
+              <option value={1}>1 - Active</option>
+              <option value={0}>0 - No Active</option>
+            </select>
+          </div>
           {payload.id ? (
             <Button
               class='col-span-2'
@@ -155,7 +228,8 @@ const Category = () => {
             />
           )}
         </div>
-      ))}
+      ))
+      }
       <div className='list-table'>
         <table className='w-full'>
           <thead>
@@ -167,43 +241,15 @@ const Category = () => {
             </tr>
           </thead>
           <tbody>
-            {shouldReload && filteredCategories.length > 0 && filteredCategories.map((item) => {
-              const handleClickRow = () => {
-                setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
-              }
-              return (
-                <tr key={categories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className={styletd}>{item.id}</td>
-                  <td className='w-[10%]'>
-                    <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
-                  </td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className={styletd}>{item.state}</td>
-                </tr>
-              )
-            })}
-            {!shouldReload && limitcategories?.length > 0 && limitcategories.map(item => {
-              const handleClickRow = () => {
-                setPayload({ ...payload, id: item.id, name: item.name, image: item.image, state: item.state })
-              }
-              return (
-                <tr key={limitcategories.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className={styletd}>{item.id}</td>
-                  <td className='w-[10%]'>
-                    <img src={item.image} alt={item.name} className='w-[100%] object-cover' />
-                  </td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className={styletd}>{item.state}</td>
-                </tr>
-              )
-            })}
+            {shouldReload && filteredCategories.length > 0 && mapRows(filteredCategories)}
+            {!shouldReload && limitcategories?.length > 0 && mapRows(limitcategories)}
           </tbody>
         </table>
       </div>
       <Pagination count={count} currentPage={currentPage}
         setCurrentPage={setCurrentPage} counts={limitcategories}
       />
-    </div>
+    </div >
   )
 }
 

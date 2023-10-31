@@ -44,9 +44,9 @@ const Product = () => {
     for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
     params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) 
+      if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-      else 
+      else
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
     })
     if (permis) searchParamsObject.permis = permis
@@ -54,6 +54,31 @@ const Product = () => {
     dispatch(actions.getFunctions(searchParamsObject))
     dispatch(actions.getPermissions())
   }, [searchParmas, permis, dispatch])
+
+  const renderTableRow = (item) => {
+    return (
+      <tr>
+        <td className={styletd}>{item.id}</td>
+        <td className='w-[10%]'>
+          <img src={`/images/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
+        </td>
+        <td className='px-4 py-2'>{item.name}</td>
+        <td className={styletd}>{item.idCategory}</td>
+        <td className={styletd}>{item.idSample}</td>
+        <td className={styletd}>{item.quantity}</td>
+        <td className={styletd}>{item.discount}</td>
+        <td className={styletd}>{(item.price).toLocaleString()}</td>
+        <td className={styletd}>{item.state}</td>
+        {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
+          <th className='flex justify-center items-center text-center text-2xl py-10'>
+            <Link to={`${formatVietnameseToString(items.name)}-product/${item.id}`}>
+              <Button IcAfter={BiEdit} textColor='text-secondary' />
+            </Link>
+          </th>
+        ))}
+      </tr>
+    );
+  };
 
   return (
     <div className='product'>
@@ -85,8 +110,8 @@ const Product = () => {
               <th className='text-lg'>ID</th>
               <th className='text-lg w-[10%]'>IMAGE</th>
               <th className='text-lg'>NAME</th>
-              <th className='text-lg'>ID CATE</th>
-              <th className='text-lg'>ID SAMP</th>
+              <th className='text-lg'>ID CATEGORY</th>
+              <th className='text-lg'>ID SAMPLE</th>
               <th className='text-lg'>QUANTITY</th>
               <th className='text-lg'>DISCOUNT</th>
               <th className='text-lg'>PRICE</th>
@@ -97,54 +122,8 @@ const Product = () => {
             </tr>
           </thead>
           <tbody>
-            {shouldReload && filteredProducts.length > 0 && filteredProducts.map((item) => {
-              return (
-                <tr>
-                  <td className={styletd}>{item.id}</td>
-                  <td className='w-[10%]'>
-                    <img src={`/images/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
-                  </td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className={styletd}>{item.idCategory}</td>
-                  <td className={styletd}>{item.idSample}</td>
-                  <td className={styletd}>{item.quantity}</td>
-                  <td className={styletd}>{item.discount}</td>
-                  <td className={styletd}>{(item.price).toLocaleString()}</td>
-                  <td className={styletd}>{item.state}</td>
-                  {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
-                    <th className='flex justify-center items-center text-center text-2xl py-10'>
-                      <Link to={`${formatVietnameseToString(items.name)}-product/${item.id}`}>
-                        <Button IcAfter={BiEdit} textColor='text-secondary' />
-                      </Link>
-                    </th>
-                  ))}
-                </tr>
-              )
-            })}
-            {!shouldReload && products && Array.isArray(products) && products?.length > 0 && products.map(item => {
-              return (
-                <tr>
-                  <td className={styletd}>{item.id}</td>
-                  <td className='w-[10%]'>
-                    <img src={`/images/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
-                  </td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className={styletd}>{item.idCategory}</td>
-                  <td className={styletd}>{item.idSample}</td>
-                  <td className={styletd}>{item.quantity}</td>
-                  <td className={styletd}>{item.discount}</td>
-                  <td className={styletd}>{(item.price).toLocaleString()}</td>
-                  <td className={styletd}>{item.state}</td>
-                  {functions?.length > 0 && functions.map(items => items.name === 'Edit' && (
-                    <th className='flex justify-center items-center text-center text-2xl py-10'>
-                      <Link to={`${formatVietnameseToString(items.name)}-product/${item.id}`}>
-                        <Button IcAfter={BiEdit} textColor='text-secondary' />
-                      </Link>
-                    </th>
-                  ))}
-                </tr>
-              )
-            })}
+            {shouldReload && filteredProducts.length > 0 && filteredProducts.map(item => renderTableRow(item))}
+            {!shouldReload && Array.isArray(products) && products?.length > 0 && products.map(item => renderTableRow(item))}
           </tbody>
         </table>
       </div>

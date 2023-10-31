@@ -14,7 +14,7 @@ const PageProduct = () => {
       <div className='mt-5'>
         {!payloadid && <CreateP /> }
         {payloadid && products?.length > 0 && products.map(item => {
-          if (item.id === payloadid) {
+          if (item.id === payloadid) 
             return (
               <UpdateP
                 key={item?.id}
@@ -27,7 +27,6 @@ const PageProduct = () => {
                 state={item?.state}
               />
             )
-          }
           return null
         })}
       </div>

@@ -14,8 +14,7 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
     let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2)
     let start = (currentPage - 2) <= 1 ? 1 : (currentPage - 2)
     let temp = [];
-    for (let i = start; i <= end; i++)
-      temp.push(i);
+    for (let i = start; i <= end; i++) temp.push(i);
     setArrPage(temp);
     currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false)
     currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false)

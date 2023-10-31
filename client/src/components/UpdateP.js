@@ -10,6 +10,7 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const { msg, update } = useSelector(state => state.product)
+  const { providers } = useSelector(state => state.provider)
   const [invalidFields, setInvalidFields] = useState([])
 
   const [payload, setPayload] = useState({
@@ -44,18 +45,22 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
     msg && Swal.fire('Oops !', msg, 'error');
   }, [msg, update]);
 
+  useEffect(() => {
+    dispatch(actions.getProviders())
+  })
+
   return (
     <div className='w-full grid grid-cols-3 gap-2'>
-      <InputForm
-        setInvalidFields={setInvalidFields}
-        invalidFields={invalidFields}
-        label={'ID PROVIDER'}
-        value={payload.idProvider}
-        setValue={setPayload}
-        keyPayload={'idProvider'}
-        type='text'
-        disabled={true}
-      />
+      <div className='dropselect'>
+        <label className='text-xs mt-4'>ID PROVIDER</label>
+        <select value={payload.idPermission}
+          onChange={(e) => setPayload({ ...payload, idProvider: e.target.value })}
+          className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+          {providers?.length > 0 && providers.filter(item => item.id === idProvider).map(item => (
+            <option value={item.id}>{item.name}</option>
+          ))}
+        </select>
+      </div>
       <InputForm
         setInvalidFields={setInvalidFields}
         invalidFields={invalidFields}
@@ -73,7 +78,6 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
         setValue={setPayload}
         keyPayload={'quantity'}
         type='number'
-        disabled={true}
       />
       <InputForm
         setInvalidFields={setInvalidFields}
@@ -93,15 +97,17 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
         keyPayload={'discount'}
         type='number'
       />
-      <InputForm
-        setInvalidFields={setInvalidFields}
-        invalidFields={invalidFields}
-        label={'STATE'}
-        value={payload.state}
-        setValue={setPayload}
-        keyPayload={'state'}
-        type='number'
-      />
+      <div>
+        <label className='text-xs mt-4'>STATE</label>
+        <select value={payload.state}
+          onChange={(e) => setPayload({ ...payload, state: e.target.value })}
+          className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+          <option value="">Select STATE</option>
+          <option value={1}>1 - Active</option>
+          <option value={0}>0 - No Active</option>
+        </select>
+      </div>
+      <div></div>
       <Button
         class='col-span-2'
         text={'Save'}

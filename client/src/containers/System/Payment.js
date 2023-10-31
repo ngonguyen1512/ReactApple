@@ -34,14 +34,11 @@ const Payment = () => {
     const handleCreateInvoices = async (cartItems) => {
         const total = calculateTotal(cartItems);
         const invoiceDetails = cartItems.map((product) => ({
-            idProduct: product.id,
-            name: product.name,
-            quantity: product.quantity,
-            price: product.price
+            idProduct: product.id, name: product.name,
+            quantity: product.quantity, price: product.price
         }));
         const payload = {
-            idAccount: idcurrent,
-            phone: currentData.phone,
+            idAccount: idcurrent, phone: currentData.phone,
             address: '', total: total, state: 0,
             invoiceDetails: invoiceDetails
         };
@@ -128,7 +125,6 @@ const Payment = () => {
             </div>
             <div className='payment-btn center'>
                 <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4 mr-2'>Back</Link>
-                {/* <Link to={'/'} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-secondary2 text-white py-2 px-4'>Thanh toán</Link> */}
                 <CartContext.Consumer>
                     {({ cartItems }) => (
                         <Button

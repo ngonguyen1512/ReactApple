@@ -254,7 +254,7 @@ const Role = () => {
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadm.idPermission}
               onChange={(e) => setPayloadm({ ...payloadm, idPermission: e.target.value })}
-              className='outline-none bg-[#cacaca] p-2 rounded-md w-full ' >
+              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -346,7 +346,7 @@ const Role = () => {
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadf.idPermission}
               onChange={(e) => setPayloadf({ ...payloadf, idPermission: e.target.value })}
-              className='outline-none bg-[#cacaca] p-2 rounded-md w-full ' >
+              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.filter(item => item.id === 1 || item.id === 2).map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -438,7 +438,7 @@ const Role = () => {
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadt.idPermission}
               onChange={(e) => setPayloadt({ ...payloadt, idPermission: e.target.value })}
-              className='outline-none bg-[#cacaca] p-2 rounded-md w-full ' >
+              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.filter(item => item.id === 1 || item.id === 2).map(item => (
                 <option value={item.id}>{item.name}</option>

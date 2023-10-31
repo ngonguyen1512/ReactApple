@@ -16,10 +16,8 @@ const upload = multer({
 
 export const uploadImage = (req, res) => {
     upload.single('file')(req, res, function (err) {
-        if (err) {
-            console.error(err);
+        if (err)
             return res.status(400).json({ error: 'Error uploading file' });
-        }
         // Xử lý logic upload file
         return res.status(200).json({ message: 'File uploaded successfully' });
     });

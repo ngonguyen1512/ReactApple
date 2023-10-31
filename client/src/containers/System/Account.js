@@ -44,6 +44,10 @@ const Account = () => {
     id: '' || null, name: '', email: '', phone: '',
     password: '', idPermission: '2', state: '1'
   });
+  const handleReload = async () => {
+    setPayload({ id: '' || null, name: '', state: '' });
+    setShouldRefetch(true);
+  }
   const handleSubmitCreate = async () => {
     let finalPayload = payload;
     let invalids = validate(finalPayload);
@@ -162,10 +166,34 @@ const Account = () => {
     }
   }, [searchParmas, permis, dispatch, shouldRefetch])
 
+  const renderTableRow = (item) => {
+    const handleClickRow = () => {
+      setPayload({ ...payload, id: item.id });
+      setPayloadu({
+        ...payloadu,
+        id: item.id,
+        name: item.name,
+        state: item.state,
+      });
+    };
+
+    return (
+      <tr key={item.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+        <td className={styletd}>{item.id}</td>
+        <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
+        <td className='px-4 py-2'>{item.name}</td>
+        <td className='px-4 py-2'>{item.email}</td>
+        <td className={styletd}>{item.phone}</td>
+        <td className={styletd}>{item.idPermission}</td>
+        <td className={styletd}>{item.state}</td>
+      </tr>
+    );
+  };
+
   return (
     <div className='account'>
       <div className='header-account'>
-        <span className='title center'>ACCOUNT</span>
+        <span className='title center cursor-pointer' onClick={handleReload}>ACCOUNT</span>
         <input
           className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
           type="text"
@@ -188,15 +216,16 @@ const Account = () => {
                 type='text'
                 disabled={true}
               />
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'STATE'}
-                value={payloadu.state}
-                setValue={setPayloadu}
-                keyPayload={'state'}
-                type='number'
-              />
+              <div>
+                <label className='text-xs mt-4'>STATE</label>
+                <select value={payloadu.state}
+                  onChange={(e) => setPayloadu({ ...payloadu, state: e.target.value })}
+                  className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+                  <option value="">Select STATE</option>
+                  <option value={1}>1 - Active</option>
+                  <option value={0}>0 - No Active</option>
+                </select>
+              </div>
               <Button
                 class='col-span-2'
                 text={'UPDATE'}
@@ -272,45 +301,8 @@ const Account = () => {
             </tr>
           </thead>
           <tbody>
-            {shouldReload && filteredAccounts.length > 0 && filteredAccounts.map((item) => {
-              const handleClickRow = () => {
-                setPayload({ ...payload, id: item.id })
-                setPayloadu({
-                  ...payloadu, id: item.id, name: item.name, state: item.state,
-                });
-              };
-              return (
-                <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className={styletd}>{item.id}</td>
-                  <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className='px-4 py-2'>{item.email}</td>
-                  <td className={styletd}>{item.phone}</td>
-                  <td className={styletd}>{item.idPermission}</td>
-                  <td className={styletd}>{item.state}</td>
-                </tr>
-              )
-            })}
-
-            {!shouldReload && accounts && Array.isArray(accounts) && accounts?.length > 0 && accounts.map(item => {
-              const handleClickRow = () => {
-                setPayload({ ...payload, id: item.id })
-                setPayloadu({
-                  ...payloadu, id: item.id, name: item.name, state: item.state,
-                });
-              };
-              return (
-                <tr key={accounts.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className={styletd}>{item.id}</td>
-                  <td className={styletd}>{new Date(item.createdAt).toLocaleDateString()}</td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className='px-4 py-2'>{item.email}</td>
-                  <td className={styletd}>{item.phone}</td>
-                  <td className={styletd}>{item.idPermission}</td>
-                  <td className={styletd}>{item.state}</td>
-                </tr>
-              )
-            })}
+            {shouldReload && filteredAccounts.length > 0 && filteredAccounts.map((item) => renderTableRow(item))}
+            {!shouldReload && Array.isArray(accounts) && accounts?.length > 0 && accounts.map((item) => renderTableRow(item))}
           </tbody>
         </table>
       </div>

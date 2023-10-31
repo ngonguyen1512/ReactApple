@@ -10,6 +10,8 @@ const CreateP = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const { msg, update } = useSelector(state => state.product)
+    const { providers } = useSelector(state => state.provider)
+    const { categories, samples, prices } = useSelector(state => state.app)
     const [invalidFields, setInvalidFields] = useState([])
 
     const [payload, setPayload] = useState({
@@ -37,16 +39,14 @@ const CreateP = () => {
         let invalids = validate(finalPayload);
 
         if (invalids === 0) {
-            dispatch(actions.createProducts(finalPayload))
-                .then(() => {
-                    uploadFileAndDispatch(file)
-                        .then(response => {
-                            console.log('File uploaded to server:', response.data);
-                        }).catch(error => {
-                            console.error('Error uploading file:', error);
-                        });
-                })
-                .catch(error => { console.error('Error dispatching action:', error); });
+            dispatch(actions.createProducts(finalPayload)).then(() => {
+                uploadFileAndDispatch(file)
+                    .then(response => {
+                        console.log('File uploaded to server:', response.data);
+                    }).catch(error => {
+                        console.error('Error uploading file:', error);
+                    });
+            }).catch(error => { console.error('Error dispatching action:', error); });
             navigate('/webserver/product')
         }
     }
@@ -81,38 +81,47 @@ const CreateP = () => {
 
     useEffect(() => {
         dispatch(actions.getCategories())
+        dispatch(actions.getProviders())
+        dispatch(actions.getCategories())
+        dispatch(actions.getSamples())
+        dispatch(actions.getPrices());
     }, [dispatch])
 
     return (
         <div className='w-full grid grid-cols-3 gap-2'>
-            <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'ID CATEGORY'}
-                value={payload.idCategory}
-                setValue={setPayload}
-                keyPayload={'idCategory'}
-                type='text'
-            />
-            <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'ID SAMPLE'}
-                value={payload.idSample}
-                setValue={setPayload}
-                keyPayload={'idSample'}
-                type='text'
-            />
-            <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'ID PROVIDER'}
-                value={payload.idProvider}
-                setValue={setPayload}
-                keyPayload={'idProvider'}
-                type='text'
-
-            />
+            <div className='dropselect'>
+                <label className='text-xs mt-4'>ID CATEGORY</label>
+                <select value={payload.idCategory}
+                    onChange={(e) => setPayload({ ...payload, idCategory: e.target.value })}
+                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    <option value="">Select ID CATEGORY</option>
+                    {categories?.length > 0 && categories.map(item => (
+                        <option value={item.id}>{item.name}</option>
+                    ))}
+                </select>
+            </div>
+            <div className='dropselect'>
+                <label className='text-xs mt-4'>ID SAMPLE</label>
+                <select value={payload.idSample}
+                    onChange={(e) => setPayload({ ...payload, idSample: e.target.value })}
+                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    <option value="">Select ID SAMPLE</option>
+                    {samples?.length > 0 && samples.map(item => (
+                        <option value={item.id}>{item.name}</option>
+                    ))}
+                </select>
+            </div>
+            <div className='dropselect'>
+                <label className='text-xs mt-4'>ID PROVIDER</label>
+                <select value={payload.idPermission}
+                    onChange={(e) => setPayload({ ...payload, idProvider: e.target.value })}
+                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    <option value="">Select ID PROVIDER</option>
+                    {providers?.length > 0 && providers.map(item => (
+                        <option value={item.id}>{item.name}</option>
+                    ))}
+                </select>
+            </div>
             <InputForm
                 setInvalidFields={setInvalidFields}
                 invalidFields={invalidFields}
@@ -167,15 +176,17 @@ const CreateP = () => {
                 keyPayload={'discount'}
                 type='number'
             />
-            <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'CODE'}
-                value={payload.code}
-                setValue={setPayload}
-                keyPayload={'code'}
-                type='number'
-            />
+            <div className='dropselect'>
+                <label className='text-xs mt-4'>ID CODE</label>
+                <select value={payload.code}
+                    onChange={(e) => setPayload({ ...payload, code: e.target.value })}
+                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    <option value="">Select CODE</option>
+                    {prices?.length > 0 && prices.map(item => (
+                        <option value={item.id}>{item.value}</option>
+                    ))}
+                </select>
+            </div>
             <InputForm
                 setInvalidFields={setInvalidFields}
                 invalidFields={invalidFields}
@@ -194,15 +205,16 @@ const CreateP = () => {
                 keyPayload={'information'}
                 type='text'
             />
-            <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields}
-                label={'STATE'}
-                value={payload.state}
-                setValue={setPayload}
-                keyPayload={'state'}
-                type='number'
-            />
+            <div>
+                <label className='text-xs mt-4'>STATE</label>
+                <select value={payload.state}
+                    onChange={(e) => setPayload({ ...payload, state: e.target.value })}
+                    className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+                    <option value="">Select STATE</option>
+                    <option value={1}>1 - Active</option>
+                    <option value={0}>0 - No Active</option>
+                </select>
+            </div>
             <Button
                 class='col-span-2'
                 text={'Save'}

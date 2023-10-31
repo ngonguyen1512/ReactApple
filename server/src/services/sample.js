@@ -22,10 +22,8 @@ export const getAllSamplesService = () => new Promise(async(resolve, reject) => 
 export const getLimitSamplesService = (page) => new Promise(async(resolve, reject) => {
     try {
         let offset = (!page || +page <= 1) ? 0 : (+page - 1)
-        const whereClause = { state: '1' };
         
         const response = await db.Sample.findAndCountAll({
-            where: whereClause,
             offset: offset * +process.env.LIMIT_SAMPLE,
             limit: +process.env.LIMIT_SAMPLE,
             raw: true,

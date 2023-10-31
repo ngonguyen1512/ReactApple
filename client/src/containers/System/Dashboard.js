@@ -39,6 +39,19 @@ const Dashboard = () => {
     dispatch(actions.getTopSelling())
   }, [dispatch])
 
+  const renderInvoiceRow = (item) => {
+    if (item.state === 1) {
+      return (
+        <tr key={item.id}>
+          <td className='text-center'>{item.id}</td>
+          <td>{item?.account_invoice.id} - {item?.account_invoice.name}</td>
+          <td className='text-center'>{(item.total).toLocaleString()}</td>
+        </tr>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className='dashboard'>
       <span className='title center'>DASHBOARD</span>
@@ -81,7 +94,7 @@ const Dashboard = () => {
           <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
         </div>
         <div className='table-bestseller'>
-          <Chart chartData={filteredTop || ''}/>
+          <Chart chartData={filteredTop || ''} />
         </div>
         <div className='newinvoice'>
           <table className='w-full bg-[#a0a0a0]'>
@@ -93,28 +106,8 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {shouldReload && filteredInvoice.length > 0 && filteredInvoice.map(item => {
-                if (item.state === 1) 
-                  return (
-                    <tr>
-                      <td className='text-center'>{item.id}</td>
-                      <td>{item?.account_invoice.id} - {item?.account_invoice.name}</td>
-                      <td className='text-center'>{(item.total).toLocaleString()}</td>
-                    </tr>
-                  )
-                return null
-              })}
-              {!shouldReload && invoices?.length > 0 && invoices.map(item => {
-                if (item.state === 1) 
-                  return (
-                    <tr>
-                      <td className='text-center'>{item.id}</td>
-                      <td>{item?.account_invoice.id} - {item?.account_invoice.name}</td>
-                      <td className='text-center'>{(item.total).toLocaleString()}</td>
-                    </tr>
-                  )
-                return null
-              })}
+              {shouldReload && filteredInvoice.length > 0 && filteredInvoice.map((item) => renderInvoiceRow(item))}
+              {!shouldReload && invoices?.length > 0 && invoices.map((item) => renderInvoiceRow(item))}
             </tbody>
           </table>
         </div>

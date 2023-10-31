@@ -33,13 +33,16 @@ const Provider = () => {
   }
 
   const [payload, setPayload] = useState({
-    id: '' || null,
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    state: ''
+    id: '' || null, name: '', email: '',
+    phone: '', address: '', state: ''
   });
+  const handleReload = async () => {
+    setPayload({ 
+      id: '' || null, name: '', email: '',
+      phone: '', address: '', state: '' 
+    });
+    setShouldRefetch(true);
+  }
   const handleSubmitCreate = async () => {
     let finalPayload = payload;
     let invalids = validate(finalPayload);
@@ -50,9 +53,7 @@ const Provider = () => {
   }
 
   const [payloadu, setPayloadu] = useState({
-    id: '',
-    name: '',
-    state: ''
+    id: '', name: '', state: ''
   })
   const handleSubmitUpdate = async () => {
     dispatch(actions.updateProviders(payloadu))
@@ -142,10 +143,29 @@ const Provider = () => {
     }
   }, [searchParmas, permis, dispatch, shouldRefetch])
 
+  const mapRows = (data) => {
+    return data.map((item) => {
+      const handleClickRow = () => {
+        setPayload({ ...payload, id: item.id });
+        setPayloadu({ ...payloadu, id: item.id, name: item.name, state: item.state });
+      };
+      return (
+        <tr key={item.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
+          <td className={styletd}>{item.id}</td>
+          <td className='px-4 py-2'>{item.name}</td>
+          <td className={styletd}>{item.phone}</td>
+          <td className={styletd}>{item.email}</td>
+          <td className={styletd}>{item.address}</td>
+          <td className={styletd}>{item.state}</td>
+        </tr>
+      );
+    });
+  };
+
   return (
     <div className='provider'>
       <div className='header-provider'>
-        <span className='title center'>PROVIDER</span>
+        <span className='title center cursor-pointer' onClick={handleReload}>PROVIDER</span>
         <input
           className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
           type="text"
@@ -156,7 +176,7 @@ const Provider = () => {
       </div>
       {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
         <div className='form-create'>
-          {!payload.id &&
+          {!payload.id ? (
             <>
               <InputForm
                 setInvalidFields={setInvalidFields}
@@ -193,14 +213,16 @@ const Provider = () => {
                 keyPayload={'address'}
                 type='text'
               />
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'STATE'}
-                value={payload.state}
-                setValue={setPayload}
-                keyPayload={'state'}
-                type='number'
-              />
+              <div>
+                <label className='text-xs mt-4'>STATE</label>
+                <select value={payload.state}
+                  onChange={(e) => setPayload({ ...payload, state: e.target.value })}
+                  className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+                  <option value="">Select STATE</option>
+                  <option value={1}>1 - Active</option>
+                  <option value={0}>0 - No Active</option>
+                </select>
+              </div>
               <div className='col-span-2'></div>
               <Button
                 class='col-span-2'
@@ -210,8 +232,7 @@ const Provider = () => {
                 onClick={handleSubmitCreate}
               />
             </>
-          }
-          {payload.id &&
+          ): (
             <>
               <InputForm
                 setInvalidFields={setInvalidFields}
@@ -223,14 +244,16 @@ const Provider = () => {
                 type='text'
                 disabled={true}
               />
-              <InputForm
-                setInvalidFields={setInvalidFields}
-                invalidFields={invalidFields} label={'STATE'}
-                value={payloadu.state}
-                setValue={setPayloadu}
-                keyPayload={'state'}
-                type='number'
-              />
+              <div>
+                <label className='text-xs mt-4'>STATE</label>
+                <select value={payloadu.state}
+                  onChange={(e) => setPayloadu({ ...payloadu, state: e.target.value })}
+                  className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+                  <option value="">Select STATE</option>
+                  <option value={1}>1 - Active</option>
+                  <option value={0}>0 - No Active</option>
+                </select>
+              </div>
               <div></div>
               <Button
                 class='col-span-2'
@@ -242,8 +265,7 @@ const Provider = () => {
                 onClick={handleSubmitUpdate}
               />
             </>
-          }
-
+          )}
         </div>
       ))}
       <div className='list-table'>
@@ -259,42 +281,8 @@ const Provider = () => {
             </tr>
           </thead>
           <tbody>
-            {shouldReload && filteredProviders.length > 0 && filteredProviders.map((item) => {
-              const handleClickRow = () => {
-                setPayload({ ...payload, id: item.id })
-                setPayloadu({
-                  ...payloadu, id: item.id, name: item.name, state: item.state,
-                });
-              };
-              return (
-                <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className={styletd}>{item.id}</td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className={styletd}>{item.phone}</td>
-                  <td className={styletd}>{item.email}</td>
-                  <td className={styletd}>{item.address}</td>
-                  <td className={styletd}>{item.state}</td>
-                </tr>
-              )
-            })}
-            {!shouldReload && providers && Array.isArray(providers) && providers?.length > 0 && providers.map(item => {
-              const handleClickRow = () => {
-                setPayload({ ...payload, id: item.id })
-                setPayloadu({
-                  ...payloadu, id: item.id, name: item.name, state: item.state,
-                });
-              };
-              return (
-                <tr key={providers.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
-                  <td className={styletd}>{item.id}</td>
-                  <td className='px-4 py-2'>{item.name}</td>
-                  <td className={styletd}>{item.phone}</td>
-                  <td className={styletd}>{item.email}</td>
-                  <td className={styletd}>{item.address}</td>
-                  <td className={styletd}>{item.state}</td>
-                </tr>
-              )
-            })}
+            {shouldReload && filteredProviders.length > 0 && mapRows(filteredProviders)}
+            {!shouldReload && providers && Array.isArray(providers) && providers.length > 0 && mapRows(providers)}
           </tbody>
         </table>
       </div>
