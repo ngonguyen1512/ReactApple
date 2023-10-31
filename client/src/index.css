@@ -371,6 +371,7 @@
     margin-bottom: 2.5rem;
 }
 .detail-product .frame .image {
+    padding: 2rem;
     width: 100%;
 }
 .detail-product .frame .content {
@@ -388,7 +389,7 @@
     font-size: medium;
 }
 .detail-product .frame .content .price {
-    font-size: larger;
+    font-size: x-large;
     font-weight: 600;
 }
 .detail-product .frame .content .promotion {
@@ -398,7 +399,7 @@
 }
 .detail-product .frame .content .promotion p.title {
     padding: 0.75rem;
-    border-bottom: 1px solid #3482F6;
+    border-bottom: 1px solid #323232;
     font-weight: 600;
     font-size: large;
 }

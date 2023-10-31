@@ -14,8 +14,7 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
     let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2)
     let start = (currentPage - 2) <= 1 ? 1 : (currentPage - 2)
     let temp = [];
-    for (let i = start; i <= end; i++)
-      temp.push(i);
+    for (let i = start; i <= end; i++) temp.push(i);
     setArrPage(temp);
     currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false)
     currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false)
@@ -23,26 +22,29 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
 
   return (
     <div className='mt-10 flex items-center justify-center gap-2'>
-      {!isHideStart && <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />}
-      {!isHideStart && <PageNumber text={'...'} />}
+      {!isHideStart &&
+        <>
+          <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />
+          <PageNumber text={'...'} />
+        </>
+      }
       {arrPage.length > 0 && arrPage.map(item => {
         return (
-          <PageNumber
-            key={item}
-            text={item}
+          <PageNumber key={item} text={item}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
           />
         )
       })}
-      {!isHideEnd && <PageNumber text={'...'} />}
       {!isHideEnd &&
-        <PageNumber
-          icon={<GrNext />}
-          text={Math.ceil(count / counts.length)}
-          setCurrentPage={setCurrentPage}
-          type='end'
-        />
+        <>
+          <PageNumber text={'...'} />
+          <PageNumber icon={<GrNext />}
+            text={Math.ceil(count / counts.length)}
+            setCurrentPage={setCurrentPage}
+            type='end'
+          />
+        </>
       }
     </div>
   )

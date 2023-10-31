@@ -41,13 +41,8 @@ const Account = () => {
   }
 
   const [payload, setPayload] = useState({
-    id: '' || null,
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    idPermission: '2',
-    state: '1'
+    id: '' || null, name: '', email: '', phone: '',
+    password: '', idPermission: '2', state: '1'
   });
   const handleSubmitCreate = async () => {
     let finalPayload = payload;
@@ -59,9 +54,7 @@ const Account = () => {
   }
 
   const [payloadu, setPayloadu] = useState({
-    id: '',
-    name: '',
-    state: ''
+    id: '', name: '', state: ''
   })
   const handleSubmitUpdate = async () => {
     dispatch(actions.updateStateAccount(payloadu))
@@ -139,11 +132,10 @@ const Account = () => {
     for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
     params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+      if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-      } else {
+      else
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      }
     })
     if (permis) searchParamsObject.permis = permis
     dispatch(actions.getAccounts(searchParamsObject))
@@ -157,11 +149,10 @@ const Account = () => {
       for (let entry of searchParmas.entries()) params.push(entry);
       let searchParamsObject = {}
       params?.forEach(i => {
-        if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+        if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
           searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-        } else {
+        else
           searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-        }
       })
       if (permis) searchParamsObject.permis = permis
       dispatch(actions.getAccounts(searchParamsObject))
@@ -185,95 +176,86 @@ const Account = () => {
       </div>
       {functions?.length > 0 && functions.map(item => item.name === 'Create' && item.idPermission === 1 && (
         <div className='form-create'>
-          {payload.id &&
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields}
-              label={'NAME'}
-              value={payloadu.name}
-              setValue={setPayloadu}
-              keyPayload={'name'}
-              type='text'
-              disabled={true}
-            />
-          }
-          {payload.id &&
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields} label={'STATE'}
-              value={payloadu.state}
-              setValue={setPayloadu}
-              keyPayload={'state'}
-              type='number'
-            />
-          }
-          {payload.id && <div></div>}
-          {payload.id &&
-            <Button
-              class='col-span-2'
-              text={'UPDATE'}
-              value={payloadu.id}
-              setValue={setPayloadu}
-              bgColor='bg-green-800'
-              textColor='text-white'
-              onClick={handleSubmitUpdate}
-            />
-          }
-          {!payload.id &&
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields}
-              label={'NAME'}
-              value={payload.name}
-              setValue={setPayload}
-              keyPayload={'name'}
-              type='text'
-            />
-          }
-          {!payload.id &&
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields}
-              label={'EMAIL'}
-              value={payload.email}
-              setValue={setPayload}
-              keyPayload={'email'}
-              type='email'
-            />
-          }
-          {!payload.id &&
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields} label={'PHONE'}
-              value={payload.phone}
-              setValue={setPayload}
-              keyPayload={'phone'}
-              type='tel'
-            />
-          }
-          {!payload.id &&
-            <InputForm
-              setInvalidFields={setInvalidFields}
-              invalidFields={invalidFields}
-              label={'PASSWORD'}
-              value={payload.password}
-              setValue={setPayload}
-              keyPayload={'password'}
-              type='password'
-            />
-          }
-          {!payload.id &&
-            <div className='col-span-3'></div>
-          }
-          {!payload.id &&
-            <Button
-              class='col-span-2'
-              text={'CREATE'}
-              bgColor='bg-secondary2'
-              textColor='text-white'
-              onClick={handleSubmitCreate}
-            />
-          }
+          {payload.id && (
+            <>
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'NAME'}
+                value={payloadu.name}
+                setValue={setPayloadu}
+                keyPayload={'name'}
+                type='text'
+                disabled={true}
+              />
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'STATE'}
+                value={payloadu.state}
+                setValue={setPayloadu}
+                keyPayload={'state'}
+                type='number'
+              />
+              <Button
+                class='col-span-2'
+                text={'UPDATE'}
+                value={payloadu.id}
+                setValue={setPayloadu}
+                bgColor='bg-green-800'
+                textColor='text-white'
+                onClick={handleSubmitUpdate}
+              />
+            </>
+          )}
+          {!payload.id && (
+            <>
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'NAME'}
+                value={payload.name}
+                setValue={setPayload}
+                keyPayload={'name'}
+                type='text'
+              />
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'EMAIL'}
+                value={payload.email}
+                setValue={setPayload}
+                keyPayload={'email'}
+                type='email'
+              />
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'PHONE'}
+                value={payload.phone}
+                setValue={setPayload}
+                keyPayload={'phone'}
+                type='tel'
+              />
+              <InputForm
+                setInvalidFields={setInvalidFields}
+                invalidFields={invalidFields}
+                label={'PASSWORD'}
+                value={payload.password}
+                setValue={setPayload}
+                keyPayload={'password'}
+                type='password'
+              />
+              <div className='col-span-3'></div>
+              <Button
+                class='col-span-2'
+                text={'CREATE'}
+                bgColor='bg-secondary2'
+                textColor='text-white'
+                onClick={handleSubmitCreate}
+              />
+            </>
+          )}
         </div>
       ))}
       <div className='list-table'>

@@ -12,8 +12,7 @@ const Login = () => {
     const { isLoggedIn, msg, update } = useSelector(state => state.auth)
     const [invalidFields, setInvalidFields] = useState([])
     const [payload, setPayload] = useState({
-        phone: '',
-        password: '',
+        phone: '', password: '',
     });
 
     const handleSubmit = async () => {

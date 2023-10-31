@@ -153,7 +153,7 @@ const Sample = () => {
             keyPayload={'state'}
             type='number'
           />
-          {payload.id &&
+          {payload.id ? (
             <Button
               class='col-span-2'
               text={'UPDATE'}
@@ -163,8 +163,7 @@ const Sample = () => {
               textColor='text-white'
               onClick={handleSubmitUpdate}
             />
-          }
-          {!payload.id &&
+          ) : (
             <Button
               class='col-span-2'
               text={'CREATE'}
@@ -172,7 +171,7 @@ const Sample = () => {
               textColor='text-white'
               onClick={handleSubmitCreate}
             />
-          }
+          )}
         </div>
       ))}
       <div className='list-table'>

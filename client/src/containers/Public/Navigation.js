@@ -18,22 +18,21 @@ const Navigation = () => {
   const { transfers } = useSelector(state => state.transfer)
   const { currentData } = useSelector(state => state.user)
   const [isShowMiniCart, setIsShowMiniCart] = useState(false)
+  const pathurl = location.pathname
+  const parts = pathurl.split('/')[1]
 
   useEffect(() => {
     dispatch(actions.getCategories());
     dispatch(actions.getTransfers());
   }, [dispatch]);
 
-  const pathurl = location.pathname
-  const parts = pathurl.split('/')[1]
-
   return (
     <div className='navigation'>
-      {parts !== 'webserver' &&
+      {parts !== 'webserver' ? (
         <div className='nav-web'>
           <NavLink to={`/`} className='content text-2xl'><AiFillHome /></NavLink>
           {categories?.length > 0 && categories.map(item => {
-            if (item.state === 1) {
+            if (item.state === 1)
               return (
                 <div className='nav-db center'>
                   <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className='content'>
@@ -41,7 +40,6 @@ const Navigation = () => {
                   </NavLink>
                 </div>
               )
-            }
             return null
           })}
           <CartContext.Consumer>
@@ -49,10 +47,6 @@ const Navigation = () => {
               const total = cartItems.reduce((accumulator, product) =>
                 accumulator + (product.price * product.quantity), 0);
               return (
-                // <NavLink to={path.CART} className='content'>
-                //   <BsCart4 />
-                //   <span className=''>({cartItems.length})</span>
-                // </NavLink>
                 <div className='minicart'>
                   <span className='content' onClick={() => setIsShowMiniCart(prev => !prev)}>
                     <BsCart4 />
@@ -92,8 +86,7 @@ const Navigation = () => {
             }}
           </CartContext.Consumer>
         </div>
-      }
-      {parts === 'webserver' &&
+      ) : (
         <div className='nav-web'>
           {transfers?.length > 0 && transfers.map(item => {
             return (
@@ -109,7 +102,7 @@ const Navigation = () => {
             )
           })}
         </div>
-      }
+      )}
     </div>
   )
 }

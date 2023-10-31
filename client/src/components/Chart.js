@@ -18,7 +18,7 @@ const Chart = () => {
     }, [dispatch])
 
     const CustomTooltip = ({ active, payload, label }) => {
-        if (active && payload && payload.length) {
+        if (active && payload && payload.length) 
             return (
                 <div className="custom-tooltip">
                     <div className="label">{label}</div>
@@ -26,7 +26,6 @@ const Chart = () => {
                     <div className="total">Total: {payload[0].payload.total} VND</div>
                 </div>
             );
-        }
         return null;
     };
 

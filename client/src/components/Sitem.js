@@ -79,7 +79,7 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
         </div>
         <div className='content'>
           <span className='center'>{name}</span>
-          {discount === 0 &&
+          {discount === 0 ? (
             <div className='tag center'>
               <span className='price'>
                 <IntlProvider locale="vi">
@@ -91,8 +91,7 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
                 </IntlProvider>
               </span>
             </div>
-          }
-          {discount !== 0 &&
+          ) : (
             <div className='tag center'>
               <span className='price'>
                 <IntlProvider locale="vi">
@@ -116,7 +115,7 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
                 <span className='discount'>-{discount}%</span>
               </div>
             </div>
-          }
+          )}
         </div>
       </Link>
     </div>

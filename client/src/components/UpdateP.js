@@ -13,8 +13,7 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
   const [invalidFields, setInvalidFields] = useState([])
 
   const [payload, setPayload] = useState({
-    id: id,
-    name: name, quantity: quantity,
+    id: id, name: name, quantity: quantity,
     price: price, discount: discount,
     idProvider: idProvider, state: state
   });

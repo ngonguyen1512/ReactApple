@@ -16,10 +16,12 @@ const CreateP = () => {
         idCategory: '', idSample: '', image: null, name: '', address: 'Hồ Chí Minh', quantity: '',
         price: '', discount: '', code: '', promotion: '', information: '', idProvider: '', state: '',
     });
+    // Hàm trích xuất tên file từ đường dẫn file
     const extractFileName = (path) => {
         const fileName = path.split('\\').pop();
         return fileName !== undefined ? fileName : '';
     };
+    // Hàm thực hiện việc upload file và gửi lên server
     const uploadFileAndDispatch = (file) => {
         const formData = new FormData();
         formData.append('file', file);
@@ -29,11 +31,11 @@ const CreateP = () => {
     };
     const handleSubmit = async () => {
         let finalPayload = { ...payload }; // Tạo một bản sao của payload để không ghi đè trực tiếp lên payload gốc
-        finalPayload.image = extractFileName(payload.image);
-        let fileInput = document.querySelector('input[type="file"]');
-        let file = fileInput.files[0];
+        finalPayload.image = extractFileName(payload.image); // Trích xuất tên file từ payload.image
+        let fileInput = document.querySelector('input[type="file"]'); // Lấy đối tượng input file từ DO
+        let file = fileInput.files[0]; // Lấy file từ đối tượng input
         let invalids = validate(finalPayload);
-        
+
         if (invalids === 0) {
             dispatch(actions.createProducts(finalPayload))
                 .then(() => {

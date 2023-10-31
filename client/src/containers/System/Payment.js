@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { path } from '../../utils/constant'
-import { CartContext, } from '../../contexts/Cart';
+import { CartContext } from '../../contexts/Cart';
 import { InputForm, Button } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -14,21 +14,20 @@ const Payment = () => {
     const idcurrent = parseInt(currentData.id)
     const { msg, update } = useSelector(state => state.account)
     const [invalidFields, setInvalidFields] = useState([])
+    const cartContext = useContext(CartContext);
+    const { removeAllFromCart } = cartContext;
 
     const [payload, setPayload] = useState({
         idAccount: '' || idcurrent,
         phone: '' || currentData.phone,
-        address: '',
-        total: '',
-        state: 0,
+        address: '', total: '', state: 0,
         invoiceDetails: [],
     });
 
     const calculateTotal = (cartItems) => {
         let total = 0;
-        for (const product of cartItems) {
+        for (const product of cartItems)
             total += product.price * product.quantity;
-        }
         return total;
     };
 
@@ -40,24 +39,20 @@ const Payment = () => {
             quantity: product.quantity,
             price: product.price
         }));
-
         const payload = {
             idAccount: idcurrent,
             phone: currentData.phone,
-            address: '',
-            total: total,
-            state: 0,
+            address: '', total: total, state: 0,
             invoiceDetails: invoiceDetails
         };
-
         try {
             await dispatch(actions.createInvoices(payload));
-            navigate('/'); 
+            removeAllFromCart();
+            navigate('/');
         } catch (error) {
             Swal.fire('Oops!', 'Some error occurred while creating invoice', 'error');
         }
     };
-
 
     useEffect(() => {
         msg && Swal.fire('Oops !', msg, 'error');

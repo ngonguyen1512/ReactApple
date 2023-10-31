@@ -12,8 +12,7 @@ const Forgot = () => {
     const { msg } = useSelector(state => state.auth)
     const [invalidFields, setInvalidFields] = useState([])
     const [payload, setPayload] = useState({
-        phone: '',
-        email: '',
+        phone: '', email: '',
     });
 
     const handleSubmit = async () => {
@@ -63,8 +62,7 @@ const Forgot = () => {
                         }
                         break;
                     }
-                    default:
-                        break;
+                    default: break;
                 }
             }
         })
@@ -94,7 +92,6 @@ const Forgot = () => {
                         keyPayload={'email'}
                         type='email'
                     />
-
                 </div>
                 <div className="formbutton">
                     <Button

@@ -16,15 +16,11 @@ const Home = () => {
   useEffect(() => {
     const handleScroll = () => {
       var scroll = $(window).scrollTop();
-      if (scroll > 0)
-        $('.navigation').addClass('fixed');
-      else 
-        $('.navigation').removeClass('fixed');
+      if (scroll > 0) $('.navigation').addClass('fixed');
+      else $('.navigation').removeClass('fixed');
     };
     $(window).scroll(handleScroll); 
-    return () => {
-      $(window).off('scroll', handleScroll);
-    };
+    return () => { $(window).off('scroll', handleScroll) };
   }, [dispatch]);
 
 

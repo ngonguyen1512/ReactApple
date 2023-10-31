@@ -44,11 +44,10 @@ const Product = () => {
     for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
     params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) 
         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-      } else {
+      else 
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      }
     })
     if (permis) searchParamsObject.permis = permis
     dispatch(actions.getProductsLimit(searchParamsObject))
@@ -86,7 +85,8 @@ const Product = () => {
               <th className='text-lg'>ID</th>
               <th className='text-lg w-[10%]'>IMAGE</th>
               <th className='text-lg'>NAME</th>
-              <th className='text-lg'>ID CATEGORY</th>
+              <th className='text-lg'>ID CATE</th>
+              <th className='text-lg'>ID SAMP</th>
               <th className='text-lg'>QUANTITY</th>
               <th className='text-lg'>DISCOUNT</th>
               <th className='text-lg'>PRICE</th>
@@ -106,6 +106,7 @@ const Product = () => {
                   </td>
                   <td className='px-4 py-2'>{item.name}</td>
                   <td className={styletd}>{item.idCategory}</td>
+                  <td className={styletd}>{item.idSample}</td>
                   <td className={styletd}>{item.quantity}</td>
                   <td className={styletd}>{item.discount}</td>
                   <td className={styletd}>{(item.price).toLocaleString()}</td>
@@ -129,6 +130,7 @@ const Product = () => {
                   </td>
                   <td className='px-4 py-2'>{item.name}</td>
                   <td className={styletd}>{item.idCategory}</td>
+                  <td className={styletd}>{item.idSample}</td>
                   <td className={styletd}>{item.quantity}</td>
                   <td className={styletd}>{item.discount}</td>
                   <td className={styletd}>{(item.price).toLocaleString()}</td>

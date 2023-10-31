@@ -14,7 +14,7 @@ const InputForm = ({label, text, value, setValue, keyPayload, type, invalidField
         onFocus={() => setInvalidFields([])}
         disabled={disabled}
       />
-
+      
       {invalidFields.length > 0 
         && invalidFields.some(i => i.name === keyPayload) 
         && <small className='text-red-500 italic'>{invalidFields.find(i => i.name === keyPayload)?.msg}</small>

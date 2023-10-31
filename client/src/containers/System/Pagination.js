@@ -23,27 +23,30 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
 
   return (
     <div className='mt-10 flex items-center justify-center gap-2'>
-      {!isHideStart && <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />}
-      {!isHideStart && <PageNumber text={'...'} />}
+      {!isHideStart && (
+        <>
+          <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />
+          <PageNumber text={'...'} />
+        </>
+      )}
       {arrPage.length > 0 && arrPage.map(item => {
         return (
-          <PageNumber
-            key={item}
-            text={item}
+          <PageNumber key={item} text={item}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
           />
         )
       })}
-      {!isHideEnd && <PageNumber text={'...'} />}
-      {!isHideEnd &&
-        <PageNumber
-          icon={<GrNext />}
-          text={Math.ceil(count / counts.length)}
-          setCurrentPage={setCurrentPage}
-          type='end'
-        />
-      }
+      {!isHideEnd && (
+        <>
+          <PageNumber text={'...'} />
+          <PageNumber icon={<GrNext />}
+            text={Math.ceil(count / counts.length)}
+            setCurrentPage={setCurrentPage}
+            type='end'
+          />
+        </>
+      )}
     </div>
   )
 }

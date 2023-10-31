@@ -26,7 +26,6 @@ const RevenueChart = () => {
             }
             return acc;
         }, {});
-
         // Chuyển đổi Object chartData thành mảng để sử dụng trong LineChart
         const transformedData = Object.values(chartData).sort((a, b) => {
             return new Date(a.day) - new Date(b.day);
@@ -44,7 +43,7 @@ const RevenueChart = () => {
     const formatCount = (value) => `${value}`; // Định dạng số đơn hàng
 
     const CustomTooltip = ({ active, payload, label }) => {
-        if (active && payload && payload.length) {
+        if (active && payload && payload.length) 
             return (
                 <div className="custom-tooltip">
                     <div className="label">{label}</div>
@@ -52,7 +51,6 @@ const RevenueChart = () => {
                     <div className="total">Total: {(payload[0].payload.revenue).toLocaleString()} VND</div>
                 </div>
             );
-        }
         return null;
     };
 
@@ -63,7 +61,6 @@ const RevenueChart = () => {
                 <YAxis yAxisId="left" stroke="#fff" tickFormatter={formatRevenue} />
                 <YAxis yAxisId="right" stroke="#fff" orientation="right" tickFormatter={formatCount} />
                 <Tooltip content={<CustomTooltip />} />
-                {/* <Tooltip formatter={(value, name) => [`${name}: ${value}`]} /> */}
                 <Legend />
                 <Line type="monotone" dataKey="revenue" yAxisId="left" name="Total" stroke="#8884d8" />
                 <Line type="monotone" dataKey="count" yAxisId="right" name="Quantity" stroke="#82ca9d" />

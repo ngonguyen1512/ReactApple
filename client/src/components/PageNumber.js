@@ -13,9 +13,7 @@ const PageNumber = ({text, currentPage, icon, setCurrentPage, type}) => {
   const append = (entries) => {
       let params = []
       paramsSeach.append('page', +text)
-      for (let entry of entries) {
-        params.push(entry);
-      }
+      for (let entry of entries) params.push(entry);
       let searchParamsObject = {}
       params?.forEach(i => {
         if (Object.keys(searchParamsObject)?.some(item => item === i[0] && item !== 'page')) 
@@ -35,14 +33,13 @@ const PageNumber = ({text, currentPage, icon, setCurrentPage, type}) => {
           search: createSearchParams(append(entries)).toString()
       });
     }
-    
   }
   return (
     <div 
       className={+text === +currentPage ? `${active} ${text === '...' ? 'cursor-text' : 'cursor-pointer'}` : `${notActive} ${text === '...' ? 'cursor-text' : 'cursor-pointer'}` }
       onClick={handleChangePage}  
     >
-        {icon || text}
+      {icon || text}
     </div>
   )
 }

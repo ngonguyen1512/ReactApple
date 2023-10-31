@@ -38,11 +38,11 @@ const Dashboard = () => {
     dispatch(actions.getCountInvoices())
     dispatch(actions.getTopSelling())
   }, [dispatch])
+
   return (
     <div className='dashboard'>
       <span className='title center'>DASHBOARD</span>
       <RevenueChart />
-
       <div className='dashboard-container'>
         <div className='container'>
           <span className='icons center bg-green-600' style={{ fontSize: '2rem', fontWeight: 'bold' }}><GiMoneyStack /></span>
@@ -94,7 +94,7 @@ const Dashboard = () => {
             </thead>
             <tbody>
               {shouldReload && filteredInvoice.length > 0 && filteredInvoice.map(item => {
-                if (item.state === 1) {
+                if (item.state === 1) 
                   return (
                     <tr>
                       <td className='text-center'>{item.id}</td>
@@ -102,11 +102,10 @@ const Dashboard = () => {
                       <td className='text-center'>{(item.total).toLocaleString()}</td>
                     </tr>
                   )
-                }
                 return null
               })}
               {!shouldReload && invoices?.length > 0 && invoices.map(item => {
-                if (item.state === 1) {
+                if (item.state === 1) 
                   return (
                     <tr>
                       <td className='text-center'>{item.id}</td>
@@ -114,7 +113,6 @@ const Dashboard = () => {
                       <td className='text-center'>{(item.total).toLocaleString()}</td>
                     </tr>
                   )
-                }
                 return null
               })}
             </tbody>

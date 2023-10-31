@@ -27,18 +27,14 @@ const Invoice = () => {
 
   const handleSubmitYes = async (id) => {
     const payload = {
-      id: id,
-      idAccept: idcurrent,
-      state: 1
+      id: id, idAccept: idcurrent, state: 1
     }
     dispatch(actions.updateInvoices(payload))
     setShouldRefetch(true);
   }
   const handleSubmitNo = async (id) => {
     const payload = {
-      id: id,
-      idAccept: idcurrent,
-      state: 2
+      id: id, idAccept: idcurrent, state: 2
     }
     dispatch(actions.updateInvoices(payload))
     setShouldRefetch(true);
@@ -55,6 +51,34 @@ const Invoice = () => {
     }
   }, [dispatch, shouldRefetch])
 
+  const mapInvoiceDetails = (items) => {
+    return items.reduce((acc, item) => {
+      const invoiceDetail = item?.invoice_detail;
+      if (!invoiceDetail) return acc;
+
+      const createdAtDate = new Date(invoiceDetail?.createdAt).toLocaleDateString();
+      const stateString = invoiceDetail?.state === 1 ? 'Done' : invoiceDetail?.state === 0 ? 'Not yet' : 'Cancel';
+      const stateColor = invoiceDetail?.state === 1 ? 'text-green-800' : 'text-red-500';
+
+      if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id)) {
+        acc.push({
+          invoiceDetailId: invoiceDetail?.id,
+          jsx: (
+            <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
+              <td className='text-center'>{invoiceDetail?.id}</td>
+              <td className='text-center'>{createdAtDate}</td>
+              <td className='pl-1'>{invoiceDetail?.id} - {invoiceDetail?.account_invoice?.name}</td>
+              <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
+              <td className='text-center'>{invoiceDetail?.idAccept}</td>
+              <td className={`text-center ${stateColor}`}>{stateString}</td>
+            </tr>
+          )
+        });
+      }
+      return acc;
+    }, []).map(item => item.jsx);
+  };
+
   return (
     <div className='invoice'>
       <span className='title'>INVOICE</span>
@@ -65,7 +89,7 @@ const Invoice = () => {
               <tr>
                 <th>ID</th>
                 <th>CREATED AT</th>
-                <th>ID & NAME</th>
+                <th>ID ACCOUNT</th>
                 <th>TOTALITY</th>
                 <th>REFUSE</th>
                 <th>ACCEPT</th>
@@ -76,40 +100,39 @@ const Invoice = () => {
                 const invoiceDetail = item?.invoice_detail;
                 if (!invoiceDetail) return acc;
                 const createdAtDate = new Date(invoiceDetail?.createdAt).toLocaleDateString();
-                if (!acc.includes(invoiceDetail?.id) && !invoiceDetail?.idAccept) {
-                  acc.push(invoiceDetail?.id);
-                  acc.push(
-                    <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
-                      <td className='text-center'>{invoiceDetail?.id} - {invoiceDetail?.account_invoice?.name}</td>
-                      <td className='text-center'>{createdAtDate}</td>
-                      <td className='pl-1'>{invoiceDetail?.idAccount}</td>
-                      <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
-                      <th>
-                        <Button
-                          className='col-span-2'
-                          text={'No'}
-                          bgColor='bg-red-500'
-                          textColor='text-white'
-                          onClick={() => handleSubmitNo(invoiceDetail?.id)}
-                        />
-                      </th>
-                      <th>
-                        <Button
-                          className='col-span-2'
-                          text={'Yes'}
-                          bgColor='bg-secondary2'
-                          textColor='text-white'
-                          onClick={() => handleSubmitYes(invoiceDetail?.id)}
-                        />
-                      </th>
-                    </tr>
-                  );
+                if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id) && !invoiceDetail?.idAccept) {
+                  acc.push({
+                    invoiceDetailId: invoiceDetail?.id,
+                    jsx: (
+                      <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
+                        <td className='text-center'>{invoiceDetail?.id}</td>
+                        <td className='text-center'>{createdAtDate}</td>
+                        <td className='text-center'>{invoiceDetail?.idAccount}</td>
+                        <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
+                        <th>
+                          <Button
+                            className='col-span-2'
+                            text={'No'}
+                            bgColor='bg-red-500'
+                            textColor='text-white'
+                            onClick={() => handleSubmitNo(invoiceDetail?.id)}
+                          />
+                        </th>
+                        <th>
+                          <Button
+                            className='col-span-2'
+                            text={'Yes'}
+                            bgColor='bg-secondary2'
+                            textColor='text-white'
+                            onClick={() => handleSubmitYes(invoiceDetail?.id)}
+                          />
+                        </th>
+                      </tr>
+                    )
+                  });
                 }
-
                 return acc;
-
-              }, [])
-              }
+              }, []).map(item => item.jsx)}
             </tbody>
           </table>
         </div>
@@ -126,7 +149,7 @@ const Invoice = () => {
             </thead>
             <tbody>
               {selectedInvoiceId && invoicesall?.length > 0 && invoicesall.map(item => {
-                if (item.idInvoice === selectedInvoiceId) {
+                if (item.idInvoice === selectedInvoiceId) 
                   return (
                     <tr>
                       <td className='text-center'>{item.idProduct}</td>
@@ -136,7 +159,6 @@ const Invoice = () => {
                       <td className='text-center text-red-500'>{(item.quantity * item.price).toLocaleString()}</td>
                     </tr>
                   )
-                }
                 return null
               })}
             </tbody>
@@ -161,53 +183,8 @@ const Invoice = () => {
               </tr>
             </thead>
             <tbody>
-              {shouldReload && filteredAccounts.length > 0 && filteredAccounts.reduce((acc, item) => {
-                const invoiceDetail = item?.invoice_detail;
-                if (!invoiceDetail) return acc;
-                const createdAtDate = new Date(invoiceDetail?.createdAt).toLocaleDateString();
-                const stateString = invoiceDetail?.state === 1 ? 'Done' : invoiceDetail?.state === 0 ? 'Not yet' : 'Cancel';
-                const stateColor = invoiceDetail?.state === 1 ? 'text-green-800' : 'text-red-500';
-                if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id)) {
-                  acc.push({
-                    invoiceDetailId: invoiceDetail?.id,
-                    jsx: (
-                      <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
-                        <td className='text-center'>{invoiceDetail?.id}</td>
-                        <td className='text-center'>{createdAtDate}</td>
-                        <td className='pl-1'>{invoiceDetail?.id} - {invoiceDetail?.account_invoice?.name}</td>
-                        <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
-                        <td className='text-center'>{invoiceDetail?.idAccept}</td>
-                        <td className={`text-center ${stateColor}`}>{stateString}</td>
-                      </tr>
-                    )
-                  });
-                }
-                return acc;
-              }, []).map(item => item.jsx)}
-
-              {!shouldReload && invoicesall?.length > 0 && invoicesall.reduce((acc, item) => {
-                const invoiceDetail = item?.invoice_detail;
-                if (!invoiceDetail) return acc;
-                const createdAtDate = new Date(invoiceDetail?.createdAt).toLocaleDateString();
-                const stateString = invoiceDetail?.state === 1 ? 'Done' : invoiceDetail?.state === 0 ? 'Not yet' : 'Cancel';
-                const stateColor = invoiceDetail?.state === 1 ? 'text-green-800' : 'text-red-500';
-                if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id)) {
-                  acc.push({
-                    invoiceDetailId: invoiceDetail?.id,
-                    jsx: (
-                      <tr className='cursor-pointer' onClick={() => setSelectedInvoiceId(invoiceDetail?.id)}>
-                        <td className='text-center'>{invoiceDetail?.id}</td>
-                        <td className='text-center'>{createdAtDate}</td>
-                        <td className='pl-1'>{invoiceDetail?.id} - {invoiceDetail?.account_invoice?.name}</td>
-                        <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
-                        <td className='text-center'>{invoiceDetail?.idAccept}</td>
-                        <td className={`text-center ${stateColor}`}>{stateString}</td>
-                      </tr>
-                    )
-                  });
-                }
-                return acc;
-              }, []).map(item => item.jsx)}
+              {shouldReload && filteredAccounts.length > 0 && mapInvoiceDetails(filteredAccounts)}
+              {!shouldReload && invoicesall?.length > 0 && mapInvoiceDetails(invoicesall)}
             </tbody>
           </table>
         </div>

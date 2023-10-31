@@ -8,7 +8,6 @@ import { Link, useLocation, useNavigate, createSearchParams } from 'react-router
 const { AiOutlineCaretRight } = icons
 
 const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
-
   const dispatch = useDispatch();
   const { samples, categories, typesamples } = useSelector(state => state.app)
 
@@ -35,102 +34,93 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
   const handleFilterPosts = (id) => {
     navigate({
       pathname: location?.pathname,
-      search: createSearchParams({
-        [type]: id,
-      }).toString()
+      search: createSearchParams({ [type]: id }).toString()
     });
-    if (selectedDiv === id) {
-      setSelectedDiv(null);
-    } else {
-      setSelectedDiv(id);
-    }
+    if (selectedDiv === id) setSelectedDiv(null);
+    else setSelectedDiv(id);
   };
   return (
     <div className='side-bar'>
       <h3 className='title'>{title}</h3>
-      {!isDouble &&
-        <div>
-          {content?.length > 0 && list === 0 && content.map(item => {
-            if (item.state === 1) {
-              return (
-                <div className='tagname'>
-                  <Link
-                    to={`${formatVietnameseToString(item.name)}`}
-                    key={item.id}
-                    className='center link hover:bg-secondary1 ' >
-                    <p>{item.name}</p>
-                  </Link>
-                  {samples?.length > 0 && samples.map(items => {
-                    if (items.state === 1) {
+      {!isDouble ? (
+        <>
+          <div>
+            {content?.length > 0 && list === 0 && content.map(item => {
+              if (item.state === 1)
+                return (
+                  <div className='tagname'>
+                    <Link
+                      to={`${formatVietnameseToString(item.name)}`}
+                      key={item.id}
+                      className='center link hover:bg-secondary1 ' >
+                      <p>{item.name}</p>
+                    </Link>
+                    {samples?.length > 0 && samples.map(items => {
+                      if (items.state === 1)
+                        return (
+                          <div
+                            key={items.id}
+                            onClick={() => handleFilterPosts(items.id)}
+                            className={`link-child hover:text-blue-500 
+                          ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
+                          >
+                            {items.idCategory === item.id &&
+                              <div className='flex gap-1 items-center'>
+                                <AiOutlineCaretRight className="custom-icon" />
+                                <p>{items.name}</p>
+                              </div>
+                            }
+                          </div>
+                        )
+                      return null
+                    })}
+                  </div>
+                )
+              return null
+            })}
+          </div>
+          <div>
+            <p className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
+          hover:bg-secondary1 py-1' onClick={() => { navigate(`/${texts}`) }}>{texts}</p>
+            {content?.length > 0 && list?.length > 0 && content.map(item => {
+              if (item.state === 1)
+                return (
+                  <div className='tagname'>
+                    {typesamples?.length > 0 && typesamples.map(items => {
                       return (
                         <div
                           key={items.id}
                           onClick={() => handleFilterPosts(items.id)}
                           className={`link-child hover:text-blue-500 
-                          ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
+                        ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                         >
-                          {items.idCategory === item.id &&
-                            <div className='flex gap-1 items-center'>
-                              <AiOutlineCaretRight className="custom-icon" />
-                              <p>{items.name}</p>
-                            </div>
-                          }
+                          {categories?.length > 0 && categories.map(itemsss => {
+                            return (
+                              <div>
+                                {items.idCategory === item.id && items.idCategory === itemsss.id && itemsss.name === list &&
+                                  <div className='flex gap-1 items-center'>
+                                    <AiOutlineCaretRight className="custom-icon" />
+                                    <p>{items.name}</p>
+                                  </div>
+                                }
+                              </div>
+                            )
+                          })}
                         </div>
                       )
-                    } return null
-                  })}
-                </div>
-              )
-            }
-            return null
-          })}
-        </div>
-      }
-      {!isDouble &&
-        <div>
-          <p className='flex gap-1 items-center font-semibold justify-center cursor-pointer 
-          hover:bg-secondary1 py-1' onClick={() => { navigate(`/${texts}`) }}>{texts}</p>
-          {content?.length > 0 && list?.length > 0 && content.map(item => {
-            if (item.state === 1) {
-              return (
-                <div className='tagname'>
-                  {typesamples?.length > 0 && typesamples.map(items => {
-                    return (
-                      <div
-                        key={items.id}
-                        onClick={() => handleFilterPosts(items.id)}
-                        className={`link-child hover:text-blue-500 
-                        ${selectedDiv === items.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
-                      >
-                        {categories?.length > 0 && categories.map(itemsss => {
-                          return (
-                            <div>
-                              {items.idCategory === item.id && items.idCategory === itemsss.id && itemsss.name === list &&
-                                <div className='flex gap-1 items-center'>
-                                  <AiOutlineCaretRight className="custom-icon" />
-                                  <p>{items.name}</p>
-                                </div>
-                              }
-                            </div>
-                          )
-                        })}
-                      </div>
-                    )
-                  })}
-                </div>
-              )
-            } return null
-          })}
-        </div>
-      }
-
-      {isDouble &&
+                    })}
+                  </div>
+                )
+              return null
+            })}
+          </div>
+        </>
+      ) : (
         <div className='flex flex-col gap-1' >
           {content?.length > 0 && formatContent(content).map((item, index) => {
             return (
               <div key={index}>
-                <div
-                  onClick={() => handleFilterPosts(item.left.id)}
+                <div onClick={() => handleFilterPosts(item.left.id)}
                   className={`flex pl-5 flex-1 gap-1 items-center cursor-pointer hover:text-blue-500 
                     ${selectedDiv === item.left.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                 >
@@ -138,10 +128,9 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                   <p>{item.left.value}</p>
 
                 </div>
-                <div
-                  onClick={() => handleFilterPosts(item.right.id)}
+                <div onClick={() => handleFilterPosts(item.right.id)}
                   className={`flex pl-5 flex-1 gap-1 items-center cursor-pointer hover:text-blue-500 
-                      ${selectedDiv === item.right.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
+                    ${selectedDiv === item.right.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
                 >
                   <AiOutlineCaretRight className="custom-icon" />
                   <p>{item.right.value}</p>
@@ -150,7 +139,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
             )
           })}
         </div>
-      }
+      )}
     </div>
   )
 }

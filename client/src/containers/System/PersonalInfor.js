@@ -19,12 +19,8 @@ const PersonalInfor = () => {
     const [showInvoiceDetails, setShowInvoiceDetails] = useState(true);
 
     const [payload, setPayload] = useState({
-        id: idcurrent,
-        name: '',
-        email: '',
-        phone: '',
-        passwordold: '',
-        passwordnew: '',
+        id: idcurrent, name: '', email: '',
+        phone: '', passwordold: '', passwordnew: '',
     });
     const handleSubmit = async () => {
         dispatch(actions.updateInfoAccount(payload))
@@ -39,7 +35,6 @@ const PersonalInfor = () => {
     const handleOrderClick = () => {
         setShowInvoiceDetails(true);
     };
-
     const handleLikeClick = () => {
         setShowInvoiceDetails(false);
     };
@@ -162,7 +157,7 @@ const PersonalInfor = () => {
                                             const stateString = invoiceDetail?.state === 1 ? 'Done' : invoiceDetail?.state === 0 ? 'Not yet' : 'Cancel';
                                             const stateColor = invoiceDetail?.state === 1 ? 'text-green-800' : 'text-red-500';
 
-                                            if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id)) {
+                                            if (!acc.some(accItem => accItem?.invoiceDetailId === invoiceDetail?.id))
                                                 acc.push({
                                                     invoiceDetailId: invoiceDetail?.id,
                                                     jsx: (
@@ -174,7 +169,6 @@ const PersonalInfor = () => {
                                                         </tr>
                                                     )
                                                 });
-                                            }
                                             return acc;
                                         }, [])
                                         .map(item => item.jsx)
@@ -194,7 +188,7 @@ const PersonalInfor = () => {
                                 </thead>
                                 <tbody>
                                     {selectedInvoiceId && invoicesall?.length > 0 && invoicesall.map(item => {
-                                        if (item?.invoice_detail.idAccount === idcurrent && item.idInvoice === selectedInvoiceId) {
+                                        if (item?.invoice_detail.idAccount === idcurrent && item.idInvoice === selectedInvoiceId)
                                             return (
                                                 <tr key={item.id}>
                                                     <td className='text-center'>{item.idProduct}</td>
@@ -203,7 +197,6 @@ const PersonalInfor = () => {
                                                     <td className='text-center'>{(item.price).toLocaleString()}</td>
                                                 </tr>
                                             )
-                                        }
                                         return null;
                                     })}
                                 </tbody>
@@ -213,7 +206,7 @@ const PersonalInfor = () => {
                 ) : (
                     <div className='pi-like'>
                         {likes?.length > 0 && likes.map(item => {
-                            if (item.idAccount === idcurrent) {
+                            if (item.idAccount === idcurrent)
                                 return (
                                     <Item
                                         key={item?.like_product?.id}
@@ -228,7 +221,7 @@ const PersonalInfor = () => {
                                         item={item}
                                     />
                                 )
-                            } return null
+                            return null
                         })}
                     </div>
                 )}

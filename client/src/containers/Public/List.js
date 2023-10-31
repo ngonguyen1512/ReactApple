@@ -16,11 +16,10 @@ const List = ({ category }) => {
     for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
     params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
+      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) 
         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-      } else {
+      else 
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      }
     })
     if (category) searchParamsObject.category = category
     dispatch(actions.getProductsLimit(searchParamsObject));

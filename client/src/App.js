@@ -1,9 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, Cart, HomePage, Retal, Detail, Forgot, Register } from './containers/Public'
-import {
-  HomeServer, Account, Category, Product, Dashboard, Invoice, Role, Sample, Provider,
-  PersonalInfor, PageProduct, Payment
-} from './containers/System'
+import { HomeServer, Account, Category, Product, Dashboard, Invoice, Role, Sample, Provider,
+  PersonalInfor, PageProduct, Payment } from './containers/System'
 import { path } from './utils/constant'
 import { CartProvider } from './contexts/Cart';
 

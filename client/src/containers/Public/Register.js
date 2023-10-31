@@ -6,18 +6,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { path } from '../../utils/constant';
 
-const Login = () => {
+const Register = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { isLoggedIn, msg, update } = useSelector(state => state.auth)
     const [invalidFields, setInvalidFields] = useState([])
     const [payload, setPayload] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        password: '',
-        idPermission: '3',
-        state: '1'
+        name: '', phone: '', email: '',
+        password: '', idPermission: '3', state: '1'
     });
 
     const handleSubmit = async () => {
@@ -70,8 +66,7 @@ const Login = () => {
                         }
                         break;
                     }
-                    default:
-                        break;
+                    default: break;
                 }
             }
         })
@@ -146,4 +141,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Register;

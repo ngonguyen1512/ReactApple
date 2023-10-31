@@ -6,7 +6,7 @@ import { path } from '../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import { Menu } from '../../components'
-import { CartContext, } from '../../contexts/Cart';
+import { CartContext } from '../../contexts/Cart';
 
 const { BsApple, BsChevronDown } = icons
 
@@ -43,11 +43,9 @@ const Header = () => {
         <div ref={headerRef} className='header center'>
             <div className='content'>
                 <Link to={'/'}>
-                    <div className='logo'>
-                        <BsApple /> APPLE
-                    </div>
+                    <div className='logo'><BsApple /> APPLE</div>
                 </Link>
-                {!isLoggedIn &&
+                {!isLoggedIn ? (
                     <div className='login'>
                         <span className='info'>apple.com HELLO!</span>
                         <Button
@@ -57,8 +55,7 @@ const Header = () => {
                             onClick={() => goLogin(false)}
                         />
                     </div>
-                }
-                {isLoggedIn &&
+                ) : (
                     <div className='account'>
                         <span className='info'>Hello, <b>{currentData.name}</b> </span>
                         <Button
@@ -71,12 +68,11 @@ const Header = () => {
                         {isShowMenu &&
                             <div className='menu'>
                                 <Menu permis={currentData.idPermission} />
-                                <span onClick={() => handleLogout()}
-                                >Logout</span>
+                                <span onClick={() => handleLogout()}>Logout</span>
                             </div>
                         }
                     </div>
-                }
+                )}
             </div>
         </div>
     )

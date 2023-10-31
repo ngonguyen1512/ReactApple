@@ -19,20 +19,16 @@ export class CartProvider extends Component {
       this.setState({
         cartItems: updatedCartItems
       });
-    } else {
+    } else
       this.setState({
         cartItems: [...this.state.cartItems, { ...product, quantity: 1 }]
       });
-    }
   }
   updateQuantity(product, newQuantity) {
-    if (newQuantity < 1) {
-      return;
-    }
+    if (newQuantity < 1) return;
     const updatedCartItems = this.state.cartItems.map((item) => {
-      if (item.id === product.id) {
+      if (item.id === product.id)
         return { ...item, quantity: newQuantity };
-      }
       return item;
     });
     this.setState({
@@ -43,14 +39,10 @@ export class CartProvider extends Component {
     const updatedCartItems = this.state.cartItems.filter(
       (item) => item.id !== productId
     );
-    this.setState({
-      cartItems: updatedCartItems
-    });
+    this.setState({ cartItems: updatedCartItems });
   }
   removeAllFromCart() {
-    this.setState({
-      cartItems: [] // Set the cart items to an empty array
-    });
+    this.setState({ cartItems: [] });
   }
   render() {
     return (

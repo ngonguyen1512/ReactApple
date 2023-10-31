@@ -63,18 +63,17 @@ const Cart = () => {
           )
         }}
       </CartContext.Consumer>
-      {!isLoggedIn &&
+      {!isLoggedIn ? (
         <div className='footer'>
           <span className='mr-2'>Please login to continue paying for the order!</span>
           <Button text={'Login'} bgColor='bg-secondary2' textColor='text-white' onClick={() => goLogin(false)} />
         </div>
-      }
-      {isLoggedIn &&
+      ) : (
         <div className='footer'>
           <Link to={path.HOME} className='btn center bg-green-800'>COUNTINUE TO BUY</Link>
           <Link to={'/' + path.PAYMENT} className='btn center bg-secondary2'>PAYMENT</Link>
         </div>
-      }
+      )}
     </div>
   )
 }

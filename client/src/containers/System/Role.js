@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
 import Swal from 'sweetalert2';
 
-const stylep = 'font-semibold px-5 tracking-wider text-xl'
+const stylep = 'font-semibold px-5 tracking-wider text-xl cursor-pointer'
 
 const Role = () => {
   const dispatch = useDispatch()
@@ -19,6 +19,10 @@ const Role = () => {
   const [payloadm, setPayloadm] = useState({
     id: '' || null, url: '', name: '', idPermission: '',
   });
+  const handleReloadMenu = async () => {
+    setPayloadm({ url: '', name: '', idPermission: '' });
+    setShouldRefetch(true);
+  }
   const handleSubmitMenu = async () => {
     let finalPayload = payloadm;
     let invalids = validate(finalPayload);
@@ -47,6 +51,10 @@ const Role = () => {
   const [payloadf, setPayloadf] = useState({
     id: '' || null, name: '', idPermission: '',
   });
+  const handleReloadFunction = async () => {
+    setPayloadf({name: '', idPermission: '' });
+    setShouldRefetch(true);
+  }
   const handleSubmitFunction = async () => {
     let finalPayload = payloadf;
     let invalids = validate(finalPayload);
@@ -75,6 +83,10 @@ const Role = () => {
   const [payloadt, setPayloadt] = useState({
     id: '' || null, name: '', idPermission: '',
   });
+  const handleReloadTransfer = async () => {
+    setPayloadt({name: '', idPermission: '' });
+    setShouldRefetch(true);
+  }
   const handleSubmitTransfer = async () => {
     let finalPayload = payloadt;
     let invalids = validate(finalPayload);
@@ -182,33 +194,42 @@ const Role = () => {
 
         <div className='form'>
           <div className='formheader-btn'>
-            <p className={stylep}>MENU</p>
+            <p className={stylep} onClick={handleReloadMenu}>MENU</p>
             <div className='btn'>
-              <Button
-                text='DELETE'
-                bgColor='bg-cancel'
-                textColor='text-white'
-                value={payloadm.id}
-                setValue={setPayloadm}
-                className='py-5'
-                onClick={handleSubmitDeleteMenu}
-              />
-              <Button
-                text='UPDATE'
-                bgColor='bg-green-800'
-                textColor='text-white'
-                value={payloadm.id}
-                setValue={setPayloadm}
-                className='py-5'
-                onClick={handleSubmitUpdateMenu}
-              />
-              <Button
-                text='CREATE'
-                bgColor='bg-secondary2'
-                textColor='text-white'
-                className='py-5'
-                onClick={handleSubmitMenu}
-              />
+              {payloadm.id ? (
+                <>
+                  <div></div>
+                  <Button
+                    text='DELETE'
+                    bgColor='bg-cancel'
+                    textColor='text-white'
+                    value={payloadm.id}
+                    setValue={setPayloadm}
+                    className='py-5'
+                    onClick={handleSubmitDeleteMenu}
+                  />
+                  <Button
+                    text='UPDATE'
+                    bgColor='bg-green-800'
+                    textColor='text-white'
+                    value={payloadm.id}
+                    setValue={setPayloadm}
+                    className='py-5'
+                    onClick={handleSubmitUpdateMenu}
+                  />
+                </>
+              ) : (
+                <>
+                  <div className='col-span-2'></div>
+                  <Button
+                    text='CREATE'
+                    bgColor='bg-secondary2'
+                    textColor='text-white'
+                    className='py-5'
+                    onClick={handleSubmitMenu}
+                  />
+                </>
+              )}
             </div>
           </div>
           <InputForm
@@ -274,33 +295,42 @@ const Role = () => {
         </div>
         <div className='form'>
           <div className='formheader-btn'>
-            <p className={stylep}>FUNCTION</p>
+            <p className={stylep} onClick={handleReloadFunction}>FUNCTION</p>
             <div className='btn'>
-              <Button
-                text='DELETE'
-                bgColor='bg-cancel'
-                textColor='text-white'
-                value={payloadf.id}
-                setValue={setPayloadf}
-                className='py-5'
-                onClick={handleSubmitDeleteFunction}
-              />
-              <Button
-                text='UPDATE'
-                bgColor='bg-green-800'
-                textColor='text-white'
-                value={payloadf.id}
-                setValue={setPayloadf}
-                className='py-5'
-                onClick={handleSubmitUpdateFunction}
-              />
-              <Button
-                text='CREATE'
-                bgColor='bg-secondary2'
-                textColor='text-white'
-                fullWidth
-                onClick={handleSubmitFunction}
-              />
+              {payloadf.id ? (
+                <>
+                  <div></div>
+                  <Button
+                    text='DELETE'
+                    bgColor='bg-cancel'
+                    textColor='text-white'
+                    value={payloadf.id}
+                    setValue={setPayloadf}
+                    className='py-5'
+                    onClick={handleSubmitDeleteFunction}
+                  />
+                  <Button
+                    text='UPDATE'
+                    bgColor='bg-green-800'
+                    textColor='text-white'
+                    value={payloadf.id}
+                    setValue={setPayloadf}
+                    className='py-5'
+                    onClick={handleSubmitUpdateFunction}
+                  />
+                </>
+              ) : (
+                <>
+                  <div className='col-span-2'></div>
+                  <Button
+                    text='CREATE'
+                    bgColor='bg-secondary2'
+                    textColor='text-white'
+                    fullWidth
+                    onClick={handleSubmitFunction}
+                  />
+                </>
+              )}
             </div>
           </div>
           <InputForm
@@ -358,32 +388,41 @@ const Role = () => {
         </div>
         <div className='form'>
           <div className='formheader-btn'>
-            <p className={stylep}>Transfer</p>
+            <p className={stylep}  onClick={handleReloadTransfer}>Transfer</p>
             <div className='btn'>
-              <Button
-                text='DELETE'
-                bgColor='bg-cancel'
-                textColor='text-white'
-                value={payloadt.id}
-                setValue={setPayloadt}
-                className='py-5'
-                onClick={handleSubmitDeleteTransfer}
-              />
-              <Button
-                text='UPDATE'
-                bgColor='bg-green-800'
-                textColor='text-white'
-                value={payloadt.id}
-                setValue={setPayloadt}
-                className='py-5'
-                onClick={handleSubmitUpdateTransfer}
-              />
-              <Button
-                text='CREATE'
-                bgColor='bg-secondary2'
-                textColor='text-white'
-                onClick={handleSubmitTransfer}
-              />
+              {payloadt.id ? (
+                <>
+                  <div></div>
+                  <Button
+                    text='DELETE'
+                    bgColor='bg-cancel'
+                    textColor='text-white'
+                    value={payloadt.id}
+                    setValue={setPayloadt}
+                    className='py-5'
+                    onClick={handleSubmitDeleteTransfer}
+                  />
+                  <Button
+                    text='UPDATE'
+                    bgColor='bg-green-800'
+                    textColor='text-white'
+                    value={payloadt.id}
+                    setValue={setPayloadt}
+                    className='py-5'
+                    onClick={handleSubmitUpdateTransfer}
+                  />
+                </>
+              ) : (
+                <>
+                  <div className='col-span-2'></div>
+                  <Button
+                    text='CREATE'
+                    bgColor='bg-secondary2'
+                    textColor='text-white'
+                    onClick={handleSubmitTransfer}
+                  />
+                </>
+              )}
             </div>
           </div>
           <InputForm

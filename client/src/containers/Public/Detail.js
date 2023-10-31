@@ -23,16 +23,24 @@ const Detail = () => {
     return (
         <div className='detail-product center'>
             {products?.length > 0 && products.map(product => {
-                if (product.id === id) {
+                if (product.id === id) 
                     return (
                         <div className='frame'>
                             <div className='image center'>
-                                <img src={product.image} alt={product.name} className='w-full' />
+                                <img src={`/images/${product.image}`} alt={product.name} className='w-full' />
                             </div>
                             <div className='content'>
                                 <p className='name'>{product.name}</p>
                                 <p className='address'>Promotion at: {product.address}</p>
-                                <p className='price'>{product.price.toLocaleString().replace(',', '.')} VND</p>
+                                {product.discount === 0 ? (
+                                    <p className='price'>{product.price.toLocaleString()} VND</p>
+                                ) : (
+                                    <p className='price flex items-center'>
+                                        <span>{((product.price * (100 - product.discount)) / 100).toLocaleString()} VND</span>
+                                        <span className='line-through text-base pl-1 text-[#3482F6]'>{product.price.toLocaleString()}</span>
+                                        <span className='text-base pl-1 text-[#ff0000]'>-{product.discount}%</span>
+                                    </p>
+                                )}
                                 <div className='promotion'>
                                     <p className='title'>Promotion</p>
                                     <p className='text'>{(product.promotion).split('.').join('.\u00a0\u00a0')}</p>
@@ -48,7 +56,7 @@ const Detail = () => {
                                                     className='py-5'
                                                     onClick={() => {
                                                         addToCart(product)
-                                                        navigate('/'+path.CART)
+                                                        navigate('/' + path.CART)
                                                     }}
                                                 />
                                                 <Button
@@ -67,7 +75,6 @@ const Detail = () => {
                             </div>
                         </div>
                     )
-                }
                 return null
             })}
 
