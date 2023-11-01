@@ -102,22 +102,7 @@ const Provider = () => {
   }
 
   useEffect(() => {
-    let page = searchParmas.get('page');
-    page && +page !== currentPage && setCurrentPage(+page);
-    !page && setCurrentPage(1);
-  }, [searchParmas, providers, currentPage]);
-
-  useEffect(() => {
-    let params = [];
-    for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
-    params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0])) {
-        searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-      } else {
-        searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      }
-    })
     if (permis) searchParamsObject.permis = permis
     dispatch(actions.getProviders(searchParamsObject))
     dispatch(actions.getFunctions(searchParamsObject))
@@ -126,15 +111,7 @@ const Provider = () => {
 
   useEffect(() => {
     if (shouldRefetch) {
-      let params = [];
-      for (let entry of searchParmas.entries()) params.push(entry);
       let searchParamsObject = {}
-      params?.forEach(i => {
-        if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
-          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-        else
-          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      })
       if (permis) searchParamsObject.permis = permis
       dispatch(actions.getProviders(searchParamsObject))
       dispatch(actions.getFunctions(searchParamsObject))
@@ -268,7 +245,7 @@ const Provider = () => {
           )}
         </div>
       ))}
-      <div className='list-table'>
+      <div className='list-table h-80'>
         <table className='w-full'>
           <thead>
             <tr>
@@ -286,12 +263,12 @@ const Provider = () => {
           </tbody>
         </table>
       </div>
-      <Pagination
+      {/* <Pagination
         count={count}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         counts={providers}
-      />
+      /> */}
     </div>
   )
 }

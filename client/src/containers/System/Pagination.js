@@ -21,7 +21,7 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
   }, [count, currentPage]);
 
   return (
-    <div className='mt-10 flex items-center justify-center gap-2'>
+    <div className='mt-4 flex items-center justify-center gap-2'>
       {!isHideStart && (
         <>
           <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />

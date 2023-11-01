@@ -75,12 +75,10 @@ const sendEmail = (email, subject, message) => {
 
 const generateRandomPassword = (length) => {
     let password = '';
-
     for (let i = 0; i < length; i++) {
         const randomNumber = Math.floor(Math.random() * 10);
         password += randomNumber;
     }
-
     return password;
 };
 
@@ -94,8 +92,7 @@ export const forgotPassword = ({ phone, email }) => new Promise(async (resolve, 
         if (account) {
             const newPassword = generateRandomPassword(8);
             sendEmail(email, 'REACTAPPLE FORGOT PASSWORD', 
-                `ReactApple has received a request to create a new password for the 
-                email. Your new password is: ${newPassword}`
+                `Phone: ${phone} & email: ${email}. Your new password is: ${newPassword}`
             );
             const updatedAccount = await db.Account.update(
                 { password: hashPassword(newPassword)},

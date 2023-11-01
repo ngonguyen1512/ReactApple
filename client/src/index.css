@@ -577,7 +577,7 @@
 .sample, .invoice, .page-product, .slider {
     width: 100%;
     padding: 0.5rem;
-    margin: 2.5rem 0;
+    margin: 1rem 0;
     color: #fff;
 }
 
@@ -620,10 +620,9 @@
     letter-spacing: 0.05em;
 }
 .dashboard .div-table {
-    
     margin: 1.25rem 0;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.5rem;
     padding-left: 0.75rem;
 }
@@ -631,7 +630,7 @@
     font-weight: 600;
     letter-spacing: 0.05em;
     font-size: 1.5rem;
-    grid-column: span 3 / span 3;
+    grid-column: span 4 / span 4;
 }
 .dashboard .div-table .form-search {
     display: flex;
@@ -658,7 +657,7 @@
     overflow: auto;
 }
 .dashboard .div-table .table-bestseller {
-    grid-column: span 3 / span 3;
+    grid-column: span 4 / span 4;
 }
 .dashboard .div-table .newinvoice {
     grid-column: span 2 / span 2;
@@ -741,7 +740,7 @@
 .sample .form-create,
 .category .form-create,
 .slider .form-create {
-    margin: 1.25rem 0;
+    margin: 1rem 0;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));

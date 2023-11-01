@@ -170,7 +170,7 @@ const Invoice = () => {
           <p className='title center'>ALL INVOICES</p>
           <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
         </div>
-        <div className='list-table h-56'>
+        <div className='list-table h-64'>
           <table className='w-full'>
             <thead>
               <tr>

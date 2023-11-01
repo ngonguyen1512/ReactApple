@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
-const notActive = 'w-[46px] h-[42px] flex justify-center items-center text-black bg-white mb-10 hover:bg-[#838383] hover:text-white rounded-lg font-semibold cusor-pointer text-lg'
-const active = 'w-[46px] h-[42px] flex justify-center items-center text-white bg-black mb-10 hover:text-white hover:opacity-80 rounded-lg font-semibold cusor-pointer text-lg'
+const notActive = 'w-[46px] h-[42px] flex justify-center items-center text-black bg-white mb-4 hover:bg-[#838383] hover:text-white rounded-lg font-semibold cusor-pointer text-lg'
+const active = 'w-[46px] h-[42px] flex justify-center items-center text-white bg-black mb-4 hover:text-white hover:opacity-80 rounded-lg font-semibold cusor-pointer text-lg'
 
-const PageNumber = ({text, currentPage, icon, setCurrentPage, type}) => {
+const PageNumber = ({text, currentPage, icon, setCurrentPage}) => {
   const navigate = useNavigate();
   const location = useLocation;
   const [paramsSeach] = useSearchParams();
@@ -24,7 +24,6 @@ const PageNumber = ({text, currentPage, icon, setCurrentPage, type}) => {
       return searchParamsObject;
   }
   
-
   const handleChangePage = () => {
     if (!(text === '...')) {
       setCurrentPage(+text)

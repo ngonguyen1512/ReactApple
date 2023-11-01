@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputForm } from '../../components/index'
-import { Pagination } from './index'
 import * as actions from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
 import axios from 'axios';
 
 const styletd = 'text-center text-base px-4 py-2 text-base'
@@ -120,7 +118,7 @@ const Slider = () => {
     return (
         <div className='slider'>
             <div className='header-slider'>
-                <span className='title center cursor-pointer' onClick={handleReload}>CATEGORY</span>
+                <span className='title center cursor-pointer' onClick={handleReload}>SLIDE</span>
                 <input
                     className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
                     type="text"
@@ -221,7 +219,7 @@ const Slider = () => {
                     <thead>
                         <tr>
                             <th className='text-lg'>ID</th>
-                            <th className='text-lg w-[25%]'>IMAGES</th>
+                            <th className='text-lg w-[25%]'>IMAGE</th>
                             <th className='text-lg'>NAME</th>
                             <th className='text-lg'>STATE</th>
                         </tr>

@@ -23,7 +23,7 @@ const Forgot = () => {
                 await dispatch(actions.forgot(payload));
                 navigate('/' + path.LOGIN)
             } catch (error) {
-                Swal.fire('Oops!', msg, 'error');
+                Swal.fire('Successful!', msg, 'success');
             }
         }
     };

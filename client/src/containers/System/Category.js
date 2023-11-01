@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputForm } from '../../components/index'
-import { Pagination } from './index'
 import * as actions from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
@@ -11,11 +10,10 @@ const styletd = 'text-center text-base px-4 py-2 text-base'
 const Category = () => {
   const dispatch = useDispatch()
   const [searchParmas] = useSearchParams()
-  const { count, categories, limitcategories } = useSelector(state => state.app)
+  const { categories } = useSelector(state => state.app)
   const { functions } = useSelector(state => state.function)
   const { currentData } = useSelector(state => state.user)
   const permis = currentData.idPermission
-  const [currentPage, setCurrentPage] = useState(1);
   const [invalidFields, setInvalidFields] = useState([])
   const [searchValue, setSearchValue] = useState("");
   const [shouldReload, setShouldReload] = useState(false);
@@ -36,7 +34,7 @@ const Category = () => {
   const [payload, setPayload] = useState({
     id: '' || null, name: '', image: '', state: ''
   });
-  const handleReloadu = async () => {
+  const handleReload = async () => {
     setPayload({ id: '', name: '', image: '', state: '' });
     setShouldRefetch(true);
   }
@@ -92,23 +90,8 @@ const Category = () => {
   }
 
   useEffect(() => {
-    let page = searchParmas.get('page');
-    page && +page !== currentPage && setCurrentPage(+page);
-    !page && setCurrentPage(1);
-  }, [searchParmas, limitcategories, currentPage]);
-
-  useEffect(() => {
-    let params = [];
-    for (let entry of searchParmas.entries()) params.push(entry);
     let searchParamsObject = {}
-    params?.forEach(i => {
-      if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
-        searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-      else
-        searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-    })
     if (permis) searchParamsObject.permis = permis
-    dispatch(actions.getLimitCategories(searchParamsObject))
     dispatch(actions.getFunctions(searchParamsObject))
     dispatch(actions.getPermissions())
     dispatch(actions.getCategories())
@@ -142,7 +125,7 @@ const Category = () => {
   return (
     <div className='category'>
       <div className='header-category'>
-        <span className='title center cursor-pointer' onClick={handleReloadu}>CATEGORY</span>
+        <span className='title center cursor-pointer' onClick={handleReload}>CATEGORY</span>
         <input
           className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
           type="text"
@@ -230,7 +213,7 @@ const Category = () => {
         </div>
       ))
       }
-      <div className='list-table'>
+      <div className='list-table h-96'>
         <table className='w-full'>
           <thead>
             <tr>
@@ -242,13 +225,10 @@ const Category = () => {
           </thead>
           <tbody>
             {shouldReload && filteredCategories.length > 0 && mapRows(filteredCategories)}
-            {!shouldReload && limitcategories?.length > 0 && mapRows(limitcategories)}
+            {!shouldReload && categories?.length > 0 && mapRows(categories)}
           </tbody>
         </table>
       </div>
-      <Pagination count={count} currentPage={currentPage}
-        setCurrentPage={setCurrentPage} counts={limitcategories}
-      />
     </div >
   )
 }

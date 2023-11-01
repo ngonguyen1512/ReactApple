@@ -170,10 +170,8 @@ const Account = () => {
     const handleClickRow = () => {
       setPayload({ ...payload, id: item.id });
       setPayloadu({
-        ...payloadu,
-        id: item.id,
-        name: item.name,
-        state: item.state,
+        ...payloadu, id: item.id,
+        name: item.name, state: item.state,
       });
     };
 
