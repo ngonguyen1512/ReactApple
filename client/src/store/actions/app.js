@@ -248,6 +248,72 @@ export const getSliders = () => async (dispatch) => {
     }
 }
 
+export const createSliders = (payload) => async (dispatch) => {
+    try {
+        const response = await apis.apiCreateSliders(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.CREATE_SLIDER_SUCCESS,
+                data: response.data.response,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.CREATE_SLIDER_FAIL,
+                msg: response.data.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.CREATE_SLIDER_FAIL,
+            msg: 'Failed to create SLIDER.',
+        });
+    }
+};
+
+export const deleteSliders = (payload) => async (dispatch) => {
+    try {
+        const response = await apis.apiDeleteSliders(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.DELETE_SLIDER,
+                data: response.data.response,
+            })
+        } else {
+            dispatch({
+                type: actionTypes.DELETE_SLIDER,
+                msg: response.data.msg,
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.DELETE_SLIDER,
+            data: null,
+        })
+    }
+}
+
+export const updateSliders = (payload) => async (dispatch) => {
+    try {
+        const response = await apis.apiUpdateSliders(payload);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.UPDATE_SLIDER,
+                data: response.data.response,
+            })
+        } else {
+            dispatch({
+                type: actionTypes.UPDATE_SLIDER,
+                msg: response.data.msg,
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.UPDATE_SLIDER,
+            data: null,
+        })
+    }
+}
+
 export const getCategorySamples = (payloads) => async (dispatch) => {
     try {
         const response = await apis.apiGetCategorySamples(payloads);

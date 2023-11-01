@@ -20,7 +20,6 @@ const transferReducer = (state = initState, action) => {
                 transfers: action.data,
                 msg: action.msg || '',
             }
-
         case actionTypes.CREATE_TRANSFER_FAIL:
             return {
                 ...state,

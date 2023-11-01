@@ -26,7 +26,6 @@ const appReducer = (state = initState, action) => {
                 categories: action.data,
                 msg: action.msg || '',
             }
-
         case actionTypes.CREATE_CATEGORY_FAIL:
             return {
                 ...state,
@@ -38,6 +37,7 @@ const appReducer = (state = initState, action) => {
                 categories: action.data,
                 msg: action.msg || '',
             }
+
         case actionTypes.GET_SAMPLES:
             return {
                 ...state,
@@ -61,6 +61,7 @@ const appReducer = (state = initState, action) => {
                 samples: action.data,
                 msg: action.msg || '',
             }
+
         case actionTypes.GET_CATEGORIES_LIMIT:
             return {
                 ...state,
@@ -68,7 +69,7 @@ const appReducer = (state = initState, action) => {
                 msg: action.msg || '',
                 count: action.count || 0
             }
-        case actionTypes.GET_CATEGORY_SAMPLES: 
+        case actionTypes.GET_CATEGORY_SAMPLES:
             return {
                 ...state,
                 samples: action.data,
@@ -93,10 +94,34 @@ const appReducer = (state = initState, action) => {
                 prices: action.prices || [],
                 msg: action.msg || '',
             }
+
         case actionTypes.GET_SLIDERS:
             return {
                 ...state,
                 sliders: action.sliders || [],
+                msg: action.msg || '',
+            }
+        case actionTypes.CREATE_SLIDER_SUCCESS:
+            return {
+                ...state,
+                sliders: action.data,
+                msg: action.msg || '',
+            }
+        case actionTypes.CREATE_SLIDER_FAIL:
+            return {
+                ...state,
+                msg: action.msg || '',
+            }
+        case actionTypes.DELETE_SLIDER:
+            return {
+                ...state,
+                sliders: action.data,
+                msg: action.msg || '',
+            }
+        case actionTypes.UPDATE_SLIDER:
+            return {
+                ...state,
+                sliders: action.data,
                 msg: action.msg || '',
             }
         default:

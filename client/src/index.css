@@ -574,7 +574,7 @@
 
 /* ---------- WEB SERVER ---------- */
 .provider, .role, .product, .dashboard, .account, .category,
-.sample, .invoice, .page-product {
+.sample, .invoice, .page-product, .slider {
     width: 100%;
     padding: 0.5rem;
     margin: 2.5rem 0;
@@ -719,7 +719,8 @@
 .account .header-account,
 .sample .header-sample,
 .invoice .invoice-all .header-invoice,
-.category .header-category{
+.category .header-category,
+.slider .header-slider{
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -728,7 +729,8 @@
 .account .header-account .title,
 .sample .header-sample .title,
 .invoice .title,
-.category .header-category .title{
+.category .header-category .title,
+.slider .header-slider .title{
     font-size: 2.25rem;
     font-weight: 700;
     grid-column: span 3 / span 3;
@@ -737,17 +739,25 @@
 .provider .form-create,
 .account .form-create,
 .sample .form-create,
-.category .form-create {
+.category .form-create,
+.slider .form-create {
     margin: 1.25rem 0;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.5rem;
 }
+.slider .form-create .btn-slider {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem;
+    padding: 0.5rem 0 0 0;
+}
 .provider .list-table,
 .product .list-table, 
 .account .list-table, 
 .category .list-table, 
+.slider .list-table, 
 .sample .list-table, 
 .role .form-frame .list-table,
 .invoice .invoice-all .list-table,
@@ -763,6 +773,7 @@
 .product .list-table table th, td,
 .account .list-table table th, td,
 .category .list-table table th, td,
+.slider .list-table table th, td,
 .invoice .invoice-all .list-table table th, td,
 .invoice .invoice-accept-detail .invoice-accept table th, td,
 .invoice .invoice-accept-detail .invoice-detail table th, td,
@@ -776,6 +787,7 @@
 .product .list-table table thead,
 .account .list-table table thead,
 .category .list-table table thead,
+.slider .list-table table thead,
 .sample .list-table table thead,
 .invoice .invoice-all .list-table table thead,
 .invoice .invoice-accept-detail .invoice-accept table thead,

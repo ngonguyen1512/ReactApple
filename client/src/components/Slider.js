@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {formatVietnameseToString} from '../utils/common/formatVietnameseToString';
+import { formatVietnameseToString } from '../utils/common/formatVietnameseToString';
 import { NavLink } from 'react-router-dom';
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
@@ -16,16 +16,16 @@ const Slider = () => {
     return (
         <div className='w-full jusitify-center items-center '>
             <Fade>
-                {sliders.map(item => (
+                {sliders.map(item => item.state === 1 && (
                     <NavLink to={`${formatVietnameseToString(item.name)}`}>
                         <div key={item.id}>
-                            <img style={ {width: '100%'} } src={item.url} alt=''/>
+                            <img style={{ width: '100%' }} src={`/images/${item.url}`} alt='' />
                         </div>
                     </NavLink>
                 ))}
             </Fade>
         </div>
-        
+
     )
 }
 
