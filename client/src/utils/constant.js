@@ -29,5 +29,5 @@ export const path = {
     EDITPRODUCT: 'product/edit-product/:productId',
     SAMPLE: 'sample',
     PROVIDER: 'provider',
-    SLIDER: 'slider',
+    SLIDE: 'slide',
 }

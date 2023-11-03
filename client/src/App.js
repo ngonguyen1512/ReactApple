@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, Cart, HomePage, Retal, Detail, Forgot, Register } from './containers/Public'
 import { HomeServer, Account, Category, Product, Dashboard, Invoice, Role, Sample, Provider,
-  PersonalInfor, PageProduct, Payment, Slider } from './containers/System'
+  PersonalInfor, PageProduct, Payment, Slide } from './containers/System'
 import { path } from './utils/constant'
 import { CartProvider } from './contexts/Cart';
 
@@ -36,7 +36,7 @@ function App() {
             <Route path={path.ROLE} element={<Role />} />
             <Route path={path.SAMPLE} element={<Sample />} />
             <Route path={path.PROVIDER} element={<Provider />} />
-            <Route path={path.SLIDER} element={<Slider />} />
+            <Route path={path.SLIDE} element={<Slide />} />
           </Route>
         </Routes>
       </CartProvider>

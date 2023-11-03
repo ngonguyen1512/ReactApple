@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const styletd = 'text-center text-base px-4 py-2 text-base'
 
-const Slider = () => {
+const Slide = () => {
     const dispatch = useDispatch()
     const { sliders } = useSelector(state => state.app)
     const [shouldRefetch, setShouldRefetch] = useState(false);
@@ -235,4 +235,4 @@ const Slider = () => {
     )
 }
 
-export default Slider
+export default Slide

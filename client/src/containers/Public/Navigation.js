@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { formatVietnameseToString } from '../../utils/common/formatVietnameseToString'
 import icons from '../../utils/icons'
@@ -20,6 +20,18 @@ const Navigation = () => {
   const [isShowMiniCart, setIsShowMiniCart] = useState(false)
   const pathurl = location.pathname
   const parts = pathurl.split('/')[1]
+  const miniCartRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (miniCartRef.current && !miniCartRef.current.contains(e.target))
+        setIsShowMiniCart(false);
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [miniCartRef]);
 
   useEffect(() => {
     dispatch(actions.getCategories());
@@ -47,7 +59,7 @@ const Navigation = () => {
               const total = cartItems.reduce((accumulator, product) =>
                 accumulator + (product.price * product.quantity), 0);
               return (
-                <div className='minicart'>
+                <div className='minicart' ref={miniCartRef}>
                   <span className='content' onClick={() => setIsShowMiniCart(prev => !prev)}>
                     <BsCart4 />
                     <span className=''>({cartItems.length})</span>
@@ -71,7 +83,7 @@ const Navigation = () => {
                               <button className='px-1.5 bg-gray-500 rounded-sm mx-1.5'
                                 onClick={() => updateQuantity(product, product.quantity + 1)}>+</button>
                             </td>
-                            <td className='text-center w-[30%]'>{product.price.toLocaleString()}</td>
+                            <td className='text-center w-[30%]'>{(product.price*product.quantity).toLocaleString()}</td>
                             <td className='text-red-500 text-xl w-[5%]'>
                               <button onClick={() => removeFromCart(product.id)}><TiDelete /></button>
                             </td>

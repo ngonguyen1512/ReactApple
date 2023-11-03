@@ -24,6 +24,20 @@ const Header = () => {
     const cartContext = useContext(CartContext);
     const { removeAllFromCart } = cartContext;
 
+    const showMenuRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (showMenuRef.current && !showMenuRef.current.contains(e.target)) {
+                setIsShowMenu(false);
+            }
+        };
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [showMenuRef]);
+
     const goLogin = useCallback((flag) => {
         navigate('/' + path.LOGIN, { state: { flag } })
     }, [navigate])
@@ -56,7 +70,7 @@ const Header = () => {
                         />
                     </div>
                 ) : (
-                    <div className='account'>
+                    <div className='account' ref={showMenuRef}>
                         <span className='info'>Hello, <b>{currentData.name}</b> </span>
                         <Button
                             text={'Account'}
