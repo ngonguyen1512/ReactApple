@@ -227,7 +227,6 @@ const Slide = () => {
                     <tbody>
                         {shouldReload && filteredSliders.length > 0 && mapRows(filteredSliders)}
                         {!shouldReload && sliders?.length > 0 && mapRows(sliders)}
-                       
                     </tbody>
                 </table>
             </div>

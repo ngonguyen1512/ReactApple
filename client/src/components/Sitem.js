@@ -8,9 +8,10 @@ import * as actions from '../store/actions'
 
 const { AiOutlineHeart, AiFillHeart } = icons;
 
-const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idCurrent }) => {
+const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) => {
   const dispatch = useDispatch()
   const { likes } = useSelector(state => state.like)
+  const { isLoggedIn } = useSelector(state => state.auth)
   const [isLiked, setIsLiked] = useState(false);
   const [likess, setLikess] = useState([]);
 
@@ -68,10 +69,16 @@ const Sitem = ({ image, idCategory, nameCategory, name, discount, price, id, idC
 
   return (
     <div className='card-items '>
-      {isLiked ? (
-        <span className="icons" onClick={() => handleUnLike(id)}><AiFillHeart /></span>
+      {isLoggedIn ? (
+        <>
+          {isLiked ? (
+            <span className="icons" onClick={() => handleUnLike(id)}><AiFillHeart /></span>
+          ) : (
+            <span className="icons" onClick={() => handleLike(id)}><AiOutlineHeart /></span>
+          )}
+        </>
       ) : (
-        <span className="icons" onClick={() => handleLike(id)}><AiOutlineHeart /></span>
+        <div className='h-[8%]'></div>
       )}
       <Link to={`${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
         <div className='image center'>

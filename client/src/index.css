@@ -351,7 +351,7 @@
 }
 .card-items .content .tag .basicprice-discount .basic-price {
     text-decoration-line: line-through;
-    font-size: small;
+    font-size: medium;
     margin: 1px;
     color: #3482F6;
 }
