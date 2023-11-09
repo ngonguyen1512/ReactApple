@@ -9,23 +9,18 @@ import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart'
 import { Button, Menu } from '../../components'
 
-const { TiDelete, BsApple, BsChevronDown } = icons
+const { TiDelete, BiLogoApple, BsChevronDown } = icons
 const styletd = 'text-base px-4'
 
 const Navigation = () => {
-  const headerRef = useRef()
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
   const showMenuRef = useRef(null)
   const pathurl = location.pathname
   const parts = pathurl.split('/')[1]
-  const [searchParams] = useSearchParams()
-  const page = searchParams.get('page');
-  const code = searchParams.get('code');
-  const sample = searchParams.get('sample');
-  const cartContext = useContext(CartContext);
-  const { removeAllFromCart } = cartContext;
+  const cartContext = useContext(CartContext)
+  const { removeAllFromCart } = cartContext
   const { categories } = useSelector(state => state.app)
   const { isLoggedIn } = useSelector(state => state.auth)
   const { currentData } = useSelector(state => state.user)
@@ -82,13 +77,9 @@ const Navigation = () => {
   }
 
   useEffect(() => {
-    headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [page, code, sample])
-
-  useEffect(() => {
     dispatch(actions.getProducts())
-    dispatch(actions.getCategories());
-    dispatch(actions.getTransfers());
+    dispatch(actions.getCategories())
+    dispatch(actions.getTransfers())
   }, [dispatch]);
 
   const renderTableRow = (item) => {
@@ -108,12 +99,12 @@ const Navigation = () => {
   };
 
   return (
-    <div ref={headerRef} className='navigation'>
+    <div className='navigation'>
       {parts !== 'webserver' ? (
-        <div ref={headerRef} className='nav-web'>
+        <div className='nav-web'>
           <div className='logo-cate'>
             <NavLink to={'/'} className='logo text-2xl'>
-              <BsApple /> APPLE
+              <BiLogoApple /> APPLE
             </NavLink>
             {categories?.length > 0 && categories.map(item => {
               if (item.state === 1)
@@ -139,7 +130,7 @@ const Navigation = () => {
                     <div className='close' onClick={() => setIsShowSearch(false)}><TiDelete /></div>
                     <span className='cart-title'>SEARCH</span>
                     <input
-                      className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full text-[#000]'
+                      className='outline-none bg-[#e7e7e7] p-2 rounded-md w-full text-[#000]'
                       type="text"
                       placeholder='Search by name'
                       value={searchValue}
@@ -224,8 +215,7 @@ const Navigation = () => {
                 <div className='account' ref={showMenuRef}>
                   <Button
                     text={'Account'}
-                    textColor='text-white'
-                    bgColor='bg-[#2f3033]'
+                    bgColor='bg-[#e7e7e7]'
                     IcAfter={BsChevronDown}
                     onClick={() => setIsShowMenu(prev => !prev)}
                   />

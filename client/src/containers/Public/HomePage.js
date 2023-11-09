@@ -8,7 +8,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const { countp, products } = useSelector(state => state.product)
   const [currentPage, setCurrentPage] = useState(1);
-  const { categories, prices } = useSelector(state => state.app)
+  const { prices } = useSelector(state => state.app)
   useEffect(() => {
     dispatch(actions.getPrices());
   }, [dispatch]);

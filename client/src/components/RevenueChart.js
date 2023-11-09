@@ -57,9 +57,9 @@ const RevenueChart = () => {
     return (
         <ResponsiveContainer width="100%" height={400}>
             <LineChart data={data}>
-                <XAxis dataKey="day" stroke="#fff" />
-                <YAxis yAxisId="left" stroke="#fff" tickFormatter={formatRevenue} />
-                <YAxis yAxisId="right" stroke="#fff" orientation="right" tickFormatter={formatCount} />
+                <XAxis dataKey="day"/>
+                <YAxis yAxisId="left" tickFormatter={formatRevenue} />
+                <YAxis yAxisId="right" orientation="right" tickFormatter={formatCount} />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend />
                 <Line type="monotone" dataKey="revenue" yAxisId="left" name="Total" stroke="#8884d8" />

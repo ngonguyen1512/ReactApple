@@ -32,8 +32,8 @@ const Chart = () => {
     return (
         <ResponsiveContainer width="100%" height={400}>
             <BarChart data={data}>
-                <XAxis stroke="#fff" dataKey="name" />
-                <YAxis stroke="#fff" />
+                <XAxis dataKey="name" />
+                <YAxis />
                 <Tooltip content={<CustomTooltip />} />
                 {/* <Legend /> */}
                 <Bar dataKey="quantity" fill="#3B82F6" />

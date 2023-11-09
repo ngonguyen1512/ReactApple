@@ -1,14 +1,14 @@
-import { BsApple, BsCart4, BsChevronDown, BsChevronUp, BsCartCheck } from 'react-icons/bs'
+import { BsCart4, BsChevronDown, BsChevronUp, BsCartCheck } from 'react-icons/bs'
 import { MdOutlineLogout, MdOutlineCancelPresentation, MdOutlineSwitchAccount } from 'react-icons/md'
 import { AiFillHome, AiOutlineSetting, AiOutlineCaretRight, AiFillInstagram, AiFillYoutube, AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { GrPrevious, GrNext } from 'react-icons/gr'
-import { BiCommentDetail, BiEdit, BiTrash, BiLogoFacebookCircle } from 'react-icons/bi'
+import { BiCommentDetail, BiEdit, BiTrash, BiLogoFacebookCircle, BiLogoApple } from 'react-icons/bi'
 import { TbPackageImport } from 'react-icons/tb'
 import { GiMoneyStack } from 'react-icons/gi'
 import { TiDelete } from 'react-icons/ti'
 
 const icons = {
-    BsApple,
+    BiLogoApple,
     BsCart4,
     MdOutlineLogout,
     AiFillHome,
