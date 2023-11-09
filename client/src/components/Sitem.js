@@ -42,12 +42,10 @@ const Sitem = ({ image, nameCategory, name, discount, price, id, idCurrent }) =>
       idProduct: id,
     };
     dispatch(actions.deleteLikes(updatedPayload));
-
     const updatedLikes = likess.filter(
       (item) => item.idProduct !== id || item.idAccount !== idCurrent
     );
     setLikess(updatedLikes);
-
     const hasSomeLikes = updatedLikes.some(
       (item) => item.idProduct === id && item.idAccount === idCurrent
     );

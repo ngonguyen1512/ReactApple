@@ -10,7 +10,7 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
   const [isHideStart, setIsHideStart] = useState(false);
 
   useEffect(() => {
-    let maxPage = Math.ceil(count / 9);
+    let maxPage = Math.ceil(count / 12);
     let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2)
     let start = (currentPage - 2) <= 1 ? 1 : (currentPage - 2)
     let temp = [];
@@ -25,7 +25,6 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
       {!isHideStart &&
         <>
           <PageNumber icon={<GrPrevious />} text={1} setCurrentPage={setCurrentPage} />
-          <PageNumber text={'...'} />
         </>
       }
       {arrPage.length > 0 && arrPage.map(item => {
@@ -38,7 +37,6 @@ const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {
       })}
       {!isHideEnd &&
         <>
-          <PageNumber text={'...'} />
           <PageNumber icon={<GrNext />}
             text={Math.ceil(count / counts.length)}
             setCurrentPage={setCurrentPage}

@@ -6,7 +6,6 @@ const { BsApple, AiFillInstagram, BiLogoFacebookCircle, AiFillYoutube } = icons
 const Footer = () => {
     return (
         <div className='main-footer'>
-            <span className='title'><BsApple /> APPLE</span>
             <div className='footer-content'>
                 <div>
                     <ul>

@@ -55,7 +55,7 @@ const Cart = () => {
                 ))}
                 <tr className='border-t border-black'>
                   <td className='font-semibold pl-10 text-lg' colspan={4}>TOTAL ORDER</td>
-                  <td className='text-center border-l border-black text-xl font-semibold text-red-500'>{total.toLocaleString()}</td>
+                  <td className='text-center  text-xl font-semibold text-red-500'>{total.toLocaleString()}</td>
                   <td></td>
                 </tr>
               </table>

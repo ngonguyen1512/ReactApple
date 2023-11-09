@@ -15,12 +15,9 @@ const HomePage = () => {
 
   return (
     <div className='homepage center'>
-      <RelatedProduct />
+      {/* <RelatedProduct /> */}
       <div className='main-content'>
-        <div className='sidebar'>
-          <ItemSidebar content={categories} type='sample' list={0} title='Product list' />
-          <ItemSidebar isDouble={true} type='code' content={prices} title='Sort by price' />
-        </div>
+        <ItemSidebar isDouble={true} type='code' content={prices} title='Sort price' />
         <div className='list-pagination' >
           <List />
           <Pagination count={countp} currentPage={currentPage}

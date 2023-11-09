@@ -7,7 +7,7 @@ export const getProducts = () => async (dispatch) => {
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_PRODUCTS,
-                products: response.data.response,
+                productall: response.data.response,
             })
         } else {
             dispatch({

@@ -1,6 +1,7 @@
 import actionTypes from "../actions/actionTypes";
 const initState = {
     products: [],
+    productall: [],
     msg: '',
     countp: 0,
     newProducts: [],
@@ -11,6 +12,12 @@ const initState = {
 const productReducer = (state = initState, action) => {
     switch (action.type) {
         case actionTypes.GET_PRODUCTS:
+            return {
+                ...state,
+                productall: action.productall || [],
+                msg: action.msg || '',
+                countp: action.countp || 0
+            } 
         case actionTypes.GET_PRODUCTS_LIMIT:
             return {
                 ...state,
