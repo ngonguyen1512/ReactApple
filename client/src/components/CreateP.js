@@ -93,7 +93,7 @@ const CreateP = () => {
                 <label className='text-xs mt-4'>ID CATEGORY</label>
                 <select value={payload.idCategory}
                     onChange={(e) => setPayload({ ...payload, idCategory: e.target.value })}
-                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    className='outline-none bg-[#e7e7e7] h-[46px] p-2 rounded-md w-full text-[#000]' >
                     <option value="">Select ID CATEGORY</option>
                     {categories?.length > 0 && categories.map(item => (
                         <option value={item.id}>{item.name}</option>
@@ -104,7 +104,7 @@ const CreateP = () => {
                 <label className='text-xs mt-4'>ID SAMPLE</label>
                 <select value={payload.idSample}
                     onChange={(e) => setPayload({ ...payload, idSample: e.target.value })}
-                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    className='outline-none bg-[#e7e7e7] h-[46px] p-2 rounded-md w-full text-[#000]' >
                     <option value="">Select ID SAMPLE</option>
                     {samples?.length > 0 && samples.map(item => (
                         <option value={item.id}>{item.name}</option>
@@ -115,7 +115,7 @@ const CreateP = () => {
                 <label className='text-xs mt-4'>ID PROVIDER</label>
                 <select value={payload.idPermission}
                     onChange={(e) => setPayload({ ...payload, idProvider: e.target.value })}
-                    className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+                    className='outline-none bg-[#e7e7e7] h-[46px] p-2 rounded-md w-full text-[#000]' >
                     <option value="">Select ID PROVIDER</option>
                     {providers?.length > 0 && providers.map(item => (
                         <option value={item.id}>{item.name}</option>
@@ -209,7 +209,7 @@ const CreateP = () => {
                 <label className='text-xs mt-4'>STATE</label>
                 <select value={payload.state}
                     onChange={(e) => setPayload({ ...payload, state: e.target.value })}
-                    className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+                    className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
                     <option value="">Select STATE</option>
                     <option value={1}>1 - Active</option>
                     <option value={0}>0 - No Active</option>
@@ -218,8 +218,8 @@ const CreateP = () => {
             <Button
                 class='col-span-2'
                 text={'Save'}
-                bgColor='bg-secondary2'
-                textColor='text-white'
+                // bgColor='bg-secondary2'
+                // textColor='text-white'
                 onClick={handleSubmit}
             />
         </div>

@@ -124,13 +124,16 @@ const Payment = () => {
                 </div>
             </div>
             <div className='payment-btn center'>
-                <Link to={'/' + path.CART} className='outline-none rounded-md font-semibold hover:underline flex items-center justify-center gap-1 bg-green-800 text-white py-2 px-4 mr-2'>Back</Link>
+                <Button
+                    text={'BACK'}
+                    onClick={() => navigate('/' + path.CART)}
+                />
+                <p className='mr-2'></p>
+                {/* <Link to={'/' + path.CART} className='font-semibold hover:underline flex items-center justify-center gap-1 border border-[#000] hover:bg-[#000] hover:text-[#fff]py-2 px-4 mr-2'>Back</Link> */}
                 <CartContext.Consumer>
                     {({ cartItems }) => (
                         <Button
                             text={'PAYMENT'}
-                            bgColor='bg-secondary2'
-                            textColor='text-white'
                             onClick={() => handleCreateInvoices(cartItems)}
                         />
                     )}

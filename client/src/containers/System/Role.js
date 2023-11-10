@@ -201,8 +201,8 @@ const Role = () => {
                   <div></div>
                   <Button
                     text='DELETE'
-                    bgColor='bg-cancel'
-                    textColor='text-white'
+                    // bgColor='bg-cancel'
+                    // textColor='text-white'
                     value={payloadm.id}
                     setValue={setPayloadm}
                     className='py-5'
@@ -210,8 +210,8 @@ const Role = () => {
                   />
                   <Button
                     text='UPDATE'
-                    bgColor='bg-green-800'
-                    textColor='text-white'
+                    // bgColor='bg-green-800'
+                    // textColor='text-white'
                     value={payloadm.id}
                     setValue={setPayloadm}
                     className='py-5'
@@ -223,8 +223,8 @@ const Role = () => {
                   <div className='col-span-2'></div>
                   <Button
                     text='CREATE'
-                    bgColor='bg-secondary2'
-                    textColor='text-white'
+                    // bgColor='bg-secondary2'
+                    // textColor='text-white'
                     className='py-5'
                     onClick={handleSubmitMenu}
                   />
@@ -254,7 +254,7 @@ const Role = () => {
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadm.idPermission}
               onChange={(e) => setPayloadm({ ...payloadm, idPermission: e.target.value })}
-              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+              className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -302,8 +302,8 @@ const Role = () => {
                   <div></div>
                   <Button
                     text='DELETE'
-                    bgColor='bg-cancel'
-                    textColor='text-white'
+                    // bgColor='bg-cancel'
+                    // textColor='text-white'
                     value={payloadf.id}
                     setValue={setPayloadf}
                     className='py-5'
@@ -311,8 +311,8 @@ const Role = () => {
                   />
                   <Button
                     text='UPDATE'
-                    bgColor='bg-green-800'
-                    textColor='text-white'
+                    // bgColor='bg-green-800'
+                    // textColor='text-white'
                     value={payloadf.id}
                     setValue={setPayloadf}
                     className='py-5'
@@ -324,8 +324,8 @@ const Role = () => {
                   <div className='col-span-2'></div>
                   <Button
                     text='CREATE'
-                    bgColor='bg-secondary2'
-                    textColor='text-white'
+                    // bgColor='bg-secondary2'
+                    // textColor='text-white'
                     fullWidth
                     onClick={handleSubmitFunction}
                   />
@@ -346,7 +346,7 @@ const Role = () => {
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadf.idPermission}
               onChange={(e) => setPayloadf({ ...payloadf, idPermission: e.target.value })}
-              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+              className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.filter(item => item.id === 1 || item.id === 2).map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -395,8 +395,8 @@ const Role = () => {
                   <div></div>
                   <Button
                     text='DELETE'
-                    bgColor='bg-cancel'
-                    textColor='text-white'
+                    // bgColor='bg-cancel'
+                    // textColor='text-white'
                     value={payloadt.id}
                     setValue={setPayloadt}
                     className='py-5'
@@ -404,8 +404,8 @@ const Role = () => {
                   />
                   <Button
                     text='UPDATE'
-                    bgColor='bg-green-800'
-                    textColor='text-white'
+                    // bgColor='bg-green-800'
+                    // textColor='text-white'
                     value={payloadt.id}
                     setValue={setPayloadt}
                     className='py-5'
@@ -417,8 +417,8 @@ const Role = () => {
                   <div className='col-span-2'></div>
                   <Button
                     text='CREATE'
-                    bgColor='bg-secondary2'
-                    textColor='text-white'
+                    // bgColor='bg-secondary2'
+                    // textColor='text-white'
                     onClick={handleSubmitTransfer}
                   />
                 </>
@@ -438,7 +438,7 @@ const Role = () => {
             <label className='text-xs mt-4'>ID PERMISSION</label>
             <select value={payloadt.idPermission}
               onChange={(e) => setPayloadt({ ...payloadt, idPermission: e.target.value })}
-              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+              className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
               <option value="">Select ID Permission</option>
               {permissions?.length > 0 && permissions.filter(item => item.id === 1 || item.id === 2).map(item => (
                 <option value={item.id}>{item.name}</option>

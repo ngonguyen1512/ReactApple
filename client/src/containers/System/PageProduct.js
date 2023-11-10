@@ -10,27 +10,33 @@ const PageProduct = () => {
 
   return (
     <div className='page-product'>
-      <span className='title'>CREATE PRODUCT</span>
       <div className='mt-5'>
-        {!payloadid && <CreateP /> }
         {payloadid && products?.length > 0 && products.map(item => {
-          if (item.id === payloadid) 
+          if (item.id === payloadid)
             return (
-              <UpdateP
-                key={item?.id}
-                id={item?.id}
-                name={item?.name}
-                quantity={item?.quantity}
-                discount={item?.discount}
-                price={item?.price}
-                idProvider={item?.idProvider}
-                state={item?.state}
-              />
+              <>
+                <span className='title mb-5'>EDIT PRODUCT</span>
+                <UpdateP
+                  key={item?.id}
+                  id={item?.id}
+                  name={item?.name}
+                  quantity={item?.quantity}
+                  discount={item?.discount}
+                  price={item?.price}
+                  idProvider={item?.idProvider}
+                  state={item?.state}
+                />
+              </>
             )
           return null
         })}
+        {!payloadid && <>
+          <span className='title mb-5'>CREATE PRODUCT</span>
+          <CreateP />
+        </>
+        }
       </div>
-    </div>
+    </div >
   )
 }
 

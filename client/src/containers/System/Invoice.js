@@ -111,19 +111,15 @@ const Invoice = () => {
                         <td className='text-center'>{(invoiceDetail?.total).toLocaleString()}</td>
                         <th>
                           <Button
-                            className='col-span-2'
                             text={'No'}
-                            bgColor='bg-red-500'
-                            textColor='text-white'
+                            fullWidth
                             onClick={() => handleSubmitNo(invoiceDetail?.id)}
                           />
                         </th>
                         <th>
                           <Button
-                            className='col-span-2'
+                            fullWidth
                             text={'Yes'}
-                            bgColor='bg-secondary2'
-                            textColor='text-white'
                             onClick={() => handleSubmitYes(invoiceDetail?.id)}
                           />
                         </th>
@@ -168,7 +164,7 @@ const Invoice = () => {
       <div className='invoice-all'>
         <div className='header-invoice'>
           <p className='title center'>ALL INVOICES</p>
-          <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
+          <input type='date' className='input bg-[#e7e7e7]' value={selectedDate} onChange={handleSearch} />
         </div>
         <div className='list-table h-64'>
           <table className='w-full'>

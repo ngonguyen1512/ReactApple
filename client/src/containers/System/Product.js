@@ -85,7 +85,7 @@ const Product = () => {
       <div className='header-product'>
         <span className='title center'>PRODUCT</span>
         <input
-          className='outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          className='outline-none bg-[#e7e7e7] p-2 rounded-md w-full '
           type="text"
           placeholder='Search by name'
           value={searchValue}
@@ -97,8 +97,8 @@ const Product = () => {
           <Link to={`${formatVietnameseToString(item.name)}-product`}>
             <Button
               text={item.name}
-              bgColor='bg-secondary2'
-              textColor='text-white'
+              // bgColor='bg-secondary2'
+              // textColor='text-white'
             />
           </Link>
         ))}

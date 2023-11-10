@@ -91,7 +91,7 @@ const Dashboard = () => {
       <div className='div-table'>
         <span className='title'>TOP BEST SELLER</span>
         <div className='form-search'>
-          <input type='date' className='input' value={selectedDate} onChange={handleSearch} />
+          <input type='date' className='input bg-[#e7e7e7]' value={selectedDate} onChange={handleSearch} />
         </div>
         <div className='table-bestseller'>
           <Chart chartData={filteredTop || ''} />
@@ -105,7 +105,7 @@ const Dashboard = () => {
                 <th>Total</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody  className='bg-[#e7e7e7'>
               {shouldReload && filteredInvoice.length > 0 && filteredInvoice.map((item) => renderInvoiceRow(item))}
               {!shouldReload && invoices?.length > 0 && invoices.map((item) => renderInvoiceRow(item))}
             </tbody>

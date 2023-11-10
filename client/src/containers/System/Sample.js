@@ -137,7 +137,7 @@ const Sample = () => {
       <div className='header-sample'>
         <span className='title center cursor-pointer' onClick={handleReload}>SAMPLE</span>
         <input
-          className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          className='text-[#000] outline-none bg-[#e7e7e7] p-2 rounded-md w-full '
           type="text"
           placeholder='Search by name'
           value={searchValue}
@@ -150,7 +150,7 @@ const Sample = () => {
             <label className='text-xs mt-4'>ID CATEGORY</label>
             <select value={payload.idCategory}
               onChange={(e) => setPayload({ ...payload, idCategory: e.target.value })}
-              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+              className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
               <option value="">Select ID CATEGORY</option>
               {categories?.length > 0 && categories.map(item => (
                 <option value={item.id}>{item.name}</option>
@@ -170,7 +170,7 @@ const Sample = () => {
             <label className='text-xs mt-4'>STATE</label>
             <select value={payload.state}
               onChange={(e) => setPayload({ ...payload, state: e.target.value })}
-              className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+              className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
               <option value="">Select STATE</option>
               <option value={1}>1 - Active</option>
               <option value={0}>0 - No Active</option>
@@ -182,16 +182,16 @@ const Sample = () => {
               text={'UPDATE'}
               value={payload.id}
               setValue={setPayload}
-              bgColor='bg-green-800'
-              textColor='text-white'
+              // bgColor='bg-green-800'
+              // textColor='text-white'
               onClick={handleSubmitUpdate}
             />
           ) : (
             <Button
               class='col-span-2'
               text={'CREATE'}
-              bgColor='bg-secondary2'
-              textColor='text-white'
+              // bgColor='bg-secondary2'
+              // textColor='text-white'
               onClick={handleSubmitCreate}
             />
           )}

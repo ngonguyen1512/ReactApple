@@ -127,7 +127,7 @@ const Category = () => {
       <div className='header-category'>
         <span className='title center cursor-pointer' onClick={handleReload}>CATEGORY</span>
         <input
-          className='text-[#000] outline-none bg-[#EEEEEE] p-2 rounded-md w-full '
+          className='text-[#000] outline-none bg-[#e7e7e7] p-2 rounded-md w-full '
           type="text"
           placeholder='Search by name'
           value={searchValue}
@@ -197,16 +197,16 @@ const Category = () => {
               text={'UPDATE'}
               value={payload.id}
               setValue={setPayload}
-              bgColor='bg-green-800'
-              textColor='text-white'
+              // bgColor='bg-green-800'
+              // textColor='text-white'
               onClick={handleSubmitUpdate}
             />
           ) : (
             <Button
               class='col-span-2'
               text={'CREATE'}
-              bgColor='bg-secondary2'
-              textColor='text-white'
+              // bgColor='bg-secondary2'
+              // textColor='text-white'
               onClick={handleSubmitCreate}
             />
           )}

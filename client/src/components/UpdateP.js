@@ -55,7 +55,7 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
         <label className='text-xs mt-4'>ID PROVIDER</label>
         <select value={payload.idPermission}
           onChange={(e) => setPayload({ ...payload, idProvider: e.target.value })}
-          className='outline-none bg-[#cacaca] h-[46px] p-2 rounded-md w-full text-[#000]' >
+          className='outline-none bg-[#e7e7e7] h-[46px] p-2 rounded-md w-full text-[#000]' >
           {providers?.length > 0 && providers.filter(item => item.id === idProvider).map(item => (
             <option value={item.id}>{item.name}</option>
           ))}
@@ -101,7 +101,7 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
         <label className='text-xs mt-4'>STATE</label>
         <select value={payload.state}
           onChange={(e) => setPayload({ ...payload, state: e.target.value })}
-          className='text-[#000] outline-none h-[46px] bg-[#cacaca] p-2 rounded-md w-full '>
+          className='text-[#000] outline-none h-[46px] bg-[#e7e7e7] p-2 rounded-md w-full '>
           <option value="">Select STATE</option>
           <option value={1}>1 - Active</option>
           <option value={0}>0 - No Active</option>
@@ -113,8 +113,8 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
         text={'Save'}
         value={payload.id}
         setValue={setPayload}
-        bgColor='bg-secondary2'
-        textColor='text-white'
+        // bgColor='bg-secondary2'
+        // textColor='text-white'
         onClick={handleSubmitUpdate}
       />
     </div>
