@@ -51,8 +51,6 @@ const Detail = () => {
                                             <>
                                                 <Button
                                                     text='BUY NOW'
-                                                    bgColor='bg-green-800'
-                                                    textColor='text-white'
                                                     className='py-5'
                                                     onClick={() => {
                                                         addToCart(product)
@@ -61,8 +59,6 @@ const Detail = () => {
                                                 />
                                                 <Button
                                                     text='ADD TO CART'
-                                                    bgColor='bg-secondary2'
-                                                    textColor='text-white'
                                                     value={product.id}
                                                     className='py-5'
                                                     onClick={() => addToCart(product)}

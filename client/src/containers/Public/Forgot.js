@@ -96,11 +96,13 @@ const Forgot = () => {
                 <div className="formbutton">
                     <Button
                         text='GET NEW PASSWORD'
-                        textColor='text-white'
-                        bgColor='bg-secondary2'
                         fullWidth
                         onClick={handleSubmit}
                     />
+                    <div className='mt-5 flex text-center justify-center cursor-pointer'>
+                        <small><span className='text'
+                            onClick={() => { navigate('/' + path.LOGIN) }}>BACK</span></small>
+                    </div>
                 </div>
             </div>
         </div>

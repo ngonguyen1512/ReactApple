@@ -126,8 +126,6 @@ const Register = () => {
                 <div className='formbutton'>
                     <Button
                         text={'REGISTER'}
-                        textColor='text-white'
-                        bgColor='bg-secondary2'
                         fullWidth
                         onClick={handleSubmit}
                     />

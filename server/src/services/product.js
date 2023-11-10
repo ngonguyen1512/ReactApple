@@ -4,17 +4,18 @@ const { Op } = require("sequelize");
 export const getAllProductsService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Product.findAll({
-            include: [
-                { model: db.Category, as: 'categories', attributes: ['name'] },
-                { model: db.Prices, as: 'prices', attributes: ['value', 'id'] },
-                { model: db.Sample, as: 'samples', attributes: ['id', 'idCategory', 'name'], where: { state: '1' } },
-            ],
             attributes: [
                 'id', 'idCategory', 'image', 'name', 'address', 'price', 'discount',
                 'code', 'promotion', 'information', 'idProvider'
             ],
             raw: true,
-            mest: true
+            nest: true,
+            include: [
+                { model: db.Category, as: 'categories', attributes: ['id', 'name'] },
+                { model: db.Prices, as: 'prices', attributes: ['value', 'id'] },
+                { model: db.Sample, as: 'samples', attributes: ['id', 'idCategory', 'name'], where: { state: '1' } },
+            ],
+           
         });
         resolve({
             err: response ? 0 : 1,

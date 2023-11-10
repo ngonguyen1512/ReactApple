@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import { formatVietnameseToString } from '../../utils/common/formatVietnameseToString'
 import icons from '../../utils/icons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +9,7 @@ import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart'
 import { Button, Menu } from '../../components'
 
-const { TiDelete, BiLogoApple, BsChevronDown } = icons
+const { TiDelete, BsCart4, BiLogoApple, BsChevronDown } = icons
 const styletd = 'text-base px-4'
 
 const Navigation = () => {
@@ -85,15 +85,17 @@ const Navigation = () => {
   const renderTableRow = (item) => {
     return (
       <tr>
-        <td className='w-[15%]'>
-          <img src={`/images/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
-        </td>
-        {item.discount === 0 ? (
-          <td className={styletd}>{item.name}<br />{(item.price).toLocaleString()}</td>
-        ) : (
-          <td className={styletd}>{item.name}<br />{((item.price * (100 - item.discount)) / 100).toLocaleString()}đ
-            <span className='ml-2 text-[#a0a0a0] line-through'>{(item.price).toLocaleString()}đ</span></td>
-        )}
+        <NavLink onClick={() => setIsShowSearch(false)} to={`/${item?.categories?.name}/detail/${formatVietnameseToString(item?.name)}/${item.id}`}>
+          <td className='w-[15%]'>
+            <img src={`/images/${item.image}`} alt={item.name} className='w-[100%] object-cover' />
+          </td>
+          {item.discount === 0 ? (
+            <td className={styletd}>{item.name}<br />{(item.price).toLocaleString()}</td>
+          ) : (
+            <td className={styletd}>{item.name}<br />{((item.price * (100 - item.discount)) / 100).toLocaleString()}đ
+              <span className='ml-2 text-[#a0a0a0] line-through'>{(item.price).toLocaleString()}đ</span></td>
+          )}
+        </NavLink>
       </tr>
     );
   };
@@ -104,7 +106,7 @@ const Navigation = () => {
         <div className='nav-web'>
           <div className='logo-cate'>
             <NavLink to={'/'} className='logo text-2xl'>
-              <BiLogoApple /> APPLE
+              <BiLogoApple /> <p className='text-logo'> APPLE </p>
             </NavLink>
             {categories?.length > 0 && categories.map(item => {
               if (item.state === 1)
@@ -152,8 +154,9 @@ const Navigation = () => {
                     accumulator + (product.price * product.quantity), 0);
                   return (
                     <div className='minicart'>
-                      <span className='' onClick={() => setIsShowMiniCart(prev => !prev)}>
-                        CART
+                      <span className='flex' onClick={() => setIsShowMiniCart(prev => !prev)}>
+                        <p className='text-minicart'>CART</p>
+                        <p className='logo-minicart'><BsCart4 /></p>
                         <span className=''>({cartItems.length})</span>
                       </span>
                       {isShowMiniCart &&
@@ -207,15 +210,15 @@ const Navigation = () => {
             <div className='log'>
               {!isLoggedIn ? (
                 <div className='login'>
-                  <Button text={'LOGIN'}
+                  <button onClick={() => goLogin(false)}>LOGIN</button>
+                  {/* <Button text={'LOGIN'}
                     onClick={() => goLogin(false)}
-                  />
+                  /> */}
                 </div>
               ) : (
                 <div className='account' ref={showMenuRef}>
                   <Button
                     text={'Account'}
-                    bgColor='bg-[#e7e7e7]'
                     IcAfter={BsChevronDown}
                     onClick={() => setIsShowMenu(prev => !prev)}
                   />
