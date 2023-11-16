@@ -490,7 +490,6 @@
 .detail-product .frame {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-bottom: 2.5rem;
 }
 .detail-product .frame .image {
     padding: 2rem;

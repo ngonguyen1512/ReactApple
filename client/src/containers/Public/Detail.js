@@ -1,20 +1,81 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import * as actions from '../../store/actions'
 import { Button } from '../../components/index'
 import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart'
+import icons from '../../utils/icons'
+
+const { AiOutlineHeart, AiFillHeart } = icons;
 
 const Detail = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { products } = useSelector(state => state.product)
+    const { currentData } = useSelector(state => state.user)
+    const { likes } = useSelector(state => state.like)
+    const { isLoggedIn } = useSelector(state => state.auth)
+    const [isLiked, setIsLiked] = useState(false);
+    const [likess, setLikess] = useState([]);
+    const { productall } = useSelector(state => state.product)
     const pathurl = location.pathname;
     const parts = pathurl.split('/');
     const lastPart = parts[parts.length - 1];
     const id = parseInt(lastPart);
+
+    const handleLike = (id) => {
+        const updatedPayload = {
+            idAccount: currentData.id,
+            idProduct: id,
+        };
+        if (Array.isArray(likess)) {
+            const existingLikeIndex = likess.findIndex(
+                (item) => item.idProduct === id && item.idAccount === currentData.id
+            );
+            if (existingLikeIndex > -1) {
+                setIsLiked(true);
+                return;
+            }
+        }
+        dispatch(actions.createLikes(updatedPayload));
+
+        const updatedLikes = [...likess, updatedPayload];
+        setLikess(updatedLikes);
+        setIsLiked(true);
+    };
+
+    const handleUnLike = (id) => {
+        const updatedPayload = {
+            idAccount: currentData.id,
+            idProduct: id,
+        };
+        dispatch(actions.deleteLikes(updatedPayload));
+
+        const updatedLikes = likess.filter(
+            (item) => item.idProduct !== id || item.idAccount !== currentData.id
+        );
+        setLikess(updatedLikes);
+
+        const hasSomeLikes = updatedLikes.some(
+            (item) => item.idProduct === id && item.idAccount === currentData.id
+        );
+        setIsLiked(hasSomeLikes || false);
+    };
+
+    useEffect(() => {
+        if (Array.isArray(likes)) {
+            const hasLiked = likes.some(
+                (item) => item.idProduct === id && item.idAccount === currentData.id
+            );
+            setIsLiked(hasLiked);
+        }
+    }, [likes, id, currentData]);
+
+    useEffect(() => {
+        dispatch(actions.getLikes())
+    }, [dispatch])
+
 
     useEffect(() => {
         dispatch(actions.getProducts())
@@ -22,15 +83,28 @@ const Detail = () => {
 
     return (
         <div className='detail-product center'>
-            {products?.length > 0 && products.map(product => {
-                if (product.id === id) 
+            {productall?.length > 0 && productall.map(product => {
+                if (product.id === id)
                     return (
                         <div className='frame'>
                             <div className='image center'>
                                 <img src={`/images/${product.image}`} alt={product.name} className='w-full' />
                             </div>
                             <div className='content'>
-                                <p className='name'>{product.name}</p>
+                                <div className='flex items-center justify-between'>
+                                    <p className='name'>{product.name}</p>
+                                    {isLoggedIn ? (
+                                        <>
+                                            {isLiked ? (
+                                                <span className="icons text-3xl" onClick={() => handleUnLike(id)}><AiFillHeart style={{ color: 'red' }} /></span>
+                                            ) : (
+                                                <span className="icons text-3xl" onClick={() => handleLike(id)}><AiOutlineHeart /></span>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <div className=''></div>
+                                    )}
+                                </div>
                                 <p className='address'>Promotion at: {product.address}</p>
                                 {product.discount === 0 ? (
                                     <p className='price'>{product.price.toLocaleString()} VND</p>

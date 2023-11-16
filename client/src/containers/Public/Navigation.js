@@ -73,7 +73,7 @@ const Navigation = () => {
     removeAllFromCart();
     setIsShowMenu(false);
     dispatch(actions.logout());
-    navigate(path.HOME);
+    navigate('/');
   }
 
   useEffect(() => {

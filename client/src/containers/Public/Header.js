@@ -36,7 +36,7 @@ const Header = () => {
     const handleLogout = () => {
         setIsShowMenu(false);
         dispatch(actions.logout());
-        navigate(path.HOME);
+        navigate('/');
     }
 
     return (

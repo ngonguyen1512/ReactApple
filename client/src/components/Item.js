@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useLayoutEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { formatVietnameseToString } from '../utils/common/formatVietnameseToString'
 import { IntlProvider, FormattedNumber } from 'react-intl'
@@ -70,12 +70,17 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
     dispatch(actions.getLikes())
   }, [dispatch])
 
+  const handleClick = () => {
+    // Thực hiện scroll lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className='card-items' key={id}>
       {isLoggedIn ? (
         <>
           {isLiked ? (
-            <span className="icons" onClick={() => handleUnLike(id)}><AiFillHeart /></span>
+            <span className="icons" onClick={() => handleUnLike(id)}><AiFillHeart style={{ color: 'red' }} /></span>
           ) : (
             <span className="icons" onClick={() => handleLike(id)}><AiOutlineHeart /></span>
           )}
@@ -83,7 +88,7 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
       ) : (
         <div className='h-[8%]'></div>
       )}
-      <Link to={`/${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
+      <Link onClick={handleClick} to={`/${formatVietnameseToString(nameCategory)}/detail/${formatVietnameseToString(name)}/${id}`}>
         <div className='image center'>
           <img src={`/images/${image}`} alt={name} className='h-[80%] object-cover' />
         </div>

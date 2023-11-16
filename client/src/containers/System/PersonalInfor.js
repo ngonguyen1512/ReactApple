@@ -132,8 +132,8 @@ const PersonalInfor = () => {
             </div>
             <div className='invoice-like'>
                 <div className='header-invoicelike'>
-                    <span className='title' onClick={handleOrderClick}>ORDER</span>
-                    <span className='title' onClick={handleLikeClick}>LIKE</span>
+                    <span className='title cursor-pointer' onClick={handleOrderClick}>ORDER</span>
+                    <span className='title cursor-pointer' onClick={handleLikeClick}>LIKE</span>
                 </div>
                 {showInvoiceDetails ? (
                     <div className='pi-table-invoicedetail'>
