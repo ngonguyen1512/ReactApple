@@ -20,8 +20,9 @@ const HomePage = () => {
         <ItemSidebar isDouble={true} type='code' content={prices} title='Sort price' />
         <div className='list-pagination' >
           <List />
-          <Pagination count={countp} currentPage={currentPage}
+          {Math.ceil(countp / 12) > 1 && (<Pagination count={countp} currentPage={currentPage}
             setCurrentPage={setCurrentPage} counts={products} />
+          )}
         </div>
       </div>
     </div>

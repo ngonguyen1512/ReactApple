@@ -6,6 +6,7 @@ import { BiCommentDetail, BiEdit, BiTrash, BiLogoFacebookCircle, BiLogoApple } f
 import { TbPackageImport } from 'react-icons/tb'
 import { GiMoneyStack } from 'react-icons/gi'
 import { TiDelete } from 'react-icons/ti'
+import { FiSearch } from "react-icons/fi";
 
 const icons = {
     BiLogoApple,
@@ -27,6 +28,7 @@ const icons = {
     AiOutlineHeart,
     AiFillHeart,
     MdOutlineCancelPresentation,
+    FiSearch,
 
     //Dashboard
     BsCartCheck,

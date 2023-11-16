@@ -9,7 +9,7 @@ import { path } from '../../utils/constant'
 import { CartContext } from '../../contexts/Cart'
 import { Button, Menu } from '../../components'
 
-const { TiDelete, BsCart4, BiLogoApple, BsChevronDown } = icons
+const { TiDelete, BsCart4, BiLogoApple, BsChevronDown, FiSearch } = icons
 const styletd = 'text-base px-4'
 
 const Navigation = () => {
@@ -19,6 +19,7 @@ const Navigation = () => {
   const showMenuRef = useRef(null)
   const pathurl = location.pathname
   const parts = pathurl.split('/')[1]
+
   const cartContext = useContext(CartContext)
   const { removeAllFromCart } = cartContext
   const { categories } = useSelector(state => state.app)
@@ -122,15 +123,15 @@ const Navigation = () => {
           </div>
           <div className='search-cart-log'>
             <div className='search'>
-              <span className='' onClick={() => setIsShowSearch(prev => !prev)}>
-                SEARCH
+              <span className='text-2xl' onClick={() => setIsShowSearch(prev => !prev)}>
+                <FiSearch />
               </span>
               {isShowSearch &&
                 <div>
                   <div className='cover'></div>
                   <div className='cart-menu'>
                     <div className='close' onClick={() => setIsShowSearch(false)}><TiDelete /></div>
-                    <span className='cart-title'>SEARCH</span>
+                    <span className='cart-title flex'><FiSearch /> SEARCH</span>
                     <input
                       className='outline-none bg-[#e7e7e7] p-2 rounded-md w-full text-[#000]'
                       type="text"

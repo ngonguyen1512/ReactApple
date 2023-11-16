@@ -9,13 +9,13 @@ import { path } from '../../utils/constant';
 const PersonalInfor = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { invoicesall } = useSelector(state => state.invoice)
     const { likes } = useSelector(state => state.like)
     const { currentData } = useSelector(state => state.user)
-    const idcurrent = parseInt(currentData.id)
-    const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
     const { msg, update } = useSelector(state => state.account)
+    const { invoicesall } = useSelector(state => state.invoice)
+    const idcurrent = parseInt(currentData.id)
     const [invalidFields, setInvalidFields] = useState([])
+    const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
     const [showInvoiceDetails, setShowInvoiceDetails] = useState(true);
 
     const [payload, setPayload] = useState({
