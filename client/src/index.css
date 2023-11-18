@@ -471,15 +471,18 @@
 }
 .card-items .content .tag .basicprice-discount .basic-price {
     text-decoration-line: line-through;
-    font-size: medium;
+    font-family: 'Oswald' !important;
+    font-size: small;
     margin: 1px;
-    color: #3482F6;
+    color: #a0a0a0;
 }
 .card-items .content .tag .basicprice-discount .discount {
     margin: 1px;
-    color: #ff0000;
+    background-color: #000;
+    padding: 0.025rem 0.35rem;
+    color: #fff;
     font-weight: 600;
-    font-size: medium;
+    font-size: small;
 }
 
 /* ---------- DETAILPRODUCT ---------- */

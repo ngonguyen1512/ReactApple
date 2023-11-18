@@ -96,13 +96,13 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
           <span className='center'>{name}</span>
           {discount === 0 ? (
             <div className='tag center'>
-              <span className='price'>
+              <span className='price '>
                 <IntlProvider locale="vi">
                   <FormattedNumber
                     value={price}
                     currency="VND"
                     minimumFractionDigits={0}
-                  />
+                  />đ
                 </IntlProvider>
               </span>
             </div>
@@ -114,7 +114,7 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
                     value={(price * (100 - discount)) / 100}
                     currency="VND"
                     minimumFractionDigits={0}
-                  />
+                  />đ
                 </IntlProvider>
               </span>
               <div className='basicprice-discount'>
@@ -124,7 +124,7 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
                       value={price}
                       currency="VND"
                       minimumFractionDigits={0}
-                    />
+                    />đ
                   </IntlProvider>
                 </span>
                 <span className='discount'>-{discount}%</span>
