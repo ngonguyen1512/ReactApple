@@ -43,7 +43,7 @@ const Header = () => {
         <div className='header center'>
             <div className='content'>
                 <Link to={'/'}>
-                    <div className='logo'><BiLogoApple /> APPLE</div>
+                    <div className='logo text-2xl'><BiLogoApple /> APPLE</div>
                 </Link>
                 {!isLoggedIn ? (
                     <div className='login'>

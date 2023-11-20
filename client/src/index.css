@@ -258,9 +258,6 @@
     z-index: 50;
     flex-direction: column;
 }
-/* .navigation .nav-web .cart-menu {
-    width: 30%;
-} */
 .navigation .nav-web .cart-menu .close {
     display: flex;
     justify-content: end;

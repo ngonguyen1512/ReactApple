@@ -58,12 +58,30 @@ const Account = () => {
   }
 
   const [payloadu, setPayloadu] = useState({
-    id: '', name: '', state: ''
-  })
+    id: '',
+    name: '',
+    state: '',
+  });
+
   const handleSubmitUpdate = async () => {
-    dispatch(actions.updateStateAccount(payloadu))
-    setShouldRefetch(true);
-  }
+    // Biến tạm để kiểm tra điều kiện
+    let canUpdate = true;
+
+    // Kiểm tra từng phần tử trong danh sách
+    accounts?.length > 0 &&
+      accounts.forEach((item) => {
+        if (payloadu.id === item.id && item.idPermission === 3) {
+          canUpdate = false;
+          Swal.fire('Oops !', "You can't change user status.", 'error');
+        }
+      });
+
+    // Nếu canUpdate vẫn là true, thực hiện dispatch và setShouldRefetch
+    if (canUpdate) {
+      dispatch(actions.updateStateAccount(payloadu));
+      setShouldRefetch(true);
+    }
+  };
 
   const validate = (payload) => {
     let invalids = 0;
