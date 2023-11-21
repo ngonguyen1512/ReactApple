@@ -7,5 +7,4 @@ const router = express.Router()
 router.use(verifyToken)
 router.get('/getcurrent', controllers.getCurrent)
 
-
 export default router

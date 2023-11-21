@@ -26,9 +26,7 @@ export const registerService = ({ name, phone, password, email, idPermission, st
             msg: token ? 'Successful registration!' : 'The phone number has been registered.',
             token: token || null
         })
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error); }
 })
 
 export const loginService = ({ phone, password }) => new Promise(async (resolve, reject) => {
@@ -46,9 +44,7 @@ export const loginService = ({ phone, password }) => new Promise(async (resolve,
             token: token || null,
         })
 
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 })
 
 const sendEmail = (email, subject, message) => {
@@ -59,14 +55,12 @@ const sendEmail = (email, subject, message) => {
             pass: 'kfxd ijlv kvos jocr'
         }
     });
-
     const mailOptions = {
         from: 'ngonguyenkey1512@gmail.com',
         to: email,
-        subject: subject, 
+        subject: subject,
         text: message
     };
-
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) console.log(error);
         else console.log('Email sent: ' + info.response);
@@ -88,32 +82,26 @@ export const forgotPassword = ({ phone, email }) => new Promise(async (resolve, 
             where: { phone },
             raw: true,
         });
-
         if (account) {
             const newPassword = generateRandomPassword(8);
-            sendEmail(email, 'REACTAPPLE FORGOT PASSWORD', 
+            sendEmail(email, 'REACTAPPLE FORGOT PASSWORD',
                 `Phone: ${phone} & email: ${email}. Your new password is: ${newPassword}`
             );
             const updatedAccount = await db.Account.update(
-                { password: hashPassword(newPassword)},
+                { password: hashPassword(newPassword) },
                 { where: { id: account.id } }
             );
-            if (updatedAccount) {
+            if (updatedAccount)
                 resolve({
                     err: 0,
                     msg: 'New password has been sent to your email address.',
                 });
-            } else {
-                reject('Unable to update new password.');
-            }
-        } else {
+            else
+                reject('Unable to update new password.')
+        } else
             resolve({
                 err: 1,
                 msg: 'The phone number does not exist.',
-            });
-        }
-
-    } catch (error) {
-        reject(error);
-    }
+            })
+    } catch (error) { reject(error) }
 });

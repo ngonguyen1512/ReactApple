@@ -1,10 +1,8 @@
-import express from 'express';
-require('dotenv').config();
-import cors from 'cors';
+import express from 'express'
+require('dotenv').config()
+import cors from 'cors'
 import initRoutes from './src/routes'
-import cons from './src/config/connectDatabase';
-// import {dataPrices} from './src/utils/data'
-// console.log(dataPrices)
+import cons from './src/config/connectDatabase'
 
 const app = express();
 app.use(cors({

@@ -7,27 +7,21 @@ const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(12
 export const getCountAccountService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Account.findAndCountAll({
-            // attributes: ['id', 'name','image'], 
             raw: true,
             nest: true,
         });
-        // response = response && bcrypt.compareSync(password, response.password);
         resolve({
             err: response ? 0 : 1,
             msg: response ? 'OK' : 'Failed to get category',
             response
         });
-    } catch (error) {
-        reject(error)
-    }
+    } catch (error) { reject(error) }
 })
 
-//Get all categories
 export const getAllAccountsService = (page, permis) => new Promise(async (resolve, reject) => {
     try {
         let offset = (!page || +page <= 1) ? 0 : (+page - 1)
         let response;
-
         if (permis === '2') {
             response = await db.Account.findAndCountAll({
                 include: [
@@ -65,9 +59,7 @@ export const getAllAccountsService = (page, permis) => new Promise(async (resolv
             msg: response ? 'OK' : 'Failed to get account',
             response
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 });
 
 export const updateStateAccountsService = ({ id, state }) => new Promise(async (resolve, reject) => {
@@ -81,9 +73,7 @@ export const updateStateAccountsService = ({ id, state }) => new Promise(async (
             msg: response ? 'Successful state account update.' : 'Account state update failed',
             response: response || null
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 })
 
 export const getAccountOneService = () => new Promise(async (resolve, reject) => {
@@ -98,9 +88,7 @@ export const getAccountOneService = () => new Promise(async (resolve, reject) =>
             msg: response ? 'OK.' : 'Failed to get account one',
             response: response || null
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 })
 
 export const updateInfoAccountService = ({ id, name, phone, email, passwordold, passwordnew }) => new Promise(async (resolve, reject) => {
@@ -125,7 +113,5 @@ export const updateInfoAccountService = ({ id, name, phone, email, passwordold, 
                 err: accounts ? 0 : 2,
                 msg: 'The old password is incorrect.'
             });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 })

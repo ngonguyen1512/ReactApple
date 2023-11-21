@@ -26,9 +26,7 @@ export const getAllFunctionsService = (permis) => new Promise(async (resolve, re
             msg: response ? 'OK' : 'Failed to get function',
             response
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error); }
 });
 
 export const getAllsFunctionsService = () => new Promise(async (resolve, reject) => {
@@ -46,9 +44,7 @@ export const getAllsFunctionsService = () => new Promise(async (resolve, reject)
             msg: response ? 'OK' : 'Failed to get function',
             response
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 });
 
 export const createFunctionService = ({ name, idPermission }) => new Promise(async (resolve, reject) => {
@@ -66,9 +62,7 @@ export const createFunctionService = ({ name, idPermission }) => new Promise(asy
             msg: response ? 'Create function successful.' : 'Create function failed.',
             response: response || null
         });
-    } catch (error) {
-        reject(error)
-    }
+    } catch (error) { reject(error) }
 })
 
 export const deleteFunctionService = (id) => new Promise(async (resolve, reject) => {
@@ -79,8 +73,7 @@ export const deleteFunctionService = (id) => new Promise(async (resolve, reject)
             include: [
                 { model: db.Permission, as: 'functionPermission' },
             ],
-            where: whereClause,
-            // raw: true
+            where: whereClause
         });
         await response.destroy();
         resolve({
@@ -88,9 +81,7 @@ export const deleteFunctionService = (id) => new Promise(async (resolve, reject)
             msg: response ? 'Delete function successful.' : 'Delete function failed.',
             response
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error); }
 });
 
 export const updateFunctionsService = ({ id, name, idPermission }) => new Promise(async (resolve, reject) => {
@@ -104,18 +95,11 @@ export const updateFunctionsService = ({ id, name, idPermission }) => new Promis
             });
             return;
         }
-
-        const response = await functions.update({
-            name,
-            idPermission,
-        });
-
+        const response = await functions.update({ name, idPermission });
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Function update successful.' : 'Function update failed.',
             response: response || null
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 })

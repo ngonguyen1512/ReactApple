@@ -11,9 +11,7 @@ export const getAllCategoriesService = () => new Promise(async (resolve, reject)
             msg: response ? 'OK' : 'Failed to get category',
             response
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 });
 
 export const getLimitCategoriesService = (page) => new Promise(async (resolve, reject) => {
@@ -31,9 +29,7 @@ export const getLimitCategoriesService = (page) => new Promise(async (resolve, r
             msg: response ? 'OK' : 'Failed to get category',
             response
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 });
 
 export const createCategoriesService = ({ name, image, state }) => new Promise(async (resolve, reject) => {
@@ -43,33 +39,26 @@ export const createCategoriesService = ({ name, image, state }) => new Promise(a
             image,
             state
         });
-
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Create a successful product type.' : 'Create failed product type.',
             response: response || null
         });
-    } catch (error) {
-        reject(error)
-    }
+    } catch (error) { reject(error) }
 })
 
 export const updateCategoriesService = ({ id, name, image, state }) => new Promise(async (resolve, reject) => {
     try {
         const category = await db.Category.findByPk(id);
-
         const response = await category.update({
             name,
             image,
             state
         });
-
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Successful product type update.' : 'Product type update failed.',
             response: response || null
         });
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 })

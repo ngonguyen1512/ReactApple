@@ -56,8 +56,7 @@ export const createProducts = async(req, res) => {
         })
     }
 }
-//, discount, idProvider, state 
-//| !discount || !idProvider || !state
+
 export const updateProducts = async (req, res) => {
     const { name, quantity, price, discount, idProvider, state} = req.body;
     try {

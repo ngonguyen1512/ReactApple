@@ -3,8 +3,7 @@ import * as services from '../services';
 export const getTransfers = async (req, res) => {
     try {
         const response = await services.getAllTransfersService();
-        return res.status(200).json(response);
-
+        return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
             err: -1,
@@ -34,8 +33,7 @@ export const deleteTransfers = async (req, res) => {
     const { id } = req.body
     try {
         const response = await services.deleteTransfersService(id);
-        return res.status(200).json(response);
-
+        return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
             err: -1,

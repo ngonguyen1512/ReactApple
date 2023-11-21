@@ -4,7 +4,6 @@ export const getSlider = async(req, res) => {
     try {
         const response = await services.getAllSliderService();
         return res.status(200).json(response);
-        
     } catch (error) {
         return res.status(500).json({
             err: -1,
@@ -34,8 +33,7 @@ export const deleteSliders = async (req, res) => {
     const { id } = req.body
     try {
         const response = await services.deleteSliderService(id);
-        return res.status(200).json(response);
-
+        return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
             err: -1,

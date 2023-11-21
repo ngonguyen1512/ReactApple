@@ -52,23 +52,20 @@ export const createInvoices = ({ idAccount, phone, address, total, state, invoic
                 invoice,
                 invoiceDetails: createdInvoiceDetails
             });
-        } else {
+        } else
             resolve({
                 err: 2,
                 msg: 'Invoice creation failed.',
                 invoice: null,
                 invoiceDetails: null
-            });
-        }
-    } catch (error) {
-        reject(error);
-    }
+            })
+    } catch (error) { reject(error) }
 });
 
 export const getInvoiceService = () => new Promise(async (resolve, reject) => {
     try {
         const invoices = await db.Invoice.findAll({
-            // order: [['updatedAt', 'DESC']],
+            order: [['updatedAt', 'DESC']]
         });
 
         if (invoices.length > 0) {
@@ -76,7 +73,7 @@ export const getInvoiceService = () => new Promise(async (resolve, reject) => {
             const response = await db.InvoiceDetail.findAll({
                 where: { idInvoice: invoiceIds },
                 include: [
-                    { model: db.Invoice, as: 'invoice_detail', include: [{ model: db.Account, as: 'account_invoice' },]},
+                    { model: db.Invoice, as: 'invoice_detail', include: [{ model: db.Account, as: 'account_invoice' },] },
                     { model: db.Product, as: 'product_invoicedetail' },
                 ],
                 order: [['updatedAt', 'DESC']],
@@ -86,25 +83,20 @@ export const getInvoiceService = () => new Promise(async (resolve, reject) => {
                 msg: 'Get the invoice successfully.',
                 response
             });
-        } else {
+        } else
             resolve({
                 err: 2,
                 msg: 'No invoice!',
                 response: null
-            });
-        }
-    } catch (error) {
-        reject(error);
-    }
+            })
+    } catch (error) { reject(error); }
 });
 
 export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(async (resolve, reject) => {
     try {
         const invoice = await db.Invoice.findByPk(id);
-
         const response = await invoice.update({
-            idAccept,
-            state,
+            idAccept, state
         });
 
         if (state === 1) {
@@ -119,41 +111,34 @@ export const updateInvoicesService = ({ id, idAccept, state }) => new Promise(as
                 }
             }
         }
-
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Cập nhật invoice thành công.' : 'Cập nhật invoice không thành công',
             response: response || null
-        });
-    } catch (error) {
-        reject(error);
-    }
+        })
+    } catch (error) { reject(error); }
 });
 
 export const getTopSellingProducts = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.InvoiceDetail.findAll({
-            attributes: ['idProduct','createdAt', [db.sequelize.fn('SUM', db.sequelize.col('InvoiceDetail.quantity')), 'totalSold']],
+            attributes: ['idProduct', 'createdAt', [db.sequelize.fn('SUM', db.sequelize.col('InvoiceDetail.quantity')), 'totalSold']],
             include: [{ model: db.Product, as: 'product_invoicedetail' },],
             group: ['idProduct'],
             order: [[db.sequelize.literal('totalSold'), 'DESC']],
             limit: 4,
         });
-
-        if (response.length > 0) {
+        if (response.length > 0)
             resolve({
                 err: 0,
                 msg: 'OK.',
                 response
             });
-        } else {
+        else
             resolve({
                 err: 2,
                 msg: 'Không có sản phẩm nào có số lượng bán cao!',
                 response: null
             });
-        }
-    } catch (error) {
-        reject(error);
-    }
+    } catch (error) { reject(error) }
 });

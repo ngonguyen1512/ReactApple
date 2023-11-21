@@ -5,7 +5,6 @@ export const getAccounts = async (req, res) => {
     try {
         const response = await services.getAllAccountsService(page, permis);
         return res.status(200).json(response);
-
     } catch (error) {
         return res.status(500).json({
             err: -1,
@@ -18,7 +17,6 @@ export const getCountAccounts = async (req, res) => {
     try {
         const response = await services.getCountAccountService();
         return res.status(200).json(response);
-
     } catch (error) {
         return res.status(500).json({
             err: -1,
@@ -40,7 +38,7 @@ export const getAccountOne = async (req, res) => {
 }
 
 export const updateStateAccounts = async (req, res) => {
-    const { id, state } = req.body;
+    const { state } = req.body;
     try {
         if (!state) return res.status(400).json({
             err: 1,
@@ -56,7 +54,7 @@ export const updateStateAccounts = async (req, res) => {
     }
 }
 export const updateInfoAccounts = async (req, res) => {
-    const { id, name, phone, email, passwordold, passwordnew } = req.body;
+    const { name, phone, email, passwordold, passwordnew } = req.body;
     try {
         if (!name || !phone || !email || !passwordold || !passwordnew) return res.status(400).json({
             err: 1,
