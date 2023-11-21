@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Header, Navigation } from '../Public/index'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
 import $ from 'jquery'
+import Swal from 'sweetalert2'
 
 const HomeServer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoggedIn } = useSelector(state => state.auth)
-  const { currentData } = useSelector(state => state.user)
-  const permis = currentData.idPermission
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,38 +22,24 @@ const HomeServer = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      Swal.fire('Oops!', 'You can not access this page. THANKS!!!', 'error');
+      navigate('/');
+    }
     setTimeout(() => {
       isLoggedIn && dispatch(actions.getCurrent())
     }, 100)
-  }, [isLoggedIn, dispatch])
+  }, [isLoggedIn, dispatch, navigate])
 
   return (
     <div className='background-home'>
       <Header />
-      {isLoggedIn && permis !== 3 &&
-        <div className='background-home'>
-          <Navigation />
-          <div className='main'>
-            <Outlet />
-          </div>
+      <div className='background-home'>
+        <Navigation />
+        <div className='main'>
+          <Outlet />
         </div>
-      }
-      {!isLoggedIn &&
-        <div className='notice center'>
-          <div className='form'>
-            <h2>NOTICE</h2>
-            <p>This is the management board's webpage. You can not access without first login. Please access your account. <strong>THANKS!!!</strong></p>
-          </div>
-        </div>
-      }
-      {isLoggedIn && permis === 3 &&
-        <div className='notice center'>
-          <div className='form'>
-            <h2>NOTICE</h2>
-            <p>This is the management board's webpage. You can not access because you are not an employee. <strong>THANKS!!!</strong></p>
-          </div>
-        </div>
-      }
+      </div>
     </div>
   )
 }

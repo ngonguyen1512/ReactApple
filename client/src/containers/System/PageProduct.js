@@ -33,8 +33,7 @@ const PageProduct = () => {
         {!payloadid && <>
           <span className='title mb-5'>CREATE PRODUCT</span>
           <CreateP />
-        </>
-        }
+        </>}
       </div>
     </div >
   )

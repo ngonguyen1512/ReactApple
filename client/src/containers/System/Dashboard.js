@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import icons from '../../utils/icons'
 import * as actions from '../../store/actions'
 import { RevenueChart, Chart } from '../../components/index'
-
 const { BsCartCheck, AiOutlineSetting, MdOutlineSwitchAccount, GiMoneyStack } = icons
 
 const Dashboard = () => {

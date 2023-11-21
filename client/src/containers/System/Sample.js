@@ -89,31 +89,19 @@ const Sample = () => {
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
     })
     if (permis) searchParamsObject.permis = permis
-    dispatch(actions.getLimitSamples(searchParamsObject))
-    dispatch(actions.getFunctions(searchParamsObject))
-    dispatch(actions.getPermissions())
-    dispatch(actions.getCategories())
-    dispatch(actions.getSamples())
-  }, [searchParmas, permis, dispatch])
-
-  useEffect(() => {
     if (shouldRefetch) {
-      let params = [];
-      for (let entry of searchParmas.entries()) params.push(entry);
-      let searchParamsObject = {}
-      params?.forEach(i => {
-        if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
-          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-        else
-          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      })
-      if (permis) searchParamsObject.permis = permis
       dispatch(actions.getLimitSamples(searchParamsObject))
       dispatch(actions.getFunctions(searchParamsObject))
       dispatch(actions.getPermissions())
       dispatch(actions.getCategories())
       dispatch(actions.getSamples())
       setShouldRefetch(false);
+    } else {
+      dispatch(actions.getLimitSamples(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
+      dispatch(actions.getCategories())
+      dispatch(actions.getSamples())
     }
   }, [searchParmas, permis, dispatch, shouldRefetch])
 
@@ -182,16 +170,12 @@ const Sample = () => {
               text={'UPDATE'}
               value={payload.id}
               setValue={setPayload}
-              // bgColor='bg-green-800'
-              // textColor='text-white'
               onClick={handleSubmitUpdate}
             />
           ) : (
             <Button
               class='col-span-2'
               text={'CREATE'}
-              // bgColor='bg-secondary2'
-              // textColor='text-white'
               onClick={handleSubmitCreate}
             />
           )}

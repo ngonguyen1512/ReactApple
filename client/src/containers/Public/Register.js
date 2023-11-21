@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { InputForm, Button } from "../../components";
 import * as actions from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { path } from '../../utils/constant';
 
@@ -19,7 +19,10 @@ const Register = () => {
     const handleSubmit = async () => {
         let finalPayload = payload
         let invalids = validate(finalPayload);
-        if (invalids === 0) dispatch(actions.register(payload));
+        if (invalids === 0) { 
+            dispatch(actions.register(payload));
+            Swal.fire('Success!', 'Create account successful.', 'error');
+        }
     }
 
     const validate = (payload) => {

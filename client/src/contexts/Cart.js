@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2';
 
 export const CartContext = React.createContext();
 
@@ -19,10 +20,16 @@ export class CartProvider extends Component {
       this.setState({
         cartItems: updatedCartItems
       });
-    } else
+    } else {
       this.setState({
         cartItems: [...this.state.cartItems, { ...product, quantity: 1 }]
       });
+    }
+    Swal.fire({
+      title: 'Success!', text: 'Add product successfully.',
+      icon: 'success', timer: 1000,
+      showConfirmButton: false
+    });
   }
   updateQuantity(product, newQuantity) {
     if (newQuantity < 1) return;

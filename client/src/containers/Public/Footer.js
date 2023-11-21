@@ -1,7 +1,7 @@
 import React from 'react';
 import icons from '../../utils/icons';
 import { NavLink } from 'react-router-dom';
-const { BsApple, AiFillInstagram, BiLogoFacebookCircle, AiFillYoutube } = icons
+const { AiFillInstagram, BiLogoFacebookCircle, AiFillYoutube } = icons
 
 const Footer = () => {
     return (

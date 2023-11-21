@@ -113,8 +113,6 @@ const UpdateP = ({ id, name, quantity, price, discount, idProvider, state }) => 
         text={'Save'}
         value={payload.id}
         setValue={setPayload}
-        // bgColor='bg-secondary2'
-        // textColor='text-white'
         onClick={handleSubmitUpdate}
       />
     </div>

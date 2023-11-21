@@ -92,17 +92,15 @@ const Category = () => {
   useEffect(() => {
     let searchParamsObject = {}
     if (permis) searchParamsObject.permis = permis
-    dispatch(actions.getFunctions(searchParamsObject))
-    dispatch(actions.getPermissions())
-    dispatch(actions.getCategories())
-  }, [searchParmas, permis, dispatch])
-
-  useEffect(() => {
     if (shouldRefetch) {
       dispatch(actions.getCategories())
       setShouldRefetch(false);
+    } else {
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
+      dispatch(actions.getCategories())
     }
-  }, [dispatch, shouldRefetch])
+  }, [searchParmas, permis, dispatch, shouldRefetch])
 
   const mapRows = (data) => {
     return data.map((item) => {
@@ -197,16 +195,12 @@ const Category = () => {
               text={'UPDATE'}
               value={payload.id}
               setValue={setPayload}
-              // bgColor='bg-green-800'
-              // textColor='text-white'
               onClick={handleSubmitUpdate}
             />
           ) : (
             <Button
               class='col-span-2'
               text={'CREATE'}
-              // bgColor='bg-secondary2'
-              // textColor='text-white'
               onClick={handleSubmitCreate}
             />
           )}

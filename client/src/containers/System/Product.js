@@ -95,11 +95,7 @@ const Product = () => {
       <div className='my-5'>
         {functions?.length > 0 && functions.map(item => item.name === 'Create' && (
           <Link to={`${formatVietnameseToString(item.name)}-product`}>
-            <Button
-              text={item.name}
-              // bgColor='bg-secondary2'
-              // textColor='text-white'
-            />
+            <Button text={item.name} />
           </Link>
         ))}
       </div>

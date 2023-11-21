@@ -9,15 +9,15 @@ import $ from 'jquery';
 const Home = () => {
   const headerRef = useRef()
   const location = useLocation()
-  const dispatch = useDispatch() 
+  const dispatch = useDispatch()
   const pathurl = location.pathname
-  const parts = pathurl.split('/')[1] 
+  const parts = pathurl.split('/')[1]
   const [searchParams] = useSearchParams()
   const page = searchParams.get('page')
   const code = searchParams.get('code')
   const sample = searchParams.get('sample')
   const { isLoggedIn } = useSelector(state => state.auth)
-  
+
   useEffect(() => {
     headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [page, code, sample])

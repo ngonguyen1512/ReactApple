@@ -5,7 +5,6 @@ import { IntlProvider, FormattedNumber } from 'react-intl'
 import icons from '../utils/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../store/actions'
-
 const { AiOutlineHeart, AiFillHeart } = icons;
 
 const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCurrent }) => {
@@ -71,7 +70,6 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
   }, [dispatch])
 
   const handleClick = () => {
-    // Thực hiện scroll lên đầu trang
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -114,7 +112,7 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
                     value={(price * (100 - discount)) / 100}
                     currency="VND"
                     minimumFractionDigits={0}
-                  />đ
+                  /> đ
                 </IntlProvider>
               </span>
               <div className='basicprice-discount'>
@@ -124,7 +122,7 @@ const Item = ({ image, name, discount, idCategory, nameCategory, price, id, idCu
                       value={price}
                       currency="VND"
                       minimumFractionDigits={0}
-                    />đ
+                    /> đ
                   </IntlProvider>
                 </span>
                 <span className='discount'>-{discount}%</span>

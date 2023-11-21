@@ -17,7 +17,6 @@ export const path = {
     DETAIL: ':nameCategory/detail/:title/:productId',
     SEARCH: 'search',
     SYSTEM: '/system/*',
-
     //Server
     DASHBOARD: 'webserver/*',
     ACCOUNT: 'account',

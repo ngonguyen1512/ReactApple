@@ -6,9 +6,10 @@ import * as actions from '../../store/actions'
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { countp, products } = useSelector(state => state.product)
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
   const { prices } = useSelector(state => state.app)
+  const { countp, products } = useSelector(state => state.product)
+  
   useEffect(() => {
     dispatch(actions.getPrices());
   }, [dispatch]);

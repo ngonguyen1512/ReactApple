@@ -19,7 +19,6 @@ const Navigation = () => {
   const showMenuRef = useRef(null)
   const pathurl = location.pathname
   const parts = pathurl.split('/')[1]
-
   const cartContext = useContext(CartContext)
   const { removeAllFromCart } = cartContext
   const { categories } = useSelector(state => state.app)
@@ -29,7 +28,6 @@ const Navigation = () => {
   const { productall } = useSelector(state => state.product)
   const [searchValue, setSearchValue] = useState("")
   const [isShowMenu, setIsShowMenu] = useState(false)
-  const [selectedDiv, setSelectedDiv] = useState(null)
   const [shouldReload, setShouldReload] = useState(false)
   const [isShowSearch, setIsShowSearch] = useState(false)
   const [isShowMiniCart, setIsShowMiniCart] = useState(false)
@@ -39,8 +37,6 @@ const Navigation = () => {
       pathname: location?.pathname,
       search: createSearchParams({ id }).toString()
     });
-    if (selectedDiv === id) setSelectedDiv(null);
-    else setSelectedDiv(id);
   };
 
   const handleSearch = (event) => {
@@ -113,7 +109,7 @@ const Navigation = () => {
               if (item.state === 1)
                 return (
                   <div className='nav-db center'>
-                    <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className={`content ${selectedDiv === item.id ? 'bg-[#e7e7e7] font-semibold' : ''}`} onClick={() => handleFilterPosts(item.id)}>
+                    <NavLink key={item.id} to={`${formatVietnameseToString(item.name)}`} className='content' onClick={() => handleFilterPosts(item.id)}>
                       {item.name}
                     </NavLink>
                   </div>
@@ -212,9 +208,6 @@ const Navigation = () => {
               {!isLoggedIn ? (
                 <div className='login'>
                   <button onClick={() => goLogin(false)}>LOGIN</button>
-                  {/* <Button text={'LOGIN'}
-                    onClick={() => goLogin(false)}
-                  /> */}
                 </div>
               ) : (
                 <div className='account' ref={showMenuRef}>

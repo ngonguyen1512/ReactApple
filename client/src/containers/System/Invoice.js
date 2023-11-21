@@ -8,11 +8,11 @@ const Invoice = () => {
   const { invoicesall } = useSelector(state => state.invoice)
   const { currentData } = useSelector(state => state.user)
   const idcurrent = parseInt(currentData.id)
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [shouldReload, setShouldReload] = useState(false);
   const [shouldRefetch, setShouldRefetch] = useState(false);
-
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
+  
   const handleSearch = (event) => {
     setSelectedDate(event.target.value);
     setShouldReload(event.target.value !== "");
@@ -26,16 +26,12 @@ const Invoice = () => {
   }
 
   const handleSubmitYes = async (id) => {
-    const payload = {
-      id: id, idAccept: idcurrent, state: 1
-    }
+    const payload = {id: id, idAccept: idcurrent, state: 1}
     dispatch(actions.updateInvoices(payload))
     setShouldRefetch(true);
   }
   const handleSubmitNo = async (id) => {
-    const payload = {
-      id: id, idAccept: idcurrent, state: 2
-    }
+    const payload = {id: id, idAccept: idcurrent, state: 2}
     dispatch(actions.updateInvoices(payload))
     setShouldRefetch(true);
   }

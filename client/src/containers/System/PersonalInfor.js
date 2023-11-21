@@ -25,7 +25,7 @@ const PersonalInfor = () => {
     const handleSubmit = async () => {
         dispatch(actions.updateInfoAccount(payload))
         dispatch(actions.logout())
-        navigate(path.LOGIN)
+        navigate('/'+path.LOGIN)
     }
     const handleClickRow = () => {
         setPayload({

@@ -89,13 +89,11 @@ const Slide = () => {
     }
 
     useEffect(() => {
-        dispatch(actions.getSliders())
-    })
-    useEffect(() => {
         if (shouldRefetch) {
             dispatch(actions.getSliders())
             setShouldRefetch(false);
         }
+        else dispatch(actions.getSliders())
     }, [dispatch, shouldRefetch])
 
     const mapRows = (data) => {
@@ -190,8 +188,6 @@ const Slide = () => {
                             text={'UPDATE'}
                             value={payload.id}
                             setValue={setPayload}
-                            // bgColor='bg-green-800'
-                            // textColor='text-white'
                             onClick={handleSubmitUpdate}
                         />
                         <Button
@@ -199,8 +195,6 @@ const Slide = () => {
                             text={'DELETE'}
                             value={payload.id}
                             setValue={setPayload}
-                            // bgColor='bg-cancel'
-                            // textColor='text-white'
                             onClick={handleSubmitDelete}
                         />
                     </div>
@@ -208,8 +202,6 @@ const Slide = () => {
                     <Button
                         class='col-span-2'
                         text={'CREATE'}
-                        // bgColor='bg-secondary2'
-                        // textColor='text-white'
                         onClick={handleSubmitCreate}
                     />
                 )}

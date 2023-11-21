@@ -37,9 +37,9 @@ const Provider = () => {
     phone: '', address: '', state: ''
   });
   const handleReload = async () => {
-    setPayload({ 
+    setPayload({
       id: '' || null, name: '', email: '',
-      phone: '', address: '', state: '' 
+      phone: '', address: '', state: ''
     });
     setShouldRefetch(true);
   }
@@ -104,19 +104,15 @@ const Provider = () => {
   useEffect(() => {
     let searchParamsObject = {}
     if (permis) searchParamsObject.permis = permis
-    dispatch(actions.getProviders(searchParamsObject))
-    dispatch(actions.getFunctions(searchParamsObject))
-    dispatch(actions.getPermissions())
-  }, [searchParmas, permis, dispatch])
-
-  useEffect(() => {
     if (shouldRefetch) {
-      let searchParamsObject = {}
-      if (permis) searchParamsObject.permis = permis
       dispatch(actions.getProviders(searchParamsObject))
       dispatch(actions.getFunctions(searchParamsObject))
       dispatch(actions.getPermissions())
       setShouldRefetch(false);
+    } else {
+      dispatch(actions.getProviders(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
     }
   }, [searchParmas, permis, dispatch, shouldRefetch])
 
@@ -209,7 +205,7 @@ const Provider = () => {
                 onClick={handleSubmitCreate}
               />
             </>
-          ): (
+          ) : (
             <>
               <InputForm
                 setInvalidFields={setInvalidFields}
@@ -237,8 +233,6 @@ const Provider = () => {
                 text={'UPDATE'}
                 value={payloadu.id}
                 setValue={setPayloadu}
-                // bgColor='bg-green-800'
-                // textColor='text-white'
                 onClick={handleSubmitUpdate}
               />
             </>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import * as actions from '../store/actions';
 
 const Chart = () => {
@@ -35,7 +35,6 @@ const Chart = () => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip content={<CustomTooltip />} />
-                {/* <Legend /> */}
                 <Bar dataKey="quantity" fill="#3B82F6" />
             </BarChart>
         </ResponsiveContainer>

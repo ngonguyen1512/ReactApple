@@ -13,21 +13,20 @@ const Detail = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { currentData } = useSelector(state => state.user)
+    const [likess, setLikess] = useState([])
+    const [isLiked, setIsLiked] = useState(false)
     const { likes } = useSelector(state => state.like)
     const { isLoggedIn } = useSelector(state => state.auth)
-    const [isLiked, setIsLiked] = useState(false);
-    const [likess, setLikess] = useState([]);
+    const { currentData } = useSelector(state => state.user)
     const { productall } = useSelector(state => state.product)
-    const pathurl = location.pathname;
-    const parts = pathurl.split('/');
-    const lastPart = parts[parts.length - 1];
-    const id = parseInt(lastPart);
+    const pathurl = location.pathname
+    const parts = pathurl.split('/')
+    const lastPart = parts[parts.length - 1]
+    const id = parseInt(lastPart)
 
     const handleLike = (id) => {
         const updatedPayload = {
-            idAccount: currentData.id,
-            idProduct: id,
+            idAccount: currentData.id, idProduct: id
         };
         if (Array.isArray(likess)) {
             const existingLikeIndex = likess.findIndex(
@@ -74,10 +73,6 @@ const Detail = () => {
 
     useEffect(() => {
         dispatch(actions.getLikes())
-    }, [dispatch])
-
-
-    useEffect(() => {
         dispatch(actions.getProducts())
     }, [dispatch])
 
@@ -107,12 +102,12 @@ const Detail = () => {
                                 </div>
                                 <p className='address'>Promotion at: {product.address}</p>
                                 {product.discount === 0 ? (
-                                    <p className='price'>{product.price.toLocaleString()} VND</p>
+                                    <p className='price'>{product.price.toLocaleString()} đ</p>
                                 ) : (
                                     <p className='price flex items-center'>
-                                        <span>{((product.price * (100 - product.discount)) / 100).toLocaleString()} VND</span>
-                                        <span className='line-through text-base pl-1 text-[#3482F6]'>{product.price.toLocaleString()}</span>
-                                        <span className='text-base pl-1 text-[#ff0000]'>-{product.discount}%</span>
+                                        <span>{((product.price * (100 - product.discount)) / 100).toLocaleString()} đ</span>
+                                        <span className='line-through text-base pl-1 text-[#a0a0a0]'>{product.price.toLocaleString()}</span>
+                                        <span className='text-base ml-1 px-[0.35rem] py-[0.025rem] text-[#fff] bg-[#000]'>-{product.discount}%</span>
                                     </p>
                                 )}
                                 <div className='promotion'>
@@ -147,7 +142,6 @@ const Detail = () => {
                     )
                 return null
             })}
-
         </div>
     )
 }

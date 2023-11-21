@@ -4,9 +4,8 @@
 
 * {
     font-family: 'Oswald' !important;
-  }
+}
   
-
 .background-home {
     width: 100%;
     background: #fff;
@@ -324,7 +323,7 @@
 .bg-frame .frame {
     background-color: #fff;
     width: 31rem;
-    padding: 1.875rem 1.875rem 6rem 1.875rem;
+    padding: 1.875rem;
     border-radius: 0.5rem;
     /* color: #fff; */
 }
@@ -546,7 +545,7 @@
     /* color: #fff; */
 }
 .rental .headTitle {
-    margin: 2rem 0;
+    margin-top: 2rem;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 2.25rem;

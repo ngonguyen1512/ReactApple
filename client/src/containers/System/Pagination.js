@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PageNumber } from '../../components';
 import icons from '../../utils/icons';
-
 const { GrNext, GrPrevious } = icons;
 
 const Pagination = ({ count, currentPage, setCurrentPage, counts }) => {

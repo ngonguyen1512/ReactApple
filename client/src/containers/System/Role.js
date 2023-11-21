@@ -141,19 +141,17 @@ const Role = () => {
   }, [msg, update]);
 
   useEffect(() => {
-    dispatch(actions.getMenus())
-    dispatch(actions.getTransfers())
-    dispatch(actions.getAllsFunctions())
-    dispatch(actions.getPermissions())
-  }, [dispatch])
-
-  useEffect(() => {
     if (shouldRefetch) {
       dispatch(actions.getMenus());
       dispatch(actions.getTransfers());
       dispatch(actions.getAllsFunctions());
       dispatch(actions.getPermissions());
       setShouldRefetch(false);
+    } else {
+      dispatch(actions.getMenus());
+      dispatch(actions.getTransfers());
+      dispatch(actions.getAllsFunctions());
+      dispatch(actions.getPermissions());
     }
   }, [dispatch, shouldRefetch]);
 
@@ -201,8 +199,6 @@ const Role = () => {
                   <div></div>
                   <Button
                     text='DELETE'
-                    // bgColor='bg-cancel'
-                    // textColor='text-white'
                     value={payloadm.id}
                     setValue={setPayloadm}
                     className='py-5'
@@ -210,8 +206,6 @@ const Role = () => {
                   />
                   <Button
                     text='UPDATE'
-                    // bgColor='bg-green-800'
-                    // textColor='text-white'
                     value={payloadm.id}
                     setValue={setPayloadm}
                     className='py-5'
@@ -223,8 +217,6 @@ const Role = () => {
                   <div className='col-span-2'></div>
                   <Button
                     text='CREATE'
-                    // bgColor='bg-secondary2'
-                    // textColor='text-white'
                     className='py-5'
                     onClick={handleSubmitMenu}
                   />
@@ -302,8 +294,6 @@ const Role = () => {
                   <div></div>
                   <Button
                     text='DELETE'
-                    // bgColor='bg-cancel'
-                    // textColor='text-white'
                     value={payloadf.id}
                     setValue={setPayloadf}
                     className='py-5'
@@ -311,8 +301,6 @@ const Role = () => {
                   />
                   <Button
                     text='UPDATE'
-                    // bgColor='bg-green-800'
-                    // textColor='text-white'
                     value={payloadf.id}
                     setValue={setPayloadf}
                     className='py-5'
@@ -324,8 +312,6 @@ const Role = () => {
                   <div className='col-span-2'></div>
                   <Button
                     text='CREATE'
-                    // bgColor='bg-secondary2'
-                    // textColor='text-white'
                     fullWidth
                     onClick={handleSubmitFunction}
                   />
@@ -363,7 +349,7 @@ const Role = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>NAME</th>
                 <th>ID PERMISSION</th>
               </tr>
             </thead>
@@ -388,15 +374,13 @@ const Role = () => {
         </div>
         <div className='form'>
           <div className='formheader-btn'>
-            <p className={stylep}  onClick={handleReloadTransfer}>Transfer</p>
+            <p className={stylep}  onClick={handleReloadTransfer}>TRANSFER</p>
             <div className='btn'>
               {payloadt.id ? (
                 <>
                   <div></div>
                   <Button
                     text='DELETE'
-                    // bgColor='bg-cancel'
-                    // textColor='text-white'
                     value={payloadt.id}
                     setValue={setPayloadt}
                     className='py-5'
@@ -404,8 +388,6 @@ const Role = () => {
                   />
                   <Button
                     text='UPDATE'
-                    // bgColor='bg-green-800'
-                    // textColor='text-white'
                     value={payloadt.id}
                     setValue={setPayloadt}
                     className='py-5'
@@ -417,8 +399,6 @@ const Role = () => {
                   <div className='col-span-2'></div>
                   <Button
                     text='CREATE'
-                    // bgColor='bg-secondary2'
-                    // textColor='text-white'
                     onClick={handleSubmitTransfer}
                   />
                 </>

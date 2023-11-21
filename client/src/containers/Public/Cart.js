@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../utils/constant';
@@ -6,11 +6,11 @@ import { Button } from '../../components'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../contexts/Cart';
 import icons from '../../utils/icons'
-
 const { TiDelete } = icons
 
 const Cart = () => {
   const { isLoggedIn } = useSelector(state => state.auth)
+  const { cartItems } = useContext(CartContext);
   const navigate = useNavigate()
 
   const goLogin = useCallback((flag) => {
@@ -71,7 +71,9 @@ const Cart = () => {
       ) : (
         <div className='footer'>
           <Link to={path.HOME} className='btn center'>COUNTINUE TO BUY</Link>
-          <Link to={'/' + path.PAYMENT} className='btn center'>PAYMENT</Link>
+          {cartItems.length !== 0 &&
+            <Link to={'/' + path.PAYMENT} className='btn center'>PAYMENT</Link>
+          }
         </div>
       )}
     </div>

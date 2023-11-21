@@ -11,9 +11,7 @@ const Forgot = () => {
     const navigate = useNavigate()
     const { msg } = useSelector(state => state.auth)
     const [invalidFields, setInvalidFields] = useState([])
-    const [payload, setPayload] = useState({
-        phone: '', email: '',
-    });
+    const [payload, setPayload] = useState({phone: '', email: ''});
 
     const handleSubmit = async () => {
         let finalPayload = payload;
@@ -23,7 +21,7 @@ const Forgot = () => {
                 await dispatch(actions.forgot(payload));
                 navigate('/' + path.LOGIN)
             } catch (error) {
-                Swal.fire('Successful!', msg, 'success');
+                Swal.fire('Success!', msg, 'success');
             }
         }
     };

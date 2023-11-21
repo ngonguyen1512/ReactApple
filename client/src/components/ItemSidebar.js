@@ -2,25 +2,21 @@ import React, { memo, useEffect, useState } from 'react'
 import icons from '../utils/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../store/actions'
-import { formatVietnameseToString } from '../utils/common/formatVietnameseToString'
-import { Link, useLocation, useNavigate, createSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, createSearchParams } from 'react-router-dom'
 
 const { AiOutlineCaretRight, BsChevronDown } = icons
 
 const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { samples } = useSelector(state => state.app)
+  const [selectedDiv, setSelectedDiv] = useState(null)
   const [isShowSortPrice, setIsShowSortPrice] = useState(false)
-  const { samples, categories, typesamples } = useSelector(state => state.app)
 
   useEffect(() => {
     dispatch(actions.getSamples());
-    dispatch(actions.getTypeSamples());
   }, [dispatch]);
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const [selectedDiv, setSelectedDiv] = useState(null);
 
   const handleFilterPosts = (id) => {
     navigate({
@@ -30,6 +26,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
     if (selectedDiv === id) setSelectedDiv(null);
     else setSelectedDiv(id);
   };
+  
   return (
     <div className='side-bar'>
       {!isDouble ? (
@@ -63,8 +60,7 @@ const ItemSidebar = ({ title, content, isDouble, type, list, texts }) => {
                 return (
                   <div onClick={() => handleFilterPosts(item.id)}
                     className={`flex px-2 py-1 gap-1 items-center cursor-pointer hover:text-blue-500 
-                  ${selectedDiv === item.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}
-                  >
+                      ${selectedDiv === item.id ? 'bg-[#E0E0E0] font-semibold rounded-md' : ''}`}>
                     <AiOutlineCaretRight className="custom-icon" />
                     <p>{item.value}</p>
                   </div>

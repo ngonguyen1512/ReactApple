@@ -58,16 +58,12 @@ const Account = () => {
   }
 
   const [payloadu, setPayloadu] = useState({
-    id: '',
-    name: '',
-    state: '',
+    id: '', name: '', state: '',
   });
 
   const handleSubmitUpdate = async () => {
-    // Biến tạm để kiểm tra điều kiện
     let canUpdate = true;
 
-    // Kiểm tra từng phần tử trong danh sách
     accounts?.length > 0 &&
       accounts.forEach((item) => {
         if (payloadu.id === item.id && item.idPermission === 3) {
@@ -76,7 +72,6 @@ const Account = () => {
         }
       });
 
-    // Nếu canUpdate vẫn là true, thực hiện dispatch và setShouldRefetch
     if (canUpdate) {
       dispatch(actions.updateStateAccount(payloadu));
       setShouldRefetch(true);
@@ -160,39 +155,23 @@ const Account = () => {
         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
     })
     if (permis) searchParamsObject.permis = permis
-    dispatch(actions.getAccounts(searchParamsObject))
-    dispatch(actions.getFunctions(searchParamsObject))
-    dispatch(actions.getPermissions())
-  }, [searchParmas, permis, dispatch])
-
-  useEffect(() => {
     if (shouldRefetch) {
-      let params = [];
-      for (let entry of searchParmas.entries()) params.push(entry);
-      let searchParamsObject = {}
-      params?.forEach(i => {
-        if (Object.keys(searchParamsObject)?.some(item => item === i[0]))
-          searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-        else
-          searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-      })
-      if (permis) searchParamsObject.permis = permis
       dispatch(actions.getAccounts(searchParamsObject))
       dispatch(actions.getFunctions(searchParamsObject))
       dispatch(actions.getPermissions())
       setShouldRefetch(false);
+    } else {
+      dispatch(actions.getAccounts(searchParamsObject))
+      dispatch(actions.getFunctions(searchParamsObject))
+      dispatch(actions.getPermissions())
     }
   }, [searchParmas, permis, dispatch, shouldRefetch])
 
   const renderTableRow = (item) => {
     const handleClickRow = () => {
       setPayload({ ...payload, id: item.id });
-      setPayloadu({
-        ...payloadu, id: item.id,
-        name: item.name, state: item.state,
-      });
+      setPayloadu({ ...payloadu, id: item.id, name: item.name, state: item.state});
     };
-
     return (
       <tr key={item.id} onClick={handleClickRow} className='hover:bg-blue-200 cursor-pointer'>
         <td className={styletd}>{item.id}</td>
@@ -247,8 +226,6 @@ const Account = () => {
                 text={'UPDATE'}
                 value={payloadu.id}
                 setValue={setPayloadu}
-                // bgColor='bg-green-800'
-                // textColor='text-white'
                 onClick={handleSubmitUpdate}
               />
             </>
@@ -295,8 +272,6 @@ const Account = () => {
               <Button
                 class='col-span-2'
                 text={'CREATE'}
-                // bgColor='bg-secondary2'
-                // textColor='text-white'
                 onClick={handleSubmitCreate}
               />
             </>

@@ -12,11 +12,10 @@ const { BiLogoApple, BsChevronDown } = icons
 const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const showMenuRef = useRef(null)
+    const [isShowMenu, setIsShowMenu] = useState(false)
     const { isLoggedIn } = useSelector(state => state.auth)
     const { currentData } = useSelector(state => state.user)
-    const [isShowMenu, setIsShowMenu] = useState(false)
-
-    const showMenuRef = useRef(null);
 
     useEffect(() => {
         const handleOutsideClick = (e) => {

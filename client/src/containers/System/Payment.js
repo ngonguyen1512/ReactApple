@@ -12,10 +12,10 @@ const Payment = () => {
     const navigate = useNavigate()
     const { currentData } = useSelector(state => state.user)
     const idcurrent = parseInt(currentData.id)
-    const { msg, update } = useSelector(state => state.account)
-    const [invalidFields, setInvalidFields] = useState([])
     const cartContext = useContext(CartContext);
     const { removeAllFromCart } = cartContext;
+    const [invalidFields, setInvalidFields] = useState([])
+    const { msg, update } = useSelector(state => state.account)
 
     const [payload, setPayload] = useState({
         idAccount: '' || idcurrent,
@@ -23,6 +23,7 @@ const Payment = () => {
         address: '', total: '', state: 0,
         invoiceDetails: [],
     });
+    const address = payload.address;
 
     const calculateTotal = (cartItems) => {
         let total = 0;
@@ -39,11 +40,12 @@ const Payment = () => {
         }));
         const payload = {
             idAccount: idcurrent, phone: currentData.phone,
-            address: '', total: total, state: 0,
+            address: address, total: total, state: 0,
             invoiceDetails: invoiceDetails
         };
         try {
             await dispatch(actions.createInvoices(payload));
+            Swal.fire('Success!', 'Your order has been submitted successfully.', 'error');
             removeAllFromCart();
             navigate('/');
         } catch (error) {
@@ -123,13 +125,11 @@ const Payment = () => {
                     />
                 </div>
             </div>
-            <div className='payment-btn center'>
+            <div className='payment-btn center gap-2'>
                 <Button
                     text={'BACK'}
                     onClick={() => navigate('/' + path.CART)}
                 />
-                <p className='mr-2'></p>
-                {/* <Link to={'/' + path.CART} className='font-semibold hover:underline flex items-center justify-center gap-1 border border-[#000] hover:bg-[#000] hover:text-[#fff]py-2 px-4 mr-2'>Back</Link> */}
                 <CartContext.Consumer>
                     {({ cartItems }) => (
                         <Button
