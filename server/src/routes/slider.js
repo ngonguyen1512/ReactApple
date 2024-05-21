@@ -7,5 +7,5 @@ router.get('/all', controllers.getSlider)
 router.put('/update', controllers.updateSliders)
 router.post('/create', controllers.createSliders)
 router.delete('/delete', controllers.deleteSliders)
-s
+
 export default router;

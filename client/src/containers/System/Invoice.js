@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
 
 const Invoice = () => {
-  const dispatch = useDispatch()
+ const dispatch = useDispatch()
   const { invoicesall } = useSelector(state => state.invoice)
   const { currentData } = useSelector(state => state.user)
   const idcurrent = parseInt(currentData.id)
   const [selectedDate, setSelectedDate] = useState('');
   const [shouldReload, setShouldReload] = useState(false);
   const [shouldRefetch, setShouldRefetch] = useState(false);
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState(null); 
   
   const handleSearch = (event) => {
     setSelectedDate(event.target.value);
